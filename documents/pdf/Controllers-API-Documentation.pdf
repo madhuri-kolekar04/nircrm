@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2919 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(Controllers-API-Documentation) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - Controllers & API Documentation) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Controllers Overview) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(The NIRCRM system follows Laravel's MVC pattern with controllers handling HTTP) Tj
+0 -12 Td
+72 652 Td
+(requests, processing business logic, and returning responses. Controllers are) Tj
+0 -12 Td
+72 640 Td
+(organized into logical groups based on functionality.) Tj
+0 -12 Td
+72 628 Td
+() Tj
+0 -12 Td
+72 616 Td
+(Core Controllers) Tj
+0 -12 Td
+72 604 Td
+() Tj
+0 -12 Td
+72 592 Td
+(• AttendanceController) Tj
+0 -12 Td
+72 580 Td
+() Tj
+0 -12 Td
+72 568 Td
+(Location: app/Http/Controllers/AttendanceController.php) Tj
+0 -12 Td
+72 556 Td
+() Tj
+0 -12 Td
+72 544 Td
+(Purpose: Manages employee attendance tracking, check-in/check-out functionality,) Tj
+0 -12 Td
+72 532 Td
+(and attendance reporting.) Tj
+0 -12 Td
+72 520 Td
+() Tj
+0 -12 Td
+72 508 Td
+(Key Methods) Tj
+0 -12 Td
+72 496 Td
+() Tj
+0 -12 Td
+72 484 Td
+(dashboard\(\)) Tj
+0 -12 Td
+72 472 Td
+(• Purpose: Main attendance dashboard with role-based data filtering) Tj
+0 -12 Td
+72 460 Td
+(• Access: All authenticated users) Tj
+0 -12 Td
+72 448 Td
+(• Features:) Tj
+0 -12 Td
+72 436 Td
+(- Role-based user filtering \(Admin sees all, Manager sees department, Employee) Tj
+0 -12 Td
+72 424 Td
+(sees self\)) Tj
+0 -12 Td
+72 412 Td
+(- Today's attendance display) Tj
+0 -12 Td
+72 400 Td
+(- Attendance statistics) Tj
+0 -12 Td
+72 388 Td
+(- Recent leave requests \(for approvers\)) Tj
+0 -12 Td
+72 376 Td
+(- Monthly attendance summary) Tj
+0 -12 Td
+72 364 Td
+(- Shift management integration) Tj
+0 -12 Td
+72 352 Td
+() Tj
+0 -12 Td
+72 340 Td
+(checkIn\(\)) Tj
+0 -12 Td
+72 328 Td
+(• Purpose: Handle employee check-in) Tj
+0 -12 Td
+72 316 Td
+(• Validation: Prevents duplicate check-ins, validates shift timing) Tj
+0 -12 Td
+72 304 Td
+(• Features:) Tj
+0 -12 Td
+72 292 Td
+(- IP address tracking) Tj
+0 -12 Td
+72 280 Td
+(- Location recording) Tj
+0 -12 Td
+72 268 Td
+(- Late arrival detection) Tj
+0 -12 Td
+72 256 Td
+(- Email notifications) Tj
+0 -12 Td
+72 244 Td
+() Tj
+0 -12 Td
+72 232 Td
+(checkOut\(\)) Tj
+0 -12 Td
+72 220 Td
+(• Purpose: Handle employee check-out) Tj
+0 -12 Td
+72 208 Td
+(• Features:) Tj
+0 -12 Td
+72 196 Td
+(- Working hours calculation) Tj
+0 -12 Td
+72 184 Td
+(- Overtime detection) Tj
+0 -12 Td
+72 172 Td
+(- Early checkout tracking) Tj
+0 -12 Td
+72 160 Td
+(- Automatic status updates) Tj
+0 -12 Td
+72 148 Td
+() Tj
+0 -12 Td
+72 136 Td
+(getAttendanceStats\(\)) Tj
+0 -12 Td
+72 124 Td
+(• Purpose: Calculate attendance statistics) Tj
+0 -12 Td
+72 112 Td
+(• Returns: Present, absent, leave counts with percentages) Tj
+0 -12 Td
+72 100 Td
+() Tj
+0 -12 Td
+72 88 Td
+(getFilteredUsers\(\)) Tj
+0 -12 Td
+72 76 Td
+(• Purpose: Role-based user filtering) Tj
+0 -12 Td
+72 64 Td
+(• Logic:) Tj
+0 -12 Td
+72 52 Td
+(- Admin/General Manager: All users) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3282
+%%EOF

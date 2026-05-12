@@ -1,0 +1,63 @@
+🎉 GOOGLE SHEETS INTEGRATION - FINAL SETUP INSTRUCTIONS
+
+✅ STATUS: Your Google Sheet is PERFECTLY configured!
+   - Sheet is public and accessible
+   - Found 3039 rows of data
+   - Column headers detected and mapped
+
+🔧 FINAL STEPS TO COMPLETE SETUP:
+
+1️⃣ GET GOOGLE SHEETS API KEY:
+   - Go to: https://console.cloud.google.com/
+   - Create/select project
+   - Enable "Google Sheets API"
+   - Create API Key: APIs & Services → Credentials → Create Credentials → API Key
+   - Copy the API key
+
+2️⃣ ADD TO .env FILE:
+   Open: c:\xampp\htdocs\nircrm (1)\.env
+   Add these lines at the end:
+
+   GOOGLE_SHEETS_SPREADSHEET_ID=1o0fn4TiF45i5I1SJrYawpT6JmShBbVYlBXRR9AUMHKg
+   GOOGLE_SHEETS_API_KEY=your_actual_api_key_here
+
+   Replace "your_actual_api_key_here" with your actual API key
+
+3️⃣ CLEAR CACHE:
+   php artisan config:clear
+   php artisan cache:clear
+
+4️⃣ TEST THE SYNC:
+   php artisan google-sheets:sync --force
+
+🎯 YOUR DATA MAPPING:
+   Google Sheet Column → Database Field
+   full_name → name
+   business_name → company_name  
+   email → email
+   whatsapp → phone
+   website_url → website
+   business_type → business_type
+   primary_goal → primary_goal
+   budget_range → budget
+   score → score
+   tier → tier
+   submitted_at → submitted_at
+   audit_report → audit_report
+   audit_report_plain → audit_report_plain
+
+📊 HOW IT WILL APPEAR IN YOUR CRM:
+   - Data will show in Leads Management table
+   - Description column will show formatted data
+   - "Google Sheets" badge will identify imported leads
+   - Sync button available for manual updates
+
+⏰ AUTOMATIC SYNC:
+   - Runs every hour automatically
+   - Or click "Sync Google Sheets" button for instant sync
+
+🚀 ONCE API KEY IS ADDED:
+   Your 3039 rows will be imported automatically!
+   New rows added to Google Sheets will sync instantly.
+
+CURRENT STATUS: ⏳ WAITING FOR API KEY IN .env FILE

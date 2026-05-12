@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Download</title>
+</head>
+<body>
+    <h1>Test Download Links</h1>
+    
+    <h2>Public Download Route (No Auth Required)</h2>
+    <a href="/public/attachments/test-file.pdf" target="_blank">Download Test File (Public)</a>
+    
+    <h2>Authenticated Download Route (Requires Login)</h2>
+    <a href="/attachments/test-file.pdf" target="_blank">Download Test File (Auth)</a>
+    
+    <h2>Direct Storage Path Test</h2>
+    <a href="/storage/app/public/attachments/test-file.pdf" target="_blank">Direct Storage Access</a>
+    
+    <hr>
+    
+    <h3>Current Server Info:</h3>
+    <p><strong>Base URL:</strong> <?php echo $_SERVER['HTTP_HOST'] ?? 'localhost'; ?></p>
+    <p><strong>Request URI:</strong> <?php echo $_SERVER['REQUEST_URI'] ?? '/'; ?></p>
+    <p><strong>Document Root:</strong> <?php echo $_SERVER['DOCUMENT_ROOT'] ?? 'Not set'; ?></p>
+</body>
+</html>

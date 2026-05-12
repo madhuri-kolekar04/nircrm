@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('biometric_credentials', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('credential_id')->unique(); // WebAuthn credential ID
+            $table->string('public_key'); // Public key for verification
+            $table->string('device_name')->nullable(); // Device name (e.g., "iPhone 13", "Samsung Galaxy S21")
+            $table->string('biometric_type')->nullable(); // fingerprint, face_id, etc.
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamps();
+            
+            $table->index(['user_id', 'credential_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('biometric_credentials');
+    }
+};

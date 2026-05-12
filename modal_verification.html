@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modal Verification Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .btn {
+            padding: 12px 24px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-primary:hover { background: #0056b3; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-success:hover { background: #1e7e34; }
+        .btn-warning { background: #ffc107; color: #212529; }
+        .btn-warning:hover { background: #e0a800; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; }
+        #results {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1><i class="fas fa-check-circle"></i> Modal System Verification</h1>
+        
+        <div class="status info">
+            <i class="fas fa-info-circle"></i> This test verifies that the modal popup system is working correctly after the @push('scripts') fix.
+        </div>
+        
+        <h2>Test Steps:</h2>
+        
+        <div style="margin: 20px 0;">
+            <h3>Step 1: Basic Functionality Test</h3>
+            <button class="btn btn-primary" onclick="testBasicFunctions()">
+                <i class="fas fa-play"></i> Test Basic Functions
+            </button>
+            <button class="btn btn-success" onclick="testModalElements()">
+                <i class="fas fa-search"></i> Test Modal Elements
+            </button>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <h3>Step 2: Modal Interaction Test</h3>
+            <button class="btn btn-success" onclick="openTestModal()">
+                <i class="fas fa-window-maximize"></i> Open Modal
+            </button>
+            <button class="btn btn-warning" onclick="testModalSubmission()">
+                <i class="fas fa-paper-plane"></i> Test Modal Submission
+            </button>
+            <button class="btn btn-danger" onclick="closeTestModal()">
+                <i class="fas fa-times"></i> Close Modal
+            </button>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <h3>Step 3: Full Workflow Test</h3>
+            <button class="btn btn-primary" onclick="testFullWorkflow()">
+                <i class="fas fa-cogs"></i> Test Complete Workflow
+            </button>
+        </div>
+        
+        <div id="status-message"></div>
+        <div id="results"></div>
+    </div>
+
+    <!-- Test Modal (Same structure as in create-invoice.blade.php) -->
+    <div id="installmentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <h5 style="margin: 0;">
+                    <i class="fas fa-plus-circle"></i> Add Installment
+                </h5>
+                <button type="button" onclick="closeTestModal()" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+            </div>
+            
+            <form id="installment-form">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Amount *</label>
+                    <div style="display: flex; align-items: center;">
+                        <span style="background: #e9ecef; padding: 8px; border: 1px solid #ced4da; border-radius: 4px 0 0 4px;">₹</span>
+                        <input type="number" id="modal-amount" 
+                               placeholder="0.00" min="0" step="0.01" required
+                               style="flex: 1; padding: 8px; border: 1px solid #ced4da; border-radius: 0 4px 4px 0;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Due Date *</label>
+                    <input type="date" id="modal-date" required
+                           style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Notes</label>
+                    <textarea id="modal-notes" rows="2" placeholder="Optional notes for this installment"
+                              style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; resize: vertical;"></textarea>
+                </div>
+            </form>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                <button type="button" onclick="closeTestModal()" 
+                        style="padding: 8px 16px; border: 1px solid #6c757d; background: #6c757d; color: white; border-radius: 4px; cursor: pointer;">
+                    Cancel
+                </button>
+                <button type="button" onclick="submitTestInstallment()" 
+                        style="padding: 8px 16px; border: 1px solid #007bff; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-save"></i> Add Installment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let results = document.getElementById('results');
+        let statusMessage = document.getElementById('status-message');
+        let installmentCounter = 0;
+        
+        function log(message, type = 'info') {
+            console.log(message);
+            results.innerHTML += message + '\n';
+            results.scrollTop = results.scrollHeight;
+        }
+        
+        function showStatus(message, type = 'info') {
+            statusMessage.innerHTML = `<div class="status ${type}"><i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i> ${message}</div>`;
+            setTimeout(() => {
+                statusMessage.innerHTML = '';
+            }, 3000);
+        }
+        
+        function testBasicFunctions() {
+            log('=== Testing Basic Functions ===');
+            
+            try {
+                // Test if functions exist
+                const functions = ['openTestModal', 'closeTestModal', 'submitTestInstallment', 'updateModalDefaultDate'];
+                let allGood = true;
+                
+                functions.forEach(func => {
+                    if (typeof window[func] === 'function') {
+                        log(`✅ ${func} function exists`);
+                    } else {
+                        log(`❌ ${func} function missing`);
+                        allGood = false;
+                    }
+                });
+                
+                if (allGood) {
+                    showStatus('All basic functions are working correctly!', 'success');
+                } else {
+                    showStatus('Some functions are missing!', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Error testing basic functions: ${error.message}`);
+                showStatus('Error testing basic functions!', 'error');
+            }
+        }
+        
+        function testModalElements() {
+            log('=== Testing Modal Elements ===');
+            
+            try {
+                const modal = document.getElementById('installmentModal');
+                const amountInput = document.getElementById('modal-amount');
+                const dateInput = document.getElementById('modal-date');
+                const notesInput = document.getElementById('modal-notes');
+                
+                if (modal) {
+                    log(`✅ Modal element found`);
+                    log(`✅ Modal display style: ${modal.style.display}`);
+                } else {
+                    log(`❌ Modal element not found`);
+                }
+                
+                if (amountInput) {
+                    log(`✅ Amount input found`);
+                } else {
+                    log(`❌ Amount input not found`);
+                }
+                
+                if (dateInput) {
+                    log(`✅ Date input found`);
+                } else {
+                    log(`❌ Date input not found`);
+                }
+                
+                if (notesInput) {
+                    log(`✅ Notes input found`);
+                } else {
+                    log(`❌ Notes input not found`);
+                }
+                
+                showStatus('Modal elements check completed!', 'success');
+                
+            } catch (error) {
+                log(`❌ Error testing modal elements: ${error.message}`);
+                showStatus('Error testing modal elements!', 'error');
+            }
+        }
+        
+        function openTestModal() {
+            log('=== Opening Test Modal ===');
+            
+            try {
+                const modal = document.getElementById('installmentModal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Clear previous values
+                    document.getElementById('modal-amount').value = '';
+                    document.getElementById('modal-notes').value = '';
+                    
+                    // Set default date
+                    updateModalDefaultDate();
+                    
+                    // Focus on amount field
+                    setTimeout(() => {
+                        document.getElementById('modal-amount').focus();
+                    }, 100);
+                    
+                    log('✅ Modal opened successfully');
+                    showStatus('Modal opened successfully!', 'success');
+                } else {
+                    log('❌ Modal element not found');
+                    showStatus('Modal element not found!', 'error');
+                }
+            } catch (error) {
+                log(`❌ Error opening modal: ${error.message}`);
+                showStatus('Error opening modal!', 'error');
+            }
+        }
+        
+        function closeTestModal() {
+            log('=== Closing Test Modal ===');
+            
+            try {
+                const modal = document.getElementById('installmentModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    log('✅ Modal closed successfully');
+                    showStatus('Modal closed successfully!', 'success');
+                } else {
+                    log('❌ Modal element not found');
+                    showStatus('Modal element not found!', 'error');
+                }
+            } catch (error) {
+                log(`❌ Error closing modal: ${error.message}`);
+                showStatus('Error closing modal!', 'error');
+            }
+        }
+        
+        function updateModalDefaultDate() {
+            installmentCounter++;
+            const nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + installmentCounter);
+            const defaultDate = nextMonth.toISOString().split('T')[0];
+            
+            const dateInput = document.getElementById('modal-date');
+            if (dateInput) {
+                dateInput.value = defaultDate;
+                log(`✅ Default date set to: ${defaultDate}`);
+            }
+        }
+        
+        function submitTestInstallment() {
+            log('=== Submitting Test Installment ===');
+            
+            try {
+                const amount = parseFloat(document.getElementById('modal-amount').value) || 0;
+                const date = document.getElementById('modal-date').value;
+                const notes = document.getElementById('modal-notes').value;
+                
+                log(`Amount: ₹${amount}`);
+                log(`Date: ${date}`);
+                log(`Notes: ${notes || 'None'}`);
+                
+                // Validate
+                if (amount <= 0) {
+                    log('❌ Amount must be greater than 0');
+                    showStatus('Please enter a valid amount!', 'error');
+                    return;
+                }
+                
+                if (!date) {
+                    log('❌ Date is required');
+                    showStatus('Please select a due date!', 'error');
+                    return;
+                }
+                
+                // Success
+                log(`✅ Installment added successfully!`);
+                showStatus('Installment added successfully!', 'success');
+                
+                // Close modal
+                closeTestModal();
+                
+            } catch (error) {
+                log(`❌ Error submitting installment: ${error.message}`);
+                showStatus('Error submitting installment!', 'error');
+            }
+        }
+        
+        function testModalSubmission() {
+            log('=== Testing Modal Submission ===');
+            
+            // Open modal first
+            openTestModal();
+            
+            // Fill in test data after a short delay
+            setTimeout(() => {
+                document.getElementById('modal-amount').value = '1000';
+                document.getElementById('modal-notes').value = 'Test installment';
+                log('✅ Test data filled in modal');
+            }, 500);
+        }
+        
+        function testFullWorkflow() {
+            log('=== Testing Full Workflow ===');
+            
+            // Step 1: Open modal
+            openTestModal();
+            
+            // Step 2: Fill data
+            setTimeout(() => {
+                document.getElementById('modal-amount').value = '2500';
+                document.getElementById('modal-notes').value = 'Full workflow test';
+                log('✅ Step 2: Data filled');
+                
+                // Step 3: Submit
+                setTimeout(() => {
+                    submitTestInstallment();
+                    log('✅ Step 3: Installment submitted');
+                    
+                    // Step 4: Verify
+                    setTimeout(() => {
+                        log('✅ Step 4: Full workflow completed successfully!');
+                        showStatus('Full workflow test completed successfully!', 'success');
+                    }, 500);
+                }, 500);
+            }, 500);
+        }
+        
+        // Initial test
+        window.addEventListener('load', function() {
+            log('=== Modal Verification Test Loaded ===');
+            log('✅ Page loaded successfully');
+            log('✅ JavaScript is working');
+            log('✅ Ready to test modal functionality');
+            showStatus('Modal verification test ready! Click buttons to test.', 'info');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - UI-UX-Design-System</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>UI-UX-Design-System</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - UI/UX Design System Documentation</h1><h2>Design Philosophy</h2><p>NIRCRM features a <strong>WhatsApp-inspired interface</strong> that provides users with an instantly familiar and intuitive experience. The design prioritizes usability, accessibility, and visual consistency while maintaining professional business functionality.</p><h2>Core Design Principles</h2><h3>1. Familiarity</h3><ul>
+<li>WhatsApp Web-inspired layout</li>
+</ul><li>Recognizable chat-style interactions</li><ul>
+<li>Intuitive navigation patterns</li>
+</ul><li>Minimal learning curve</li></p><h3>2. Accessibility</h3><ul>
+<li>WCAG 2.1 AA compliance</li>
+</ul><li>High contrast ratios</li><ul>
+<li>Keyboard navigation support</li>
+</ul><li>Screen reader compatibility</li></p><h3>3. Responsiveness</h3><ul>
+<li>Mobile-first approach</li>
+</ul><li>Adaptive layouts</li><ul>
+<li>Touch-friendly interactions</li>
+</ul><li>Performance optimization</li></p><h3>4. Consistency</h3><ul>
+<li>Unified design language</li>
+</ul><li>Component reusability</li><ul>
+<li>Standardized interactions</li>
+</ul><li>Cohesive visual hierarchy</li></p><h2>Color System</h2><h3>Primary WhatsApp Palette</h3><pre><code>css
+/<em> Brand Colors </em>/
+--wa-green: #25D366;        /<em> Primary brand color </em>/
+--wa-dark-green: #075E54;   /<em> Dark variant </em>/</p><p>/<em> Background Colors </em>/
+--wa-light-bg: #ECE5DD;    /<em> Light mode background </em>/
+--wa-dark-bg: #0A0E27;     /<em> Dark mode background </em>/</p><p>/<em> Text Colors </em>/
+--wa-text-dark: #111B21;   /<em> Primary text </em>/
+--wa-text-light: #667781;  /<em> Secondary text </em>/</p><p>/<em> Border Colors </em>/
+--wa-border: #E9EDEF;      /<em> Light borders </em>/
+--wa-border-dark: #2A2F32; /<em> Dark borders </em>/</p><p>/<em> Chat Bubble Colors </em>/
+--wa-bubble-in: #E7FFDE;   /<em> Incoming messages </em>/
+--wa-bubble-out: #DCF8C6;  /<em> Outgoing messages </em>/</p><p>/<em> Sidebar Colors </em>/
+--wa-sidebar: #FFFFFF;     /<em> Light sidebar </em>/
+--wa-sidebar-dark: #111B21; /<em> Dark sidebar </em>/</p><p>/<em> Interaction States </em>/
+--wa-hover: #F0F0F0;       /<em> Hover state </em>/
+--wa-hover-dark: #1F2937;  /<em> Dark hover state </em>/
+</code></pre><h3>Semantic Color Mapping</h3><table>
+<tr><th>Purpose</th><th>Light Mode</th><th>Dark Mode</th><th>Usage</th></tr>
+<tr><td>---------</td><td>------------</td><td>-----------</td><td>-------</td></tr>
+<tr><td>Primary</td><td>#25D366</td><td>#25D366</td><td>CTAs, active states</td></tr>
+<tr><td>Success</td><td>#28a745</td><td>#34d058</td><td>Positive feedback</td></tr>
+<tr><td>Warning</td><td>#ffc107</td><td>#ffca2c</td><td>Caution states</td></tr>
+<tr><td>Danger</td><td>#dc3545</td><td>#e74c3c</td><td>Errors, deletions</td></tr>
+<tr><td>Info</td><td>#007bff</td><td>#4dabf7</td><td>Informational content</td></tr>
+</table><h2>Typography System</h2><h3>Font Stack</h3>
+<pre><code>css
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+</code></pre><h3>Type Scale</h3><table>
+<tr><th>Size</th><th>Usage</th><th>Line Height</th></tr>
+<tr><td>------</td><td>-------</td><td>-------------</td></tr>
+<tr><td>12px (xs)</td><td>Small labels, captions</td><td>16px</td></tr>
+<tr><td>13px (sm)</td><td>Secondary text, metadata</td><td>19px</td></tr>
+<tr><td>15px (base)</td><td>Body text, content</td><td>20px</td></tr>
+<tr><td>17px (lg)</td><td>Subheadings, emphasis</td><td>22px</td></tr>
+<tr><td>20px (xl)</td><td>Section headings</td><td>24px</td></tr>
+<tr><td>24px (2xl)</td><td>Page titles</td><td>28px</td></tr>
+<tr><td>32px (3xl)</td><td>Main headings</td><td>36px</td></tr>
+</table><h3>Font Weights</h3><ul>
+<li><strong>300</strong> - Light text, secondary content</li>
+</ul><li><strong>400</strong> - Regular body text</li><ul>
+<li><strong>500</strong> - Medium emphasis</li>
+</ul><li><strong>600</strong> - Semi-bold headings</li><ul>
+<li><strong>700</strong> - Bold titles, emphasis</li>
+</ul>
+<h2>Layout System</h2><h3>Grid Structure</h3><h4>Desktop Layout (>1024px)</h4>
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+│                    Header                                │
+├─────────┬───────────────────────────────────────────────┤
+│ Sidebar │                Main Content                   │
+│  72px   │                                               │
+│ (360px  │                                               │
+│ on hover)│                                              │
+│         │                                               │
+├─────────┴───────────────────────────────────────────────┤
+│                    Footer                                │
+└─────────────────────────────────────────────────────────┘
+</code></pre><h4>Tablet Layout (768px - 1024px)</h4>
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+│                    Header                                │
+├─────────────────────────────────────────────────────────┤
+│                    Main Content                         │
+│                                                         │
+│                  (Collapsible Sidebar)                   │
+├─────────────────────────────────────────────────────────┤
+│                    Footer                                │
+└─────────────────────────────────────────────────────────┘
+</code></pre><h4>Mobile Layout (<768px)</h4>
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+│                    Header                                │
+├─────────────────────────────────────────────────────────┤
+│                    Main Content                         │
+│                                                         │
+│              (Hamburger Menu Navigation)                │
+├─────────────────────────────────────────────────────────┤
+│                    Footer                                │
+└─────────────────────────────────────────────────────────┘
+</code></pre><h3>Spacing System</h3><p>Based on 4px grid system:</p><table>
+<tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+<tr><td>-------</td><td>-------</td><td>-------</td></tr>
+<tr><td>1</td><td>4px</td><td>Micro spacing</td></tr>
+<tr><td>2</td><td>8px</td><td>Small elements</td></tr>
+<tr><td>3</td><td>12px</td><td>Component spacing</td></tr>
+<tr><td>4</td><td>16px</td><td>Standard spacing</td></tr>
+<tr><td>6</td><td>24px</td><td>Section spacing</td></tr>
+<tr><td>8</td><td>32px</td><td>Large spacing</td></tr>
+<tr><td>12</td><td>48px</td><td>Page spacing</td></tr>
+<tr><td>16</td><td>64px</td><td>Major sections</td></tr>
+</table><h2>Component System</h2><h3>1. Sidebar Navigation</h3><h4>Structure</h4>
+<pre><code>html
+<div class="sidebar-container w-sidebar hover:w-sidebar-expanded">
+  <!-- Logo Section -->
+  <div class="logo-section">
+    <div class="logo-icon"></div>
+    <div class="logo-text hidden group-hover:block">
+      <h1>CRM System</h1>
+      <p>Niranjan</p>
+    </div>
+  </div>
+  
+  <!-- Navigation Items -->
+  <nav class="navigation-items">
+    <a href="#" class="sidebar-item">
+      <i class="fas fa-icon"></i>
+      <span class="item-text">Menu Item</span>
+    </a>
+  </nav>
+  
+  <!-- Bottom Section -->
+  <div class="bottom-section">
+    <!-- Theme Toggle -->
+    <!-- Settings -->
+    <!-- Logout -->
+  </div>
+</div>
+</code></pre><h4>Behavior</h4><ul>
+<li><strong>Collapsed State</strong>: 72px width, icon-only display</li>
+</ul><li><strong>Expanded State</strong>: 360px width, full text labels</li><ul>
+<li><strong>Hover Expansion</strong>: Smooth 300ms transition</li>
+</ul><li><strong>Active States</strong>: Visual feedback for current page</li></p><h4>Menu Items</h4><ul>
+<li>Profile</li>
+</ul><li>Notifications (with badge)</li><ul>
+<li>Chat/Messaging</li>
+</ul><li>Dashboard</li><ul>
+<li>Employees</li>
+</ul><li>Customers</li><ul>
+<li>Invoices</li>
+</ul><li>Projects</li><ul>
+<li>Leads</li>
+</ul><li>Tasks</li><ul>
+<li>Categories</li>
+</ul><li>Theme Toggle</li><ul>
+<li>Settings</li>
+</ul><li>Logout</li></p><h3>2. Chat-Style Message Interface</h3><h4>Message Bubbles</h4>
+<pre><code>html
+<!-- Incoming Message -->
+<div class="message-bubble incoming max-w-msg">
+  <div class="message-content">
+    <p>Message content here</p>
+    <div class="message-meta">
+      <span class="timestamp">10:30 AM</span>
+      <span class="status">✓✓</span>
+    </div>
+  </div>
+</div></p><p><!-- Outgoing Message -->
+<div class="message-bubble outgoing max-w-msg ml-auto">
+  <div class="message-content">
+    <p>Response message</p>
+    <div class="message-meta">
+      <span class="timestamp">10:32 AM</span>
+      <span class="status">✓✓</span>
+    </div>
+  </div>
+</div>
+</code></pre><h4>Delivery Status Indicators</h4><ul>
+<li><strong>Single Check (✓)</strong>: Message sent</li>
+</ul><li><strong>Double Check (✓✓)</strong>: Message delivered</li><ul>
+<li><strong>Blue Double Check</strong>: Message read</li>
+</ul>
+<h3>3. List Items (WhatsApp Contact Style)</h3><h4>Structure</h4>
+<pre><code>html
+<div class="list-item hover:bg-wa-hover cursor-pointer">
+  <div class="avatar-container">
+    <div class="avatar">
+      <img src="profile.jpg" alt="User">
+    </div>
+    <div class="status-indicator online"></div>
+  </div>
+  
+  <div class="item-content flex-1">
+    <div class="item-header">
+      <h4 class="item-name">John Doe</h4>
+      <span class="item-time">2:30 PM</span>
+    </div>
+    <div class="item-subtitle">
+      <p class="last-message">Last message preview...</p>
+      <div class="item-meta">
+        <span class="unread-badge">3</span>
+      </div>
+    </div>
+  </div>
+</div>
+</code></pre><h4>Avatar System</h4><ul>
+<li><strong>Default</strong>: User initials</li>
+</ul><li><strong>Photo</strong>: Profile image</li><ul>
+<li><strong>Status</strong>: Online/Offline indicator</li>
+</ul><li><strong>Size</strong>: 48px diameter</li></p><h3>4. Form Components</h3><h4>Input Fields</h4>
+<pre><code>html
+<div class="form-group">
+  <label class="form-label">Email Address</label>
+  <input type="email" class="form-input" placeholder="Enter email">
+  <span class="form-error">Error message</span>
+</div>
+</code></pre><h4>Buttons</h4>
+<pre><code>html
+<!-- Primary Button -->
+<button class="btn btn-primary">
+  <i class="fas fa-plus mr-2"></i>
+  Add New
+</button></p><p><!-- Secondary Button -->
+<button class="btn btn-secondary">
+  Cancel
+</button></p><p><!-- Icon Button -->
+<button class="btn-icon" title="Edit">
+  <i class="fas fa-edit"></i>
+</button>
+</code></pre><h3>5. Status Badges</h3><h4>Types</h4>
+<pre><code>html
+<!-- Status Badge -->
+<span class="status-badge online">Online</span>
+<span class="status-badge offline">Offline</span>
+<span class="status-badge away">Away</span></p><p><!-- Priority Badge -->
+<span class="priority-badge high">High</span>
+<span class="priority-badge medium">Medium</span>
+<span class="priority-badge low">Low</span></p><p><!-- Lead Status Badge -->
+<span class="lead-status hot">Hot</span>
+<span class="lead-status warm">Warm</span>
+<span class="lead-status cold">Cold</span>
+</code></pre><h2>Animation System</h2><h3>Transition Library</h3><table>
+<tr><th>Animation</th><th>Duration</th><th>Easing</th><th>Usage</th></tr>
+<tr><td>-----------</td><td>----------</td><td>--------</td><td>-------</td></tr>
+<tr><td>fade-in</td><td>0.3s</td><td>ease-out</td><td>Element appearance</td></tr>
+<tr><td>slide-in</td><td>0.3s</td><td>ease-out</td><td>Panel entry</td></tr>
+<tr><td>slide-out</td><td>0.3s</td><td>ease-out</td><td>Panel exit</td></tr>
+<tr><td>bounce-msg</td><td>0.5s</td><td>ease-out</td><td>Message arrival</td></tr>
+<tr><td>pulse-dot</td><td>2s</td><td>cubic-bezier</td><td>Status indicators</td></tr>
+<tr><td>expand</td><td>0.3s</td><td>ease-out</td><td>Sidebar expansion</td></tr>
+<tr><td>collapse</td><td>0.3s</td><td>ease-out</td><td>Sidebar collapse</td></tr>
+</table><h3>Micro-interactions</h3><h4>Hover Effects</h4>
+<pre><code>css
+.button {
+  transition: all 0.2s ease;
+}</p><p>.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+</code></pre><h4>Focus States</h4>
+<pre><code>css
+.input:focus {
+  outline: none;
+  border-color: var(--wa-green);
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+}
+</code></pre><h4>Loading States</h4>
+<pre><code>css
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}</p><p>.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--wa-green);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+</code></pre><h2>Responsive Design</h2><h3>Breakpoint System</h3><table>
+<tr><th>Breakpoint</th><th>Min Width</th><th>Max Width</th><th>Usage</th></tr>
+<tr><td>------------</td><td>-----------</td><td>-----------</td><td>-------</td></tr>
+<tr><td>Mobile</td><td>0px</td><td>767px</td><td>Single column layout</td></tr>
+<tr><td>Tablet</td><td>768px</td><td>1023px</td><td>Adapted layouts</td></tr>
+<tr><td>Desktop</td><td>1024px</td><td>∞</td><td>Full experience</td></tr>
+</table><h3>Mobile Adaptations</h3><h4>Navigation</h4><ul>
+<li>Hamburger menu for sidebar</li>
+</ul><li>Bottom navigation bar</li><ul>
+<li>Swipe gestures support</li>
+</ul>
+<h4>Content</h4><ul>
+<li>Single column layouts</li>
+</ul><li>Touch-friendly targets (44px minimum)</li><ul>
+<li>Simplified data tables</li>
+</ul><li>Collapsible sections</li></p><h4>Interactions</h4><ul>
+<li>Touch-optimized buttons</li>
+</ul><li>Swipe-to-delete actions</li><ul>
+<li>Pull-to-refresh functionality</li>
+</ul><li>Native mobile patterns</li></p><h2>Dark Mode</h2><h3>Implementation</h3>
+<pre><code>css
+/<em> Dark Mode Toggle </em>/
+html.dark {
+  color-scheme: dark;
+}</p><p>/<em> Theme Switching </em>/
+.theme-toggle {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}</p><p>.theme-toggle:hover {
+  transform: rotate(180deg);
+}
+</code></pre><h3>Dark Mode Colors</h3><ul>
+<li>Background: #0A0E27</li>
+</ul><li>Surface: #111B21</li><ul>
+<li>Text: #E0E0E0</li>
+</ul><li>Text Secondary: #A0A0A0</li><ul>
+<li>Border: #2A2F32</li>
+</ul>
+<h3>Persistence</h3><ul>
+<li>Uses localStorage for preference</li>
+</ul><li>System preference detection</li><ul>
+<li>Smooth color transitions</li>
+</ul>
+<h2>Accessibility Features</h2><h3>Keyboard Navigation</h3><ul>
+<li>Tab order logical</li>
+</ul><li>Focus indicators visible</li><ul>
+<li>Skip links available</li>
+</ul><li>Keyboard shortcuts</li></p><h3>Screen Reader Support</h3><ul>
+<li>Semantic HTML structure</li>
+</ul><li>ARIA labels and roles</li><ul>
+<li>Alt text for images</li>
+</ul><li>Form labels properly associated</li></p><h3>Visual Accessibility</h3><ul>
+<li>High contrast ratios (4.5:1 minimum)</li>
+</ul><li>Text resizing support</li><ul>
+<li>Color independence</li>
+</ul><li>Clear visual hierarchy</li></p><h2>Icon System</h2><h3>Font Awesome Integration</h3>
+<pre><code>html
+<!-- Common Icons -->
+<i class="fas fa-user"></i>           <!-- User/Profile -->
+<i class="fas fa-bell"></i>           <!-- Notifications -->
+<i class="fas fa-comment"></i>       <!-- Chat/Messages -->
+<i class="fas fa-chart-line"></i>     <!-- Dashboard -->
+<i class="fas fa-users"></i>          <!-- Employees -->
+<i class="fas fa-handshake"></i>      <!-- Customers -->
+<i class="fas fa-file-invoice"></i>   <!-- Invoices -->
+<i class="fas fa-project-diagram"></i> <!-- Projects -->
+<i class="fas fa-bullseye"></i>       <!-- Leads -->
+<i class="fas fa-tasks"></i>         <!-- Tasks -->
+<i class="fas fa-tags"></i>          <!-- Categories -->
+<i class="fas fa-cog"></i>           <!-- Settings -->
+<i class="fas fa-sign-out-alt"></i>   <!-- Logout -->
+</code></pre><h3>Icon Usage Guidelines</h3><ul>
+<li>Consistent sizing (16px, 20px, 24px)</li>
+</ul><li>Meaningful color coding</li><ul>
+<li>Proper spacing with text</li>
+</ul><li>Accessibility labels</li></p><h2>Performance Optimization</h2><h3>CSS Optimization</h3><ul>
+<li>Tailwind CSS purging</li>
+</ul><li>Critical CSS inlining</li><ul>
+<li>CSS minification</li>
+</ul><li>Efficient selectors</li></p><h3>Image Optimization</h3><ul>
+<li>WebP format support</li>
+</ul><li>Responsive images</li><ul>
+<li>Lazy loading</li>
+</ul><li>Proper sizing</li></p><h3>Animation Performance</h3><ul>
+<li>GPU-accelerated transforms</li>
+</ul><li>Reduced motion support</li><ul>
+<li>Efficient keyframes</li>
+</ul><li>60fps target</li></p><h2>Browser Compatibility</h2><h3>Supported Browsers</h3><ul>
+<li>Chrome 90+</li>
+</ul><li>Firefox 88+</li><ul>
+<li>Safari 14+</li>
+</ul><li>Edge 90+</li></p><h3>Progressive Enhancement</h3><ul>
+<li>Core functionality in all browsers</li>
+</ul><li>Enhanced features in modern browsers</li><ul>
+<li>Graceful degradation</li>
+</ul><li>Feature detection</li></p><h2>Customization Guide</h2><h3>Theme Customization</h3>
+<pre><code>javascript
+// tailwind.config.js
+theme: {
+  extend: {
+    colors: {
+      'wa': {
+        'green': '#YOUR_BRAND_COLOR',
+        'dark-green': '#YOUR_DARK_COLOR',
+        // ... other colors
+      }
+    }
+  }
+}
+</code></pre><h3>Component Variants</h3>
+<pre><code>css
+/<em> Custom Button Variants </em>/
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--wa-green);
+  color: var(--wa-green);
+}</p><p>.btn-outline:hover {
+  background: var(--wa-green);
+  color: white;
+}
+</code></pre><h3>Layout Modifications</h3>
+<pre><code>css
+/<em> Custom Sidebar Width </em>/
+.sidebar-custom {
+  width: 80px;
+}</p><p>.sidebar-custom:hover {
+  width: 320px;
+}
+</code></pre><p>---</p><h2>Design Tokens</h2><h3>Spacing Tokens</h3>
+<pre><code>css
+:root {
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+}
+</code></pre><h3>Typography Tokens</h3>
+<pre><code>css
+:root {
+  --font-xs: 12px;
+  --font-sm: 13px;
+  --font-base: 15px;
+  --font-lg: 17px;
+  --font-xl: 20px;
+}
+</code></pre><h3>Color Tokens</h3>
+<pre><code>css
+:root {
+  --color-primary: #25D366;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-info: #007bff;
+}
+</code></pre><p>---</p><h2>File Structure</h2><pre><code>
+resources/
+├── views/
+│   ├── layouts/
+│   │   └── app-whatsapp.blade.php    # Main layout
+│   ├── components/                   # Reusable components
+│   ├── crm/                          # CRM specific views
+│   └── partials/                     # Partial templates
+├── css/
+│   └── app.css                      # Main stylesheet
+├── js/
+│   └── app.js                       # JavaScript functionality
+└── assets/                          # Static assets
+</code></pre><p>---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Design System</strong>: WhatsApp-Inspired UI  
+<strong>Framework</strong>: Tailwind CSS 3.x
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

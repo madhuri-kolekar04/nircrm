@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2602 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(Installation-Deployment-Guide) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - Installation & Deployment Guide) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Table of Contents) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(• System Requirements) Tj
+0 -12 Td
+72 652 Td
+(• Installation Overview) Tj
+0 -12 Td
+72 640 Td
+(• Local Development Setup) Tj
+0 -12 Td
+72 628 Td
+(• Production Deployment) Tj
+0 -12 Td
+72 616 Td
+(• Database Configuration) Tj
+0 -12 Td
+72 604 Td
+(• Environment Configuration) Tj
+0 -12 Td
+72 592 Td
+(• Web Server Configuration) Tj
+0 -12 Td
+72 580 Td
+(• SSL Certificate Setup) Tj
+0 -12 Td
+72 568 Td
+(• Backup & Maintenance) Tj
+0 -12 Td
+72 556 Td
+(• Troubleshooting) Tj
+0 -12 Td
+72 544 Td
+() Tj
+0 -12 Td
+72 532 Td
+(• --) Tj
+0 -12 Td
+72 520 Td
+() Tj
+0 -12 Td
+72 508 Td
+(System Requirements) Tj
+0 -12 Td
+72 496 Td
+() Tj
+0 -12 Td
+72 484 Td
+(Minimum Requirements) Tj
+0 -12 Td
+72 472 Td
+() Tj
+0 -12 Td
+72 460 Td
+(Software) Tj
+0 -12 Td
+72 448 Td
+(• PHP: 8.0.2 or higher) Tj
+0 -12 Td
+72 436 Td
+(• Web Server: Apache 2.4+ or Nginx 1.18+) Tj
+0 -12 Td
+72 424 Td
+(• Database: MySQL 5.7+ or MariaDB 10.3+) Tj
+0 -12 Td
+72 412 Td
+(• Composer: 2.0+) Tj
+0 -12 Td
+72 400 Td
+(• Node.js: 16.0+ \(for asset compilation\)) Tj
+0 -12 Td
+72 388 Td
+(• npm: 8.0+ \(for asset compilation\)) Tj
+0 -12 Td
+72 376 Td
+() Tj
+0 -12 Td
+72 364 Td
+(Hardware) Tj
+0 -12 Td
+72 352 Td
+(• CPU: 2 cores or more) Tj
+0 -12 Td
+72 340 Td
+(• RAM: 4GB minimum, 8GB recommended) Tj
+0 -12 Td
+72 328 Td
+(• Storage: 20GB available space) Tj
+0 -12 Td
+72 316 Td
+(• Network: Stable internet connection) Tj
+0 -12 Td
+72 304 Td
+() Tj
+0 -12 Td
+72 292 Td
+(Recommended Requirements) Tj
+0 -12 Td
+72 280 Td
+() Tj
+0 -12 Td
+72 268 Td
+(Production Environment) Tj
+0 -12 Td
+72 256 Td
+(• PHP: 8.1+ \(latest stable\)) Tj
+0 -12 Td
+72 244 Td
+(• Web Server: Nginx 1.20+ with PHP-FPM) Tj
+0 -12 Td
+72 232 Td
+(• Database: MySQL 8.0+ or MariaDB 10.6+) Tj
+0 -12 Td
+72 220 Td
+(• RAM: 8GB minimum, 16GB recommended) Tj
+0 -12 Td
+72 208 Td
+(• Storage: 50GB SSD storage) Tj
+0 -12 Td
+72 196 Td
+(• CPU: 4 cores or more) Tj
+0 -12 Td
+72 184 Td
+() Tj
+0 -12 Td
+72 172 Td
+(Development Environment) Tj
+0 -12 Td
+72 160 Td
+(• PHP: 8.1+) Tj
+0 -12 Td
+72 148 Td
+(• Database: MySQL 8.0+ or MariaDB 10.6+) Tj
+0 -12 Td
+72 136 Td
+(• RAM: 8GB) Tj
+0 -12 Td
+72 124 Td
+(• Storage: 20GB) Tj
+0 -12 Td
+72 112 Td
+(• CPU: 2 cores minimum) Tj
+0 -12 Td
+72 100 Td
+() Tj
+0 -12 Td
+72 88 Td
+(PHP Extensions Required) Tj
+0 -12 Td
+72 76 Td
+() Tj
+0 -12 Td
+72 64 Td
+(bash) Tj
+0 -12 Td
+72 52 Td
+(Required Extensions) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2965
+%%EOF

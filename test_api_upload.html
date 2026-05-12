@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Recording Upload</title>
+</head>
+<body>
+    <h2>Test Mobile Recording Upload</h2>
+    <form action="/api/sync-recording" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        
+        <label>Customer Phone:</label><br>
+        <input type="text" name="customer_phone" value="1234567890" required><br><br>
+        
+        <label>Customer Name:</label><br>
+        <input type="text" name="customer_name" value="Test Customer" required><br><br>
+        
+        <label>File Name:</label><br>
+        <input type="text" name="file_name" value="test_recording.mp3" required><br><br>
+        
+        <label>Employee Name:</label><br>
+        <input type="text" name="employee_name" value="Test Employee" required><br><br>
+        
+        <label>Sync Type:</label><br>
+        <select name="sync_type" required>
+            <option value="Manual">Manual</option>
+            <option value="AutoSync">AutoSync</option>
+        </select><br><br>
+        
+        <label>Audio File:</label><br>
+        <input type="file" name="audio" accept=".mp3,.wav,.m4a,.amr,.3gp" required><br><br>
+        
+        <button type="submit">Upload Recording</button>
+    </form>
+</body>
+</html>

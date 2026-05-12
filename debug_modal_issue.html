@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modal Debug Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: 1px solid #007bff;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-success {
+            border-color: #28a745;
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+        .btn-warning {
+            border-color: #ffc107;
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        #debug-output {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modal Debug Test</h1>
+    
+    <div class="test-section">
+        <h2>Step 1: Test Basic JavaScript</h2>
+        <button class="btn" onclick="testBasicJS()">Test Basic JavaScript</button>
+        <button class="btn btn-success" onclick="testDOMAccess()">Test DOM Access</button>
+        <div id="debug-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Step 2: Test Modal Functions</h2>
+        <button class="btn btn-success" onclick="testModalFunctions()">Test Modal Functions</button>
+        <button class="btn btn-warning" onclick="openTestModal()">Open Test Modal</button>
+        <div id="debug-output"></div>
+    </div>
+    
+    <!-- Simple Modal -->
+    <div id="testModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <h3>Test Modal</h3>
+            <p>This is a test modal to debug the issue.</p>
+            <button onclick="closeTestModal()" style="padding: 8px 16px; margin: 10px;">Close Modal</button>
+        </div>
+    </div>
+
+    <script>
+        let debugOutput = document.getElementById('debug-output');
+        
+        function log(message) {
+            console.log(message);
+            debugOutput.innerHTML += message + '\n';
+        }
+        
+        function testBasicJS() {
+            log('=== Testing Basic JavaScript ===');
+            log('✅ JavaScript is working');
+            log('✅ Button click events are working');
+            log('✅ Functions are defined');
+        }
+        
+        function testDOMAccess() {
+            log('=== Testing DOM Access ===');
+            const modal = document.getElementById('testModal');
+            log('Modal element found: ' + !!modal);
+            if (modal) {
+                log('Modal style.display: ' + modal.style.display);
+                log('Modal classes: ' + modal.className);
+            }
+        }
+        
+        function testModalFunctions() {
+            log('=== Testing Modal Functions ===');
+            log('openModal function: ' + typeof openTestModal);
+            log('closeModal function: ' + typeof closeTestModal);
+            log('submitInstallment function: ' + typeof submitInstallment);
+        }
+        
+        function openTestModal() {
+            log('=== Opening Test Modal ===');
+            const modal = document.getElementById('testModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                log('Modal display set to flex');
+            } else {
+                log('ERROR: Modal not found!');
+            }
+        }
+        
+        function closeTestModal() {
+            log('=== Closing Test Modal ===');
+            const modal = document.getElementById('testModal');
+            if (modal) {
+                modal.style.display = 'none';
+                log('Modal display set to none');
+            }
+        }
+        
+        // Check if page is loaded
+        window.addEventListener('load', function() {
+            log('=== Page Loaded Successfully ===');
+            log('DOM ready: ' + document.readyState);
+        });
+        
+        // Initial test
+        testBasicJS();
+    </script>
+</body>
+</html>

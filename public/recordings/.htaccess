@@ -1,0 +1,23 @@
+# Allow access to audio files
+<Files "*.mp3">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "*.wav">
+    Order allow,deny
+    Allow from all
+</Files>
+
+<Files "*.m4a">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Prevent directory listing
+Options -Indexes
+
+# Set proper MIME types
+AddType audio/mpeg .mp3
+AddType audio/wav .wav
+AddType audio/mp4 .m4a

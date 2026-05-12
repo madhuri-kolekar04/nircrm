@@ -1,0 +1,3095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calling App - Google Sheets Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .app-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .sync-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sync-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .sync-button.syncing {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+        }
+
+        .stats-bar {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .stat-item strong {
+            color: #495057;
+        }
+
+        .search-section {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .data-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-btn.view {
+            background: var(--info-color);
+        }
+
+        .action-btn.call {
+            background: var(--success-color);
+        }
+
+        .action-btn.meeting {
+            background: var(--warning-color);
+        }
+
+        .pagination-container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            padding: 8px 15px;
+            border: 1px solid #e9ecef;
+            background: white;
+            color: #495057;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .pagination-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .no-data i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--info-color);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .app-title {
+                font-size: 1.5rem;
+            }
+
+            .app-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .sync-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .stats-bar {
+                padding: 10px 15px;
+            }
+
+            .stat-item {
+                font-size: 0.8rem;
+            }
+
+            .search-section {
+                padding: 15px;
+            }
+
+            .data-table {
+                font-size: 0.8rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 10px 8px;
+            }
+
+            .action-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .pagination-container {
+                padding: 15px;
+            }
+
+            .pagination-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-title {
+                font-size: 1.3rem;
+            }
+
+            .data-table {
+                font-size: 0.7rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 8px 6px;
+            }
+
+            .action-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+
+            .toast {
+                min-width: 250px;
+                right: 10px;
+                left: 10px;
+            }
+        }
+
+        /* Email and WhatsApp links */
+        .email-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        .whatsapp-link {
+            color: var(--success-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .whatsapp-link:hover {
+            text-decoration: underline;
+        }
+
+        .website-link {
+            color: var(--info-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .website-link:hover {
+            text-decoration: underline;
+        }
+
+        .auto-sync-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .auto-sync-indicator.active {
+            background: rgba(40, 167, 69, 0.3);
+        }
+
+        .pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #28a745;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="auto-sync-indicator" id="autoSyncIndicator">
+                <span class="pulse"></span>
+                <span>Auto-sync</span>
+            </div>
+            <h1 class="app-title">
+                <i class="fas fa-phone-alt me-2"></i>
+                Calling App
+            </h1>
+            <p class="app-subtitle">Google Sheets Data - Real-time Lead Management</p>
+            <button class="sync-button" id="syncBtn" onclick="syncGoogleSheets()">
+                <i class="fas fa-sync-alt"></i>
+                <span>Sync Google Sheets</span>
+            </button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <span>Total Leads: <strong>91</strong></span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-file-alt"></i>
+                <span>Page: <strong>1 / 2</strong></span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-list"></i>
+                <span>Showing: <strong>50</strong> per page</span>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <form method="GET" action="https://nircrm.talktonitesh.com/callingapp">
+                <input type="text" 
+                       name="search" 
+                       class="search-input" 
+                       placeholder="🔍 Search leads by name, business, email..." 
+                       value="">
+            </form>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+                            <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Full Name</th>
+                            <th>Business Name</th>
+                            <th>Email</th>
+                            <th>WhatsApp</th>
+                            <th>Website</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                    <tr>
+                                <td><strong>1</strong></td>
+                                <td>
+                                    <strong>Mohit Patil</strong>
+                                </td>
+                                <td>Exim Interantionals</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://eximinternationals.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://eximinternationals.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(0)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit Patil', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>2</strong></td>
+                                <td>
+                                    <strong>Mohit Patil</strong>
+                                </td>
+                                <td>Aqua COnnect Exim</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://aquaconnectexim.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://aquaconnectexim.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(1)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit Patil', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>3</strong></td>
+                                <td>
+                                    <strong>Prathamesh Nishikant Khobare</strong>
+                                </td>
+                                <td>Sabka Dentist Dental Clinics</td>
+                                <td>
+                                                                            <a href="mailto:prathameshkhobare2309@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            prathameshkhobare2309@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9146317832" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9146317832
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sabkadentist.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sabkadentist.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(2)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9146317832')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Prathamesh Nishikant Khobare', 'prathameshkhobare2309@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>4</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://niranjanenterprises.co.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://niranjanenterprises.co.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(3)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>5</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://niranjanenterprises.co.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://niranjanenterprises.co.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(4)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>6</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://niranjanenterprises.co.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://niranjanenterprises.co.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(5)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>7</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://niranjanenterprises.co.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://niranjanenterprises.co.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(6)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>8</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://niranjanenterprises.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://niranjanenterprises.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(7)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>9</strong></td>
+                                <td>
+                                    <strong>Kiran</strong>
+                                </td>
+                                <td>indifacts</td>
+                                <td>
+                                                                            <a href="mailto:kiranparadiso@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            kiranparadiso@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/7507560460" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            7507560460
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://indifacts.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://indifacts.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(8)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('7507560460')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Kiran', 'kiranparadiso@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>10</strong></td>
+                                <td>
+                                    <strong>Satish Pawar</strong>
+                                </td>
+                                <td>Pune recyclers</td>
+                                <td>
+                                                                            <a href="mailto:satishpwr5@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            satishpwr5@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8208383167" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8208383167
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://punerecyclers.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://punerecyclers.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(9)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8208383167')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Satish Pawar', 'satishpwr5@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>11</strong></td>
+                                <td>
+                                    <strong>Shrirang</strong>
+                                </td>
+                                <td>Real Estate</td>
+                                <td>
+                                                                            <a href="mailto:mynest333@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mynest333@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9552990444" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9552990444
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://mynest.co.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://mynest.co.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(10)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9552990444')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Shrirang', 'mynest333@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>12</strong></td>
+                                <td>
+                                    <strong>ASBL</strong>
+                                </td>
+                                <td>ASBL</td>
+                                <td>
+                                                                            <a href="mailto:info@asbl.in" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            info@asbl.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8047109777" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8047109777
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://asbl.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://asbl.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(11)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8047109777')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('ASBL', 'info@asbl.in')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>13</strong></td>
+                                <td>
+                                    <strong>Saritha</strong>
+                                </td>
+                                <td>SS Enterprises</td>
+                                <td>
+                                                                            <a href="mailto:saritha.s@ankurahomes.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            saritha.s@ankurahomes.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9502366955" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9502366955
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://ankurahomes.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://ankurahomes.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(12)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9502366955')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Saritha', 'saritha.s@ankurahomes.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>14</strong></td>
+                                <td>
+                                    <strong>Ankura Homes</strong>
+                                </td>
+                                <td>Ankura Homes</td>
+                                <td>
+                                                                            <a href="mailto:digital@ankurahomes.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            digital@ankurahomes.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8977636027" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8977636027
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://ankurahomes.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://ankurahomes.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(13)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8977636027')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ankura Homes', 'digital@ankurahomes.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>15</strong></td>
+                                <td>
+                                    <strong>pranav vispute</strong>
+                                </td>
+                                <td>shivaay digital solution</td>
+                                <td>
+                                                                            <a href="mailto:pranavvispute018@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            pranavvispute018@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9424810875" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9424810875
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://kannukichai.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://kannukichai.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(14)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9424810875')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('pranav vispute', 'pranavvispute018@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>16</strong></td>
+                                <td>
+                                    <strong>Ankita</strong>
+                                </td>
+                                <td>Sedin Technologies</td>
+                                <td>
+                                                                            <a href="mailto:Ankita@sedintechnologies.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            Ankita@sedintechnologies.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9110862395" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9110862395
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://coderapper.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://coderapper.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(15)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9110862395')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ankita', 'Ankita@sedintechnologies.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>17</strong></td>
+                                <td>
+                                    <strong>Somnath</strong>
+                                </td>
+                                <td>Yotta</td>
+                                <td>
+                                                                            <a href="mailto:sbarbhai@yotta.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            sbarbhai@yotta.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9920887009" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9920887009
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://colocation.yotta.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://colocation.yotta.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(16)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9920887009')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Somnath', 'sbarbhai@yotta.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>18</strong></td>
+                                <td>
+                                    <strong>Somnath</strong>
+                                </td>
+                                <td>Yotta</td>
+                                <td>
+                                                                            <a href="mailto:sbarbhai@yotta.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            sbarbhai@yotta.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9920887009" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9920887009
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://urja.pro/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://urja.pro/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(17)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9920887009')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Somnath', 'sbarbhai@yotta.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>19</strong></td>
+                                <td>
+                                    <strong>Vaishali Sharma</strong>
+                                </td>
+                                <td>Sassy Sajja</td>
+                                <td>
+                                                                            <a href="mailto:svaishali731@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            svaishali731@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/7427865409" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            7427865409
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sassysajja.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sassysajja.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(18)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('7427865409')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Vaishali Sharma', 'svaishali731@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>20</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>Vande Mataram Overseas</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://vandemataramoverseas.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://vandemataramoverseas.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(19)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>21</strong></td>
+                                <td>
+                                    <strong>Niranjan Enterprises Digital Solutions</strong>
+                                </td>
+                                <td>indifacts</td>
+                                <td>
+                                                                            <a href="mailto:niranjanenterprisespun@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            niranjanenterprisespun@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/7507560460" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            7507560460
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://www.vandemataramoverseas.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://www.vandemataramoverseas.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(20)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('7507560460')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Niranjan Enterprises Digital Solutions', 'niranjanenterprisespun@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>22</strong></td>
+                                <td>
+                                    <strong>Manali Jasud</strong>
+                                </td>
+                                <td>NEDS</td>
+                                <td>
+                                                                            <a href="mailto:manalijasud9@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            manalijasud9@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9579103945" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9579103945
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://creatoons.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://creatoons.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(21)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9579103945')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Manali Jasud', 'manalijasud9@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>23</strong></td>
+                                <td>
+                                    <strong>RAJIV PATANKAR</strong>
+                                </td>
+                                <td>BRAND WHIZ</td>
+                                <td>
+                                                                            <a href="mailto:rajiv@brand-whiz.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            rajiv@brand-whiz.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9821115266" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9821115266
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://brand-whiz.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://brand-whiz.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(22)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9821115266')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('RAJIV PATANKAR', 'rajiv@brand-whiz.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>24</strong></td>
+                                <td>
+                                    <strong>Prajakta</strong>
+                                </td>
+                                <td>Brandwhizz</td>
+                                <td>
+                                                                            <a href="mailto:prajakta@brand-whiz.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            prajakta@brand-whiz.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9833348631" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9833348631
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://brand-whiz.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://brand-whiz.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(23)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9833348631')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Prajakta', 'prajakta@brand-whiz.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>25</strong></td>
+                                <td>
+                                    <strong>Vivek Mehrotra</strong>
+                                </td>
+                                <td>AssessPro</td>
+                                <td>
+                                                                            <a href="mailto:vivek@assesspro.in" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            vivek@assesspro.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9739197566" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9739197566
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://assesspro.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://assesspro.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(24)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9739197566')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Vivek Mehrotra', 'vivek@assesspro.in')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>26</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9226045000" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9226045000
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(25)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9226045000')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>27</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(26)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>28</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(27)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>29</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9226045000" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9226045000
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(28)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9226045000')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>30</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9226045000" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9226045000
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(29)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9226045000')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>31</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(30)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>32</strong></td>
+                                <td>
+                                    <strong>Manali Jasud</strong>
+                                </td>
+                                <td>E-commerce</td>
+                                <td>
+                                                                            <a href="mailto:manalijasud9@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            manalijasud9@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9579103945" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9579103945
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://creatoons.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://creatoons.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(31)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9579103945')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Manali Jasud', 'manalijasud9@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>33</strong></td>
+                                <td>
+                                    <strong>Ravi</strong>
+                                </td>
+                                <td>Niranjan Enterprises</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://nkshub.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://nkshub.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(32)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ravi', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>34</strong></td>
+                                <td>
+                                    <strong>Ravi</strong>
+                                </td>
+                                <td>Niranjan Enterprises</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://nkshub.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://nkshub.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(33)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ravi', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>35</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(34)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>36</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(35)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>37</strong></td>
+                                <td>
+                                    <strong>Nitesh</strong>
+                                </td>
+                                <td>Site Website</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://sitewebsite.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://sitewebsite.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(36)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Nitesh', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>38</strong></td>
+                                <td>
+                                    <strong>Kiran</strong>
+                                </td>
+                                <td>indifacts</td>
+                                <td>
+                                                                            <a href="mailto:kiranparadiso@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            kiranparadiso@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/7507560460" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            7507560460
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://indifacts.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://indifacts.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(37)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('7507560460')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Kiran', 'kiranparadiso@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>39</strong></td>
+                                <td>
+                                    <strong>Smitesh Shah</strong>
+                                </td>
+                                <td>Valorant</td>
+                                <td>
+                                                                            <a href="mailto:smitesh01@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            smitesh01@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/7875089389" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            7875089389
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://playvalorant.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://playvalorant.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(38)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('7875089389')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Smitesh Shah', 'smitesh01@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>40</strong></td>
+                                <td>
+                                    <strong>Kiran Katte</strong>
+                                </td>
+                                <td>Niranjan enterprises</td>
+                                <td>
+                                                                            <a href="mailto:kattekiranpk@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            kattekiranpk@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/75075601460" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            75075601460
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://indifacts.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://indifacts.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(39)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('75075601460')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Kiran Katte', 'kattekiranpk@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>41</strong></td>
+                                <td>
+                                    <strong>Ravi</strong>
+                                </td>
+                                <td>Niranjan Enterprises</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://nkshub.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://nkshub.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(40)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ravi', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>42</strong></td>
+                                <td>
+                                    <strong>Ravi</strong>
+                                </td>
+                                <td>Niranjan Enterprises</td>
+                                <td>
+                                                                            <a href="mailto:nitesh_more@rediffmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            nitesh_more@rediffmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://nkshub.in" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://nkshub.in
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(41)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Ravi', 'nitesh_more@rediffmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>43</strong></td>
+                                <td>
+                                    <strong>Mohit</strong>
+                                </td>
+                                <td>Exim</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://eximinternationals.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://eximinternationals.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(42)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>44</strong></td>
+                                <td>
+                                    <strong>Prathamesh Nishikant Khobare</strong>
+                                </td>
+                                <td>Services</td>
+                                <td>
+                                                                            <a href="mailto:prathameshkhobare2309@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            prathameshkhobare2309@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9146317832" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9146317832
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://assesspro.in/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://assesspro.in/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(43)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9146317832')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Prathamesh Nishikant Khobare', 'prathameshkhobare2309@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>45</strong></td>
+                                <td>
+                                    <strong>Mohit Patil</strong>
+                                </td>
+                                <td>Exim Internationals</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://eximinternationals.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://eximinternationals.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(44)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit Patil', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>46</strong></td>
+                                <td>
+                                    <strong>Tejaswini Nagare</strong>
+                                </td>
+                                <td>Gpp</td>
+                                <td>
+                                                                            <a href="mailto:tejaswininagare407@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            tejaswininagare407@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8788108921" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8788108921
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://gppune.ac.in/userindex.php" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://gppune.ac.in/userindex.php
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(45)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8788108921')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Tejaswini Nagare', 'tejaswininagare407@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>47</strong></td>
+                                <td>
+                                    <strong>Mohit Patil</strong>
+                                </td>
+                                <td>Exim Internationals</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9028099919" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9028099919
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://eximinternationals.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://eximinternationals.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(46)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9028099919')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit Patil', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>48</strong></td>
+                                <td>
+                                    <strong>Mohit Patil</strong>
+                                </td>
+                                <td>Exim Internationals</td>
+                                <td>
+                                                                            <a href="mailto:mohitpatil900@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            mohitpatil900@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8007606498" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8007606498
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://eximinternationals.com" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://eximinternationals.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(47)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8007606498')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Mohit Patil', 'mohitpatil900@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>49</strong></td>
+                                <td>
+                                    <strong>Prathamesh Nishikant Khobare</strong>
+                                </td>
+                                <td>Marketing Agency</td>
+                                <td>
+                                                                            <a href="mailto:prathameshkhobare2309@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            prathameshkhobare2309@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/9146317832" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            9146317832
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://www.digitalmogli.com/" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://www.digitalmogli.com/
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(48)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('9146317832')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Prathamesh Nishikant Khobare', 'prathameshkhobare2309@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td><strong>50</strong></td>
+                                <td>
+                                    <strong>Tejaswini Nagare</strong>
+                                </td>
+                                <td>Gpp</td>
+                                <td>
+                                                                            <a href="mailto:tejaswininagare407@gmail.com" class="email-link">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            tejaswininagare407@gmail.com
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://wa.me/8788108921" 
+                                           target="_blank" 
+                                           class="whatsapp-link">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            8788108921
+                                        </a>
+                                                                    </td>
+                                <td>
+                                                                            <a href="https://gppune.ac.in/userindex.php" 
+                                           target="_blank" 
+                                           class="website-link">
+                                            <i class="fas fa-globe me-1"></i>
+                                            https://gppune.ac.in/userindex.php
+                                        </a>
+                                                                    </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn view" 
+                                                onclick="viewDetails(49)"
+                                                title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn call" 
+                                                onclick="makeCall('8788108921')"
+                                                title="Call">
+                                            <i class="fas fa-phone"></i>
+                                        </button>
+                                        <button class="action-btn meeting" 
+                                                onclick="scheduleMeeting('Tejaswini Nagare', 'tejaswininagare407@gmail.com')"
+                                                title="Schedule Meeting">
+                                            <i class="fas fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                            </tbody>
+                </table>
+                    </div>
+
+        <!-- Pagination -->
+                    <div class="pagination-container">
+                
+                                    <a href="https://nircrm.talktonitesh.com/callingapp?page=1&amp;search=" 
+                       class="pagination-btn active">
+                        1
+                    </a>
+                                    <a href="https://nircrm.talktonitesh.com/callingapp?page=2&amp;search=" 
+                       class="pagination-btn ">
+                        2
+                    </a>
+                
+                                    <a href="https://nircrm.talktonitesh.com/callingapp?page=2&amp;search=" class="pagination-btn">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="https://nircrm.talktonitesh.com/callingapp?page=2&amp;search=" class="pagination-btn">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                            </div>
+            </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    // Auto-sync every 30 seconds
+    let autoSyncInterval;
+    let isAutoSyncEnabled = true;
+
+    function startAutoSync() {
+        if (isAutoSyncEnabled) {
+            autoSyncInterval = setInterval(() => {
+                if (!document.getElementById('syncBtn').classList.contains('syncing')) {
+                    syncGoogleSheets(true); // true = auto-sync
+                }
+            }, 30000); // 30 seconds
+            
+            document.getElementById('autoSyncIndicator').classList.add('active');
+        }
+    }
+
+    function stopAutoSync() {
+        clearInterval(autoSyncInterval);
+        document.getElementById('autoSyncIndicator').classList.remove('active');
+    }
+
+    function syncGoogleSheets(isAutoSync = false) {
+        const syncBtn = document.getElementById('syncBtn');
+        const originalText = syncBtn.innerHTML;
+        
+        // Show loading state
+        syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Syncing...</span>';
+        syncBtn.classList.add('syncing');
+        syncBtn.disabled = true;
+        
+        fetch("https://nircrm.talktonitesh.com/callingapp/sync", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast(data.message, 'success');
+                
+                // Refresh page after 2 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                showToast(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Sync error:', error);
+            showToast('An error occurred while syncing Google Sheets.', 'error');
+        })
+        .finally(() => {
+            // Restore button state
+            syncBtn.innerHTML = originalText;
+            syncBtn.classList.remove('syncing');
+            syncBtn.disabled = false;
+        });
+    }
+
+    function viewDetails(index) {
+        const rows = document.querySelectorAll('.data-table tbody tr');
+        const row = rows[index];
+        if (row) {
+            const cells = row.querySelectorAll('td');
+            const details = `
+                <strong>Full Name:</strong> ${cells[1].textContent.trim()}
+                <br><strong>Business Name:</strong> ${cells[2].textContent.trim()}
+                <br><strong>Email:</strong> ${cells[3].textContent.trim()}
+                <br><strong>WhatsApp:</strong> ${cells[4].textContent.trim()}
+                <br><strong>Website:</strong> ${cells[5].textContent.trim()}
+            `;
+            showToast(details, 'info', 5000);
+        }
+    }
+
+    function makeCall(phone) {
+        if (!phone) {
+            showToast('No phone number available', 'error');
+            return;
+        }
+        
+        // Clean phone number
+        const cleanPhone = phone.replace(/[^0-9+]/g, '');
+        
+        // Open WhatsApp
+        window.open(`https://wa.me/${cleanPhone}`, '_blank');
+        showToast('Opening WhatsApp...', 'success');
+    }
+
+    function scheduleMeeting(name, email) {
+        if (!email) {
+            showToast('No email address available for meeting scheduling', 'error');
+            return;
+        }
+        
+        // Create Google Meet link
+        const meetLink = `https://calendar.google.com/calendar/u/0/r/eventedit?text=Meeting with ${name}&details=Meeting with ${name} (${email})`;
+        window.open(meetLink, '_blank');
+        showToast('Opening meeting scheduler...', 'success');
+    }
+
+    function showToast(message, type = 'info', duration = 3000) {
+        const toastContainer = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icon = type === 'success' ? 'fa-check-circle' : 
+                    type === 'error' ? 'fa-exclamation-circle' : 
+                    'fa-info-circle';
+        
+        toast.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <span>${message}</span>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Auto remove after duration
+        setTimeout(() => {
+            toast.style.animation = 'slideIn 0.3s ease reverse';
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, duration);
+    }
+
+    // Initialize auto-sync when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        startAutoSync();
+        
+        // Add CSRF meta tag if not present
+        if (!document.querySelector('meta[name="csrf-token"]')) {
+            const meta = document.createElement('meta');
+            meta.name = 'csrf-token';
+            meta.content = '';
+            document.head.appendChild(meta);
+        }
+    });
+
+    // Stop auto-sync when page is hidden
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            stopAutoSync();
+        } else {
+            startAutoSync();
+        }
+    });
+    </script>
+</body>
+</html>

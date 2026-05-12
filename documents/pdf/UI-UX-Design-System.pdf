@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2807 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(UI-UX-Design-System) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - UI/UX Design System Documentation) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Design Philosophy) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(NIRCRM features a WhatsApp-inspired interface that provides users with an) Tj
+0 -12 Td
+72 652 Td
+(instantly familiar and intuitive experience. The design prioritizes usability,) Tj
+0 -12 Td
+72 640 Td
+(accessibility, and visual consistency while maintaining professional business) Tj
+0 -12 Td
+72 628 Td
+(functionality.) Tj
+0 -12 Td
+72 616 Td
+() Tj
+0 -12 Td
+72 604 Td
+(Core Design Principles) Tj
+0 -12 Td
+72 592 Td
+() Tj
+0 -12 Td
+72 580 Td
+(• Familiarity) Tj
+0 -12 Td
+72 568 Td
+(• WhatsApp Web-inspired layout) Tj
+0 -12 Td
+72 556 Td
+(• Recognizable chat-style interactions) Tj
+0 -12 Td
+72 544 Td
+(• Intuitive navigation patterns) Tj
+0 -12 Td
+72 532 Td
+(• Minimal learning curve) Tj
+0 -12 Td
+72 520 Td
+() Tj
+0 -12 Td
+72 508 Td
+(• Accessibility) Tj
+0 -12 Td
+72 496 Td
+(• WCAG 2.1 AA compliance) Tj
+0 -12 Td
+72 484 Td
+(• High contrast ratios) Tj
+0 -12 Td
+72 472 Td
+(• Keyboard navigation support) Tj
+0 -12 Td
+72 460 Td
+(• Screen reader compatibility) Tj
+0 -12 Td
+72 448 Td
+() Tj
+0 -12 Td
+72 436 Td
+(• Responsiveness) Tj
+0 -12 Td
+72 424 Td
+(• Mobile-first approach) Tj
+0 -12 Td
+72 412 Td
+(• Adaptive layouts) Tj
+0 -12 Td
+72 400 Td
+(• Touch-friendly interactions) Tj
+0 -12 Td
+72 388 Td
+(• Performance optimization) Tj
+0 -12 Td
+72 376 Td
+() Tj
+0 -12 Td
+72 364 Td
+(• Consistency) Tj
+0 -12 Td
+72 352 Td
+(• Unified design language) Tj
+0 -12 Td
+72 340 Td
+(• Component reusability) Tj
+0 -12 Td
+72 328 Td
+(• Standardized interactions) Tj
+0 -12 Td
+72 316 Td
+(• Cohesive visual hierarchy) Tj
+0 -12 Td
+72 304 Td
+() Tj
+0 -12 Td
+72 292 Td
+(Color System) Tj
+0 -12 Td
+72 280 Td
+() Tj
+0 -12 Td
+72 268 Td
+(Primary WhatsApp Palette) Tj
+0 -12 Td
+72 256 Td
+() Tj
+0 -12 Td
+72 244 Td
+(css) Tj
+0 -12 Td
+72 232 Td
+(/ Brand Colors /) Tj
+0 -12 Td
+72 220 Td
+(• -wa-green: #25D366;        / Primary brand color /) Tj
+0 -12 Td
+72 208 Td
+(• -wa-dark-green: #075E54;   / Dark variant /) Tj
+0 -12 Td
+72 196 Td
+() Tj
+0 -12 Td
+72 184 Td
+(/ Background Colors /) Tj
+0 -12 Td
+72 172 Td
+(• -wa-light-bg: #ECE5DD;    / Light mode background /) Tj
+0 -12 Td
+72 160 Td
+(• -wa-dark-bg: #0A0E27;     / Dark mode background /) Tj
+0 -12 Td
+72 148 Td
+() Tj
+0 -12 Td
+72 136 Td
+(/ Text Colors /) Tj
+0 -12 Td
+72 124 Td
+(• -wa-text-dark: #111B21;   / Primary text /) Tj
+0 -12 Td
+72 112 Td
+(• -wa-text-light: #667781;  / Secondary text /) Tj
+0 -12 Td
+72 100 Td
+() Tj
+0 -12 Td
+72 88 Td
+(/ Border Colors /) Tj
+0 -12 Td
+72 76 Td
+(• -wa-border: #E9EDEF;      / Light borders /) Tj
+0 -12 Td
+72 64 Td
+(• -wa-border-dark: #2A2F32; / Dark borders /) Tj
+0 -12 Td
+72 52 Td
+() Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3170
+%%EOF

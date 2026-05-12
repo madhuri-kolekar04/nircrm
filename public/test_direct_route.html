@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct Route Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-btn { padding: 10px 20px; margin: 10px; cursor: pointer; }
+        .result { margin: 20px 0; padding: 15px; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Direct Route Test</h1>
+    
+    <div class="info">
+        <h3>Testing Route: /sales-department/107/send-approval-email</h3>
+        <p>This page will test the route directly to identify the issue.</p>
+    </div>
+    
+    <button class="test-btn" onclick="testRoute()">🚀 Test Route</button>
+    <button class="test-btn" onclick="testWithForm()">📋 Test with Form</button>
+    <button class="test-btn" onclick="testDirect()">🔗 Test Direct URL</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function testRoute() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result info">Testing route with JSON...</div>';
+            
+            fetch('/sales-department/107/send-approval-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': getCsrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    test: true,
+                    timestamp: new Date().toISOString()
+                })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+                
+                if (response.status === 404) {
+                    throw new Error('Route not found (404)');
+                } else if (response.status === 405) {
+                    throw new Error('Method not allowed (405)');
+                } else if (response.status === 419) {
+                    throw new Error('CSRF token mismatch (419)');
+                }
+                
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                
+                try {
+                    const json = JSON.parse(text);
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Route Works!</h3>
+                            <p><strong>Status:</strong> Success</p>
+                            <p><strong>Response:</strong></p>
+                            <pre>${JSON.stringify(json, null, 2)}</pre>
+                        </div>
+                    `;
+                } catch (e) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Route Responds!</h3>
+                            <p><strong>Status:</strong> Non-JSON response (might be HTML error page)</p>
+                            <p><strong>Response:</strong></p>
+                            <pre>${text.substring(0, 500)}${text.length > 500 ? '...' : ''}</pre>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ Route Error</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Possible Causes:</strong></p>
+                        <ul>
+                            <li>Route not registered in routes/web.php</li>
+                            <li>Route cache needs clearing: php artisan route:clear</li>
+                            <li>Laravel server not running</li>
+                            <li>Middleware blocking the request</li>
+                            <li>Controller method doesn't exist</li>
+                        </ul>
+                    </div>
+                `;
+            });
+        }
+        
+        function testWithForm() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result info">Testing route with Form...</div>';
+            
+            const formData = new FormData();
+            formData.append('_token', getCsrfToken());
+            formData.append('test', 'form');
+            formData.append('timestamp', new Date().toISOString());
+            
+            fetch('/sales-department/107/send-approval-email', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(text => {
+                resultDiv.innerHTML = `
+                    <div class="result info">
+                        <h3>📋 Form Test Result</h3>
+                        <p><strong>Response:</strong></p>
+                        <pre>${text.substring(0, 1000)}${text.length > 1000 ? '...' : ''}</pre>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ Form Test Failed</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            });
+        }
+        
+        function testDirect() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result info">Opening direct URL in new tab...</div>';
+            
+            // Open the URL in a new window to see what happens
+            const testWindow = window.open('/sales-department/107/send-approval-email', '_blank', 'width=800,height=600');
+            
+            setTimeout(() => {
+                if (testWindow && !testWindow.closed) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Direct URL Works!</h3>
+                            <p>The route opened in a new window. Check if it shows an error page or works properly.</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ Direct URL Failed</h3>
+                            <p>The window closed immediately or couldn't open - likely a 404 or server error.</p>
+                        </div>
+                    `;
+                }
+            }, 2000);
+        }
+        
+        function getCsrfToken() {
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            return meta ? meta.getAttribute('content') : '';
+        }
+        
+        // Show current page info
+        document.addEventListener('DOMContentLoaded', function() {
+            const info = document.createElement('div');
+            info.className = 'result info';
+            info.innerHTML = `
+                <h3>📊 Current Page Info</h3>
+                <p><strong>Current URL:</strong> ${window.location.href}</p>
+                <p><strong>CSRF Token:</strong> ${getCsrfToken() ? 'Found' : 'Not Found'}</p>
+                <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+            `;
+            document.getElementById('result').appendChild(info);
+        });
+    </script>
+</body>
+</html>

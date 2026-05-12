@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3326 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(Technical-Overview) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - Technical Overview) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(System Introduction) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(NIRCRM \(Niranjan Enterprises Customer Relationship Management\) is a) Tj
+0 -12 Td
+72 652 Td
+(comprehensive Laravel-based CRM system with a WhatsApp-inspired user interface.) Tj
+0 -12 Td
+72 640 Td
+(The system is designed to manage customer relationships, leads, employees,) Tj
+0 -12 Td
+72 628 Td
+(departments, invoices, and business operations through an intuitive, modern) Tj
+0 -12 Td
+72 616 Td
+(interface.) Tj
+0 -12 Td
+72 604 Td
+() Tj
+0 -12 Td
+72 592 Td
+(Core Technologies) Tj
+0 -12 Td
+72 580 Td
+() Tj
+0 -12 Td
+72 568 Td
+(• Backend: Laravel 9.x \(PHP 8.0+\)) Tj
+0 -12 Td
+72 556 Td
+(• Frontend: Blade Templates, TailwindCSS, JavaScript) Tj
+0 -12 Td
+72 544 Td
+(• Database: MySQL/MariaDB) Tj
+0 -12 Td
+72 532 Td
+(• Authentication: Laravel Sanctum) Tj
+0 -12 Td
+72 520 Td
+(• PDF Generation: DomPDF) Tj
+0 -12 Td
+72 508 Td
+(• Excel Handling: Maatwebsite Excel) Tj
+0 -12 Td
+72 496 Td
+(• Image Processing: Intervention Image) Tj
+0 -12 Td
+72 484 Td
+() Tj
+0 -12 Td
+72 472 Td
+(Architecture Overview) Tj
+0 -12 Td
+72 460 Td
+() Tj
+0 -12 Td
+72 448 Td
+(MVC Pattern) Tj
+0 -12 Td
+72 436 Td
+(The system follows the Model-View-Controller \(MVC\) architectural pattern:) Tj
+0 -12 Td
+72 424 Td
+() Tj
+0 -12 Td
+72 412 Td
+(• Models: Located in app/Models/ - Handle data logic and database interactions) Tj
+0 -12 Td
+72 400 Td
+(• Views: Located in resources/views/ - Handle presentation logic) Tj
+0 -12 Td
+72 388 Td
+(• Controllers: Located in app/Http/Controllers/ - Handle application logic) Tj
+0 -12 Td
+72 376 Td
+() Tj
+0 -12 Td
+72 364 Td
+(Key Directories) Tj
+0 -12 Td
+72 352 Td
+() Tj
+0 -12 Td
+72 340 Td
+(nircrm/) Tj
+0 -12 Td
+72 328 Td
+(├── app/) Tj
+0 -12 Td
+72 316 Td
+(│   ├── Models/           # Eloquent Models) Tj
+0 -12 Td
+72 304 Td
+(│   ├── Http/Controllers/ # Application Controllers) Tj
+0 -12 Td
+72 292 Td
+(│   ├── Services/         # Business Logic Services) Tj
+0 -12 Td
+72 280 Td
+(│   └── Helpers/          # Utility Functions) Tj
+0 -12 Td
+72 268 Td
+(├── database/) Tj
+0 -12 Td
+72 256 Td
+(│   ├── migrations/       # Database Schema Migrations) Tj
+0 -12 Td
+72 244 Td
+(│   └── seeders/         # Database Seeders) Tj
+0 -12 Td
+72 232 Td
+(├── resources/) Tj
+0 -12 Td
+72 220 Td
+(│   ├── views/           # Blade Templates) Tj
+0 -12 Td
+72 208 Td
+(│   ├── css/            # Custom Stylesheets) Tj
+0 -12 Td
+72 196 Td
+(│   └── js/             # JavaScript Files) Tj
+0 -12 Td
+72 184 Td
+(├── routes/             # Route Definitions) Tj
+0 -12 Td
+72 172 Td
+(├── config/             # Configuration Files) Tj
+0 -12 Td
+72 160 Td
+(└── storage/            # File Storage) Tj
+0 -12 Td
+72 148 Td
+() Tj
+0 -12 Td
+72 136 Td
+(Core Features) Tj
+0 -12 Td
+72 124 Td
+() Tj
+0 -12 Td
+72 112 Td
+(• User Management & Authentication) Tj
+0 -12 Td
+72 100 Td
+(• Multi-role authentication system) Tj
+0 -12 Td
+72 88 Td
+(• Role-based access control \(RBAC\)) Tj
+0 -12 Td
+72 76 Td
+(• Department-based user organization) Tj
+0 -12 Td
+72 64 Td
+(• OTP-based verification) Tj
+0 -12 Td
+72 52 Td
+(• Session management) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3689
+%%EOF

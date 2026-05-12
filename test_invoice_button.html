@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Invoice Button</title>
+</head>
+<body>
+    <h1>Test Create Invoice Button</h1>
+    
+    <p>This test simulates the JavaScript function from the accounts index page.</p>
+    
+    <button onclick="testGenerateInvoice()">Test Generate Invoice Function</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function generateInvoice(quotationId) {
+            console.log('Generate Invoice clicked for quotation ID:', quotationId);
+            
+            if (confirm('Are you sure you want to create invoice for this quotation?')) {
+                console.log('User confirmed. Opening invoice edit page...');
+                const invoiceUrl = '/accounts/create-invoice/' + quotationId;
+                console.log('Invoice URL:', invoiceUrl);
+                
+                // For testing, just show the URL instead of redirecting
+                document.getElementById('result').innerHTML = 
+                    '<h3>Would redirect to:</h3><p><strong>' + invoiceUrl + '</strong></p>' +
+                    '<p>This URL should now work with the fixes applied!</p>';
+                    
+                // In real application, this would be:
+                // window.location.href = invoiceUrl;
+            } else {
+                console.log('User cancelled invoice creation.');
+                document.getElementById('result').innerHTML = '<p>Invoice creation cancelled.</p>';
+            }
+        }
+        
+        function testGenerateInvoice() {
+            generateInvoice(1); // Test with quotation ID 1
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3227 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(Models-Database-Schema) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - Models & Database Schema Documentation) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Database Overview) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(The NIRCRM system uses MySQL/MariaDB as its database backend, following) Tj
+0 -12 Td
+72 652 Td
+(Laravel's Eloquent ORM conventions. The database consists of over 40 tables) Tj
+0 -12 Td
+72 640 Td
+(managing users, leads, departments, invoices, attendance, leaves, and more.) Tj
+0 -12 Td
+72 628 Td
+() Tj
+0 -12 Td
+72 616 Td
+(Core Models & Relationships) Tj
+0 -12 Td
+72 604 Td
+() Tj
+0 -12 Td
+72 592 Td
+(• User Model \(users table\)) Tj
+0 -12 Td
+72 580 Td
+() Tj
+0 -12 Td
+72 568 Td
+(Purpose: Central user management and authentication) Tj
+0 -12 Td
+72 556 Td
+() Tj
+0 -12 Td
+72 544 Td
+(Key Fields:) Tj
+0 -12 Td
+72 532 Td
+(• id - Primary key) Tj
+0 -12 Td
+72 520 Td
+(• name, last_name - User's full name) Tj
+0 -12 Td
+72 508 Td
+(• email - Login email \(unique\)) Tj
+0 -12 Td
+72 496 Td
+(• password - Hashed password) Tj
+0 -12 Td
+72 484 Td
+(• role - User role \(1=Admin, 2=Employee, 3=Customer, 4=Manager, 5=General) Tj
+0 -12 Td
+72 472 Td
+(Manager\)) Tj
+0 -12 Td
+72 460 Td
+(• department_id - Foreign key to departments) Tj
+0 -12 Td
+72 448 Td
+(• manager_id - Self-referencing key for manager-subordinate relationship) Tj
+0 -12 Td
+72 436 Td
+(• employeeID - Employee identification number) Tj
+0 -12 Td
+72 424 Td
+(• contact_number, phone - Contact information) Tj
+0 -12 Td
+72 412 Td
+(• position, designation - Job title and position) Tj
+0 -12 Td
+72 400 Td
+(• salary - Employee salary) Tj
+0 -12 Td
+72 388 Td
+(• joining_date - Employment start date) Tj
+0 -12 Td
+72 376 Td
+(• is_active - Account status) Tj
+0 -12 Td
+72 364 Td
+(• shift_id - Work shift assignment) Tj
+0 -12 Td
+72 352 Td
+() Tj
+0 -12 Td
+72 340 Td
+(Relationships:) Tj
+0 -12 Td
+72 328 Td
+(• department\(\) - BelongsTo Department) Tj
+0 -12 Td
+72 316 Td
+(• manager\(\) - BelongsTo User \(self-reference\)) Tj
+0 -12 Td
+72 304 Td
+(• subordinates\(\) - HasMany User \(self-reference\)) Tj
+0 -12 Td
+72 292 Td
+(• attendances\(\) - HasMany Attendance) Tj
+0 -12 Td
+72 280 Td
+(• leaves\(\) - HasMany Leave) Tj
+0 -12 Td
+72 268 Td
+(• shift\(\) - BelongsTo Shift) Tj
+0 -12 Td
+72 256 Td
+() Tj
+0 -12 Td
+72 244 Td
+(Key Methods:) Tj
+0 -12 Td
+72 232 Td
+(• isCheckedIn\(\) - Check if user is currently checked in) Tj
+0 -12 Td
+72 220 Td
+(• canApproveLeave\(\) - Check leave approval permissions) Tj
+0 -12 Td
+72 208 Td
+(• getSubordinatesIds\(\) - Get IDs of all subordinates) Tj
+0 -12 Td
+72 196 Td
+(• getDepartmentUsersIds\(\) - Get IDs of department colleagues) Tj
+0 -12 Td
+72 184 Td
+() Tj
+0 -12 Td
+72 172 Td
+(• --) Tj
+0 -12 Td
+72 160 Td
+() Tj
+0 -12 Td
+72 148 Td
+(• Department Model \(departments table\)) Tj
+0 -12 Td
+72 136 Td
+() Tj
+0 -12 Td
+72 124 Td
+(Purpose: Organizational structure management) Tj
+0 -12 Td
+72 112 Td
+() Tj
+0 -12 Td
+72 100 Td
+(Key Fields:) Tj
+0 -12 Td
+72 88 Td
+(• id - Primary key) Tj
+0 -12 Td
+72 76 Td
+(• name - Department name) Tj
+0 -12 Td
+72 64 Td
+(• description - Department description) Tj
+0 -12 Td
+72 52 Td
+(• parent_id - Self-referencing for hierarchical structure) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3590
+%%EOF

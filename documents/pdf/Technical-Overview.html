@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - Technical-Overview</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>Technical-Overview</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - Technical Overview</h1><h2>System Introduction</h2><p><strong>NIRCRM</strong> (Niranjan Enterprises Customer Relationship Management) is a comprehensive Laravel-based CRM system with a WhatsApp-inspired user interface. The system is designed to manage customer relationships, leads, employees, departments, invoices, and business operations through an intuitive, modern interface.</p><h3>Core Technologies</h3>
+<ul>
+<li><strong>Backend</strong>: Laravel 9.x (PHP 8.0+)</li>
+</ul><li><strong>Frontend</strong>: Blade Templates, TailwindCSS, JavaScript</li><ul>
+<li><strong>Database</strong>: MySQL/MariaDB</li>
+</ul><li><strong>Authentication</strong>: Laravel Sanctum</li><ul>
+<li><strong>PDF Generation</strong>: DomPDF</li>
+</ul><li><strong>Excel Handling</strong>: Maatwebsite Excel</li><ul>
+<li><strong>Image Processing</strong>: Intervention Image</li>
+</ul>
+<h2>Architecture Overview</h2><h3>MVC Pattern</h3>
+The system follows the Model-View-Controller (MVC) architectural pattern:
+<ul>
+<li><strong>Models</strong>: Located in <code>app/Models/</code> - Handle data logic and database interactions</li>
+</ul><li><strong>Views</strong>: Located in <code>resources/views/</code> - Handle presentation logic</li><ul>
+<li><strong>Controllers</strong>: Located in <code>app/Http/Controllers/</code> - Handle application logic</li>
+</ul>
+<h3>Key Directories</h3><pre><code>
+nircrm/
+├── app/
+│   ├── Models/           # Eloquent Models
+│   ├── Http/Controllers/ # Application Controllers
+│   ├── Services/         # Business Logic Services
+│   └── Helpers/          # Utility Functions
+├── database/
+│   ├── migrations/       # Database Schema Migrations
+│   └── seeders/         # Database Seeders
+├── resources/
+│   ├── views/           # Blade Templates
+│   ├── css/            # Custom Stylesheets
+│   └── js/             # JavaScript Files
+├── routes/             # Route Definitions
+├── config/             # Configuration Files
+└── storage/            # File Storage
+</code></pre><h2>Core Features</h2><h3>1. User Management & Authentication</h3><ul>
+<li>Multi-role authentication system</li>
+</ul><li>Role-based access control (RBAC)</li><ul>
+<li>Department-based user organization</li>
+</ul><li>OTP-based verification</li><ul>
+<li>Session management</li>
+</ul>
+<h3>2. Lead Management System</h3><ul>
+<li>Lead capture and tracking</li>
+</ul><li>Status and priority management</li><ul>
+<li>Assignment to team members</li>
+</ul><li>Follow-up scheduling</li><ul>
+<li>Department-based lead distribution</li>
+</ul>
+<h3>3. Employee Management</h3><ul>
+<li>Employee profiles and records</li>
+</ul><li>Department assignments</li><ul>
+<li>Manager-subordinate relationships</li>
+</ul><li>Shift management</li><ul>
+<li>Attendance tracking</li>
+</ul>
+<h3>4. Attendance System</h3><ul>
+<li>Check-in/Check-out functionality</li>
+</ul><li>Shift-based attendance</li><ul>
+<li>Late arrival tracking</li>
+</ul><li>Attendance reports and analytics</li></p><h3>5. Leave Management</h3><ul>
+<li>Leave request submission</li>
+</ul><li>Multi-level approval workflow</li><ul>
+<li>Leave type management</li>
+</ul><li>Leave balance tracking</li><ul>
+<li>Department-wise leave policies</li>
+</ul>
+<h3>6. Invoice Management</h3><ul>
+<li>Invoice creation and management</li>
+</ul><li>Installment support</li><ul>
+<li>PDF generation</li>
+</ul><li>Email delivery</li><ul>
+<li>Payment tracking</li>
+</ul>
+<h3>7. Quotation System</h3><ul>
+<li>Quotation creation</li>
+</ul><li>Service management</li><ul>
+<li>Customer approval workflow</li>
+</ul><li>Email notifications</li></p><h3>8. Notification System</h3><ul>
+<li>Real-time notifications</li>
+</ul><li>Email notifications</li><ul>
+<li>Lead reaction notifications</li>
+</ul><li>Activity logging</li></p><h3>9. WhatsApp-Style UI</h3><ul>
+<li>Modern, responsive interface</li>
+</ul><li>Chat-style detail views</li><ul>
+<li>Dark/Light theme support</li>
+</ul><li>Mobile-responsive design</li><ul>
+<li>Collapsible sidebar navigation</li>
+</ul>
+<h2>User Roles & Permissions</h2><h3>Role Hierarchy</h3>
+<li><strong>Super Admin (Role 1)</strong></li>
+   - Full system access
+   - User and department management
+   - System configuration</p><p><li><strong>General Manager (Role 5)</strong></li>
+   - Multi-department oversight
+   - High-level approvals
+   - Report access</p><p><li><strong>Manager (Role 4)</strong></li>
+   - Department management
+   - Team supervision
+   - Leave approvals</p><p><li><strong>Employee (Role 2)</strong></li>
+   - Basic system access
+   - Lead management
+   - Personal dashboard</p><p><li><strong>Customer (Role 3)</strong></li>
+   - Customer portal access
+   - Quotation viewing
+   - Invoice access</p><h3>Department Structure</h3><ul>
+<li>Hierarchical department organization</li>
+</ul><li>Department-based data filtering</li><ul>
+<li>Manager assignments</li>
+</ul><li>Cross-department collaboration</li></p><h2>Database Design Principles</h2><h3>Key Relationships</h3><ul>
+<li>Users belong to Departments</li>
+</ul><li>Users can manage other Users (Manager-Subordinate)</li><ul>
+<li>Leads are assigned to Users and Departments</li>
+</ul><li>Invoices belong to Customers</li><ul>
+<li>Quotations can have multiple Services</li>
+</ul><li>Activity Logs track all system changes</li></p><h3>Data Integrity</h3><ul>
+<li>Foreign key constraints</li>
+</ul><li>Cascade delete operations</li><ul>
+<li>Soft deletes for critical data</li>
+</ul><li>Audit trails through activity logs</li></p><h2>Security Features</h2><h3>Authentication & Authorization</h3><ul>
+<li>Laravel Sanctum for API authentication</li>
+</ul><li>Role-based middleware</li><ul>
+<li>CSRF protection</li>
+</ul><li>Input validation and sanitization</li></p><h3>Data Protection</h3><ul>
+<li>Password hashing</li>
+</ul><li>OTP verification</li><ul>
+<li>Session management</li>
+</ul><li>Secure file uploads</li></p><h2>Performance Optimizations</h2><h3>Database Optimization</h3><ul>
+<li>Indexed columns for frequent queries</li>
+</ul><li>Eager loading for relationships</li><ul>
+<li>Query optimization</li>
+</ul><li>Database connection pooling</li></p><h3>Frontend Optimization</h3><ul>
+<li>Lazy loading for large datasets</li>
+</ul><li>CSS/JS minification</li><ul>
+<li>Image optimization</li>
+</ul><li>Caching strategies</li></p><h2>Integration Capabilities</h2><h3>External Integrations</h3><ul>
+<li>Email services (SMTP)</li>
+</ul><li>Payment gateways (extendable)</li><ul>
+<li>Third-party APIs</li>
+</ul><li>File storage systems</li></p><h3>API Support</h3><ul>
+<li>RESTful API endpoints</li>
+</ul><li>API authentication</li><ul>
+<li>Rate limiting</li>
+</ul><li>Response formatting</li></p><h2>Development Standards</h2><h3>Code Quality</h3><ul>
+<li>PSR-4 autoloading</li>
+</ul><li>Object-oriented programming</li><ul>
+<li>Design patterns implementation</li>
+</ul><li>Code documentation</li></p><h3>Testing</h3><ul>
+<li>Unit tests with PHPUnit</li>
+</ul><li>Feature testing</li><ul>
+<li>Browser testing</li>
+</ul><li>API testing</li></p><h2>Deployment Architecture</h2><h3>Environment Support</h3><ul>
+<li>Development environment</li>
+</ul><li>Staging environment</li><ul>
+<li>Production environment</li>
+</ul><li>Docker containerization support</li></p><h3>Monitoring & Logging</h3><ul>
+<li>Laravel logging system</li>
+</ul><li>Error tracking</li><ul>
+<li>Performance monitoring</li>
+</ul><li>Activity audit trails</li></p><h2>Scalability Considerations</h2><h3>Horizontal Scaling</h3><ul>
+<li>Load balancing support</li>
+</ul><li>Database replication</li><ul>
+<li>File storage separation</li>
+</ul><li>Caching layers</li></p><h3>Vertical Scaling</h3><ul>
+<li>Resource optimization</li>
+</ul><li>Memory management</li><ul>
+<li>CPU utilization</li>
+</ul><li>Storage optimization</li></p><h2>Maintenance & Support</h2><h3>Backup Strategies</h3><ul>
+<li>Database backups</li>
+</ul><li>File system backups</li><ul>
+<li>Configuration backups</li>
+</ul><li>Disaster recovery planning</li></p><h3>Update Management</h3><ul>
+<li>Version control</li>
+</ul><li>Migration management</li><ul>
+<li>Dependency updates</li>
+</ul><li>Security patches</li></p><p>---</p><h2>System Requirements</h2><h3>Minimum Requirements</h3><ul>
+<li>PHP 8.0+</li>
+</ul><li>MySQL 5.7+ / MariaDB 10.3+</li><ul>
+<li>Web Server (Apache/Nginx)</li>
+</ul><li>2GB RAM</li><ul>
+<li>10GB Storage</li>
+</ul>
+<h3>Recommended Requirements</h3><ul>
+<li>PHP 8.1+</li>
+</ul><li>MySQL 8.0+ / MariaDB 10.6+</li><ul>
+<li>SSD Storage</li>
+</ul><li>4GB+ RAM</li><ul>
+<li>Dedicated server</li>
+</ul>
+---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Framework</strong>: Laravel 9.x  
+<strong>License</strong>: Proprietary (Niranjan Enterprises)
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

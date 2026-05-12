@@ -1,0 +1,50 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Sync Button Test</title>
+        <meta name="csrf-token" content="">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h2>Testing Sync Button</h2>
+        <button id="syncBtn" onclick="testSync()">Test Sync Button</button>
+        <div id="result"></div>
+        
+        <script>
+        function testSync() {
+            const btn = document.getElementById("syncBtn");
+            const result = document.getElementById("result");
+            
+            btn.innerHTML = "Syncing...";
+            btn.disabled = true;
+            
+            fetch("https://nircrm.talktonitesh.com/googlesheet/sync", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                result.innerHTML = "<h3>Result:</h3><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                
+                if (data.success) {
+                    result.innerHTML += "<p style='color: green;'>✅ Sync successful!</p>";
+                } else {
+                    result.innerHTML += "<p style='color: red;'>❌ Sync failed!</p>";
+                }
+            })
+            .catch(error => {
+                result.innerHTML = "<p style='color: red;'>❌ Error: " + error + "</p>";
+            })
+            .finally(() => {
+                btn.innerHTML = "Test Sync Button";
+                btn.disabled = false;
+            });
+        }
+        </script>
+    </body>
+    </html>

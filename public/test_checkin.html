@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check-In Test</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+<body>
+    <h1>Attendance Check-In Test</h1>
+    <button id="testCheckIn">Test Check-In</button>
+    <div id="result"></div>
+
+    <script>
+    $(document).ready(function() {
+        $('#testCheckIn').click(function() {
+            var btn = $(this);
+            btn.prop('disabled', true).text('Testing...');
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.post('/attendance/check-in', {location: 'Office'})
+                .done(function(response) {
+                    $('#result').html('<div style="color: green;">Success: ' + JSON.stringify(response, null, 2) + '</div>');
+                    btn.prop('disabled', false).text('Test Check-In');
+                })
+                .fail(function(xhr) {
+                    $('#result').html('<div style="color: red;">Error: ' + xhr.status + ' - ' + xhr.responseText + '</div>');
+                    btn.prop('disabled', false).text('Test Check-In');
+                });
+        });
+    });
+    </script>
+</body>
+</html>

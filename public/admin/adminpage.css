@@ -1,0 +1,131 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #6190E8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #A7BFE8, #6190E8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: sans-serif;
+}
+.login{
+    padding: 10px 0;
+}
+.header {
+    text-align:center;
+    margin-top:30px;
+}
+.header h1{
+    text-align:center;
+    margin-top:30px;
+    
+    background-color: #181D31;
+    margin:20px ;
+  font-weight:600;
+  color:white;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    padding:20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+    
+}
+.container{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-around;
+    align-items: center;
+    height:auto;
+    margin-top:40px;
+}
+.clientdata{
+    background-color: #181D31;
+    margin:20px  ;
+    width: 25%;
+  transition:all ease-in-out 0.3s;
+    height:auto;
+    border-radius: 5px;
+    padding:20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+/* Pagination Styles */
+.pagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    background-color: #fff;
+    transition: all 0.15s ease-in-out;
+}
+
+.pagination .page-link:hover {
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+    pointer-events: none;
+}
+
+/* Ensure pagination container doesn't overflow */
+.d-flex.justify-content-center {
+    width: 100%;
+    overflow: hidden;
+}
+.details p{
+    font-size: 14px;
+    font-family: sans-serif;
+    color:white;
+    margin:5px;
+}   
+.urlbutton{
+    text-align: center;
+    font-size: 14px;
+    padding:8px 5px;
+    background-color:#7CA2E8;
+    color:rgb(0, 0, 0);
+    text-decoration: none;
+    margin:10px  10px ;
+    border-radius: 2px;
+    transition:all ease 0.2;
+}
+.urlbutton:hover{
+    color:black;
+    background-color:white;
+
+
+}
+.details{
+    margin-bottom: 25px;
+}
+.clientdata:hover{
+transform:scale(1.1);
+}

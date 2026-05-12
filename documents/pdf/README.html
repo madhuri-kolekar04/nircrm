@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - README</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>README</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM Documentation</h1><p>This folder contains comprehensive documentation for the NIRCRM (Niranjan Enterprises Customer Relationship Management) system.</p><h2>Document Structure</h2><h3>📋 Core Documentation Files</h3><p><li><strong><a href="./00-Documentation-Index.md" target="_blank">00-Documentation-Index.md</a></strong></li>
+   - Complete documentation index and overview
+   - Quick reference guide
+   - Navigation help</p><p><li><strong><a href="./01-Technical-Overview.md" target="_blank">01-Technical-Overview.md</a></strong></li>
+   - System architecture and technologies
+   - Core features and capabilities
+   - Security and performance considerations</p><p><li><strong><a href="./02-Models-Database-Schema.md" target="_blank">02-Models-Database-Schema.md</a></strong></li>
+   - Complete database structure
+   - Model relationships and documentation
+   - Migration files and constraints</p><p><li><strong><a href="./03-Controllers-API-Documentation.md" target="_blank">03-Controllers-API-Documentation.md</a></strong></li>
+   - API endpoints and controllers
+   - Request/response formats
+   - Authentication and authorization</p><p><li><strong><a href="./04-UI-UX-Design-System.md" target="_blank">04-UI-UX-Design-System.md</a></strong></li>
+   - WhatsApp-inspired design system
+   - Component library and patterns
+   - Accessibility guidelines</p><p><li><strong><a href="./05-User-Manual-Roles.md" target="_blank">05-User-Manual-Roles.md</a></strong></li>
+   - Role-based user guides
+   - Daily workflows and procedures
+   - Troubleshooting and support</p><p><li><strong><a href="./06-Installation-Deployment-Guide.md" target="_blank">06-Installation-Deployment-Guide.md</a></strong></li>
+   - Complete setup instructions
+   - Production deployment guide
+   - Maintenance and backup procedures</p><h3>🔧 Utility Files</h3><p><li><strong><a href="./generate-pdf.php" target="_blank">generate-pdf.php</a></strong></li>
+   - PDF generation script
+   - Combines all documentation into single PDF
+   - Requires mPDF library</p><h2>Quick Start</h2><h3>For Developers</h3>
+<li>Read the <a href="./01-Technical-Overview.md" target="_blank">Technical Overview</a></li>
+<li>Study the <a href="./02-Models-Database-Schema.md" target="_blank">Database Schema</a></li>
+<li>Review the <a href="./03-Controllers-API-Documentation.md" target="_blank">API Documentation</a></li>
+<li>Use the <a href="./06-Installation-Deployment-Guide.md" target="_blank">Installation Guide</a> for setup</li></p><h3>For System Administrators</h3>
+<li>Review the <a href="./01-Technical-Overview.md" target="_blank">Technical Overview</a></li>
+<li>Follow the <a href="./06-Installation-Deployment-Guide.md" target="_blank">Installation Guide</a></li>
+<li>Reference the <a href="./05-User-Manual-Roles.md" target="_blank">User Manual</a> for user support</li></p><h3>For End Users</h3>
+<li>Read the <a href="./05-User-Manual-Roles.md" target="_blank">User Manual</a></li>
+<li>Find your specific role section</li>
+<li>Follow the daily workflow guides</li></p><h3>For Designers</h3>
+<li>Study the <a href="./04-UI-UX-Design-System.md" target="_blank">UI/UX Design System</a></li>
+<li>Review component library</li>
+<li>Understand responsive patterns</li></p><h2>PDF Generation</h2><p>To generate a single PDF document containing all documentation:</p><p><li>Install mPDF library:</li>
+   <pre><code>bash
+   composer require mpdf/mpdf
+   </code></pre><p><li>Run the PDF generation script:</li>
+   <pre><code>bash
+   php generate-pdf.php
+   </code></pre><p><li>The PDF will be saved as <code>NIRCRM-Complete-Documentation.pdf</code></li></p><h2>System Requirements</h2><h3>Minimum Requirements</h3><ul>
+<li>PHP 8.0.2+</li>
+</ul><li>MySQL 5.7+ / MariaDB 10.3+</li><ul>
+<li>Apache 2.4+ / Nginx 1.18+</li>
+</ul><li>4GB RAM</li><ul>
+<li>20GB Storage</li>
+</ul>
+<h3>Recommended Requirements</h3><ul>
+<li>PHP 8.1+</li>
+</ul><li>MySQL 8.0+ / MariaDB 10.6+</li><ul>
+<li>Nginx 1.20+ with PHP-FPM</li>
+</ul><li>8GB+ RAM</li><ul>
+<li>50GB SSD Storage</li>
+</ul>
+<h2>Key Features</h2>
+<ul>
+<li>✅ Multi-role user management</li>
+</ul><li>✅ Department-based organization</li><ul>
+<li>✅ Lead management and tracking</li>
+</ul><li>✅ Attendance and leave management</li><ul>
+<li>✅ Invoice and quotation system</li>
+</ul><li>✅ Real-time notifications</li><ul>
+<li>✅ WhatsApp-style UI/UX</li>
+</ul><li>✅ Mobile-responsive design</li><ul>
+<li>✅ API endpoints for integration</li>
+</ul>
+<h2>User Roles</h2><p><li><strong>Super Admin</strong> - Full system access</li>
+<li><strong>General Manager</strong> - Multi-department oversight</li>
+<li><strong>Manager</strong> - Department and team management</li>
+<li><strong>Employee</strong> - Basic system access</li>
+<li><strong>Customer</strong> - Limited portal access</li></p><h2>Support</h2><p>For technical support or questions about the documentation:</p><p><li>Check the troubleshooting sections in relevant documents</li>
+<li>Contact your system administrator</li>
+<li>Reach out to the development team</li></p><h2>Version Information</h2>
+<ul>
+<li><strong>Documentation Version</strong>: 1.0.0</li>
+</ul><li><strong>Last Updated</strong>: February 2026</li><ul>
+<li><strong>System Version</strong>: NIRCRM v1.0.0</li>
+</ul><li><strong>Framework</strong>: Laravel 9.x</li></p><h2>Contributing</h2><p>When contributing to documentation:</p><p><li>Follow the established format and style</li>
+<li>Test code examples and procedures</li>
+<li>Update version numbers and dates</li>
+<li>Regenerate PDF documentation if needed</li></p><h2>File Formats</h2><p>This documentation is available in:<ul>
+<li><strong>Markdown</strong> (.md) - Source format</li>
+</ul><li><strong>PDF</strong> - Combined printable document</li><ul>
+<li><strong>HTML</strong> - Web-based format (when generated)</li>
+</ul>
+---</p><p><strong>NIRCRM Documentation Suite</strong>  
+<em>Niranjan Enterprises Customer Relationship Management</em>  
+<table>
+<tr><th><em>Version 1.0.0</th><th>February 2026</em></th></tr>
+</table>
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

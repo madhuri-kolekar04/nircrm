@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-button {
+            margin: 10px 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 Modal Function Test</h1>
+        <button class="test-button" onclick="testModalFunction()">
+            <i class="fas fa-play"></i> Test openMeetingModal Function
+        </button>
+        
+        <button class="test-button" onclick="testModalElement()">
+            <i class="fas fa-search"></i> Test Modal Element
+        </button>
+        
+        <div id="debugInfo" class="debug-info">
+            <strong>Click test buttons to check modal functionality...</strong>
+        </div>
+        
+        <div id="statusInfo"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="meetingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="meetingModalLabel">
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Schedule Meeting & Call Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This is a test modal to verify functionality.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Test if openMeetingModal function exists
+        function testModalFunction() {
+            const debugInfo = document.getElementById("debugInfo");
+            const statusInfo = document.getElementById("statusInfo");
+            
+            if (typeof openMeetingModal === "undefined") {
+                debugInfo.innerHTML = "❌ openMeetingModal function is NOT defined!";
+                statusInfo.innerHTML = '<div class="status error">Function Missing</div>';
+                statusInfo.className = "status error";
+                return;
+            }
+            
+            if (typeof openMeetingModal === "function") {
+                debugInfo.innerHTML = "✅ openMeetingModal function is defined!";
+                statusInfo.innerHTML = '<div class="status success">Function OK</div>';
+                statusInfo.className = "status success";
+                
+                // Test calling the function
+                try {
+                    openMeetingModal("Test User", "test@example.com", "1234567890", "Test Business", "Test Employee");
+                    debugInfo.innerHTML += "<br><br>✅ Function called successfully!";
+                    
+                    setTimeout(() => {
+                        const modal = document.getElementById("meetingModal");
+                        if (modal && modal.classList.contains("show")) {
+                            debugInfo.innerHTML += "<br><br>🎉 Modal opened successfully!";
+                            statusInfo.innerHTML = '<div class="status success">Modal Working!</div>';
+                            statusInfo.className = "status success";
+                        } else {
+                            debugInfo.innerHTML += "<br><br>❌ Modal failed to open!";
+                            statusInfo.innerHTML = '<div class="status error">Modal Failed</div>';
+                            statusInfo.className = "status error";
+                        }
+                    }, 1000);
+                } catch (error) {
+                    debugInfo.innerHTML += "<br><br>❌ Error calling function: " + error.message;
+                    statusInfo.innerHTML = '<div class="status error">Function Error</div>';
+                    statusInfo.className = "status error";
+                }
+            } catch (e) {
+                debugInfo.innerHTML += "<br><br>❌ Unexpected error: " + e.message;
+                statusInfo.innerHTML = '<div class="status error">Unexpected Error</div>';
+                statusInfo.className = "status error";
+            }
+        }
+        
+        // Test if modal element exists
+        function testModalElement() {
+            const debugInfo = document.getElementById("debugInfo");
+            const statusInfo = document.getElementById("statusInfo");
+            
+            const modal = document.getElementById("meetingModal");
+            if (!modal) {
+                debugInfo.innerHTML = "❌ Modal element NOT found!";
+                statusInfo.innerHTML = '<div class="status error">Modal Element Missing</div>';
+                statusInfo.className = "status error";
+                return;
+            }
+            
+            debugInfo.innerHTML = "✅ Modal element found!";
+            statusInfo.innerHTML = '<div class="status success">Modal Element OK</div>';
+            statusInfo.className = "status success";
+            
+            // Test manual modal opening
+            try {
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+                
+                setTimeout(() => {
+                    if (modal.classList.contains("show")) {
+                        debugInfo.innerHTML += "<br><br>🎉 Modal opened manually!";
+                        statusInfo.innerHTML = '<div class="status success">Manual Modal Working!</div>';
+                        statusInfo.className = "status success";
+                    } else {
+                        debugInfo.innerHTML += "<br><br>❌ Manual modal failed to open!";
+                        statusInfo.innerHTML = '<div class="status error">Manual Modal Failed</div>';
+                        statusInfo.className = "status error";
+                    }
+                }, 1000);
+            } catch (error) {
+                debugInfo.innerHTML += "<br><br>❌ Error opening modal manually: " + error.message;
+                statusInfo.innerHTML = '<div class="status error">Manual Modal Error</div>';
+                statusInfo.className = "status error";
+            }
+        }
+    </script>
+</body>
+</html>

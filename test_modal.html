@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meeting Modal Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Meeting Modal Test</h2>
+        <button type="button" class="btn btn-primary" onclick="openMeetingModal('Test User', 'test@example.com', '1234567890', 'Test Business', 'Test Employee')">
+            <i class="fas fa-calendar"></i> Open Meeting Modal
+        </button>
+    </div>
+
+    <!-- Meeting Modal -->
+    <div class="modal fade" id="meetingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule Meeting & Call Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="meetingForm">
+                        <input type="hidden" id="leadFullName" name="lead_full_name">
+                        <input type="hidden" id="leadBusinessName" name="lead_business_name">
+                        <input type="hidden" id="leadEmail" name="lead_email">
+                        <input type="hidden" id="leadWhatsapp" name="lead_whatsapp">
+                        <input type="hidden" id="leadWebsiteUrl" name="lead_website_url">
+                        
+                        <div class="mb-3">
+                            <label for="calledByEmployee" class="form-label">Employee</label>
+                            <select class="form-select" id="calledByEmployee" name="called_by_employee">
+                                <option value="">Select Employee...</option>
+                                <option value="Test Employee|test@emp.com">Test Employee</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <div class="star-rating" id="starRating">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="rating" name="rating" value="0">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="meetingConclusion" class="form-label">Meeting Conclusion</label>
+                            <textarea class="form-control" id="meetingConclusion" name="meeting_conclusion" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="clearMeetingForm()">Clear</button>
+                    <button type="button" class="btn btn-primary" onclick="saveCallDetails()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openMeetingModal(fullName, email, whatsapp, businessName, whoCalled) {
+            console.log("Opening modal with data:", {fullName, email, whatsapp, businessName, whoCalled});
+            
+            // Set lead information
+            document.getElementById("leadFullName").value = fullName || "";
+            document.getElementById("leadBusinessName").value = businessName || "";
+            document.getElementById("leadEmail").value = email || "";
+            document.getElementById("leadWhatsapp").value = whatsapp || "";
+            document.getElementById("leadWebsiteUrl").value = "";
+            
+            // Clear form
+            clearMeetingForm();
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById("meetingModal"));
+            modal.show();
+        }
+        
+        function clearMeetingForm() {
+            console.log("Clearing form");
+            document.getElementById("meetingForm").reset();
+            document.getElementById("rating").value = "0";
+            updateStarRating(0);
+        }
+        
+        function saveCallDetails() {
+            console.log("Saving call details");
+            alert("Save function called successfully!");
+        }
+        
+        // Star rating
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll("#starRating i");
+            stars.forEach(star => {
+                star.addEventListener("click", function() {
+                    const rating = parseInt(this.dataset.rating);
+                    document.getElementById("rating").value = rating;
+                    updateStarRating(rating);
+                });
+            });
+        });
+        
+        function updateStarRating(rating) {
+            const stars = document.querySelectorAll("#starRating i");
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove("far");
+                    star.classList.add("fas");
+                } else {
+                    star.classList.remove("fas");
+                    star.classList.add("far");
+                }
+            });
+        }
+    </script>
+</body>
+</html>

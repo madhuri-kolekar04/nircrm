@@ -1,0 +1,19 @@
+<!-- Simple Auto Refresh Script -->
+<script>
+// Guaranteed automatic refresh - this will run after everything else
+window.addEventListener('load', function() {
+    console.log('🔄 Page fully loaded - setting up guaranteed auto refresh');
+    setTimeout(function() {
+        console.log('⚡ GUARANTEED AUTO REFRESH TRIGGERED');
+        // Try to find and click the refresh button
+        var buttons = document.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+            if (buttons[i].innerHTML.includes('Refresh All')) {
+                console.log('🎯 Found Refresh All button - clicking it');
+                buttons[i].click();
+                break;
+            }
+        }
+    }, 2000);
+});
+</script>

@@ -1,0 +1,7 @@
+# Add these lines to your .env file:
+
+# Google Sheets Configuration
+GOOGLE_SHEETS_SPREADSHEET_ID=1o0fn4TiF45i5I1SJrYawpT6JmShBbVYlBXRR9AUMHKg
+GOOGLE_SHEETS_API_KEY=YOUR_ACTUAL_API_KEY_HERE
+
+# Replace YOUR_ACTUAL_API_KEY_HERE with the key you got from Google Cloud Console

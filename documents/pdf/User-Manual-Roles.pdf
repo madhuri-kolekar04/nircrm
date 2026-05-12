@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3067 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(User-Manual-Roles) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - User Manual for Different Roles) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Table of Contents) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(• System Overview) Tj
+0 -12 Td
+72 652 Td
+(• Getting Started) Tj
+0 -12 Td
+72 640 Td
+(• Super Admin Guide) Tj
+0 -12 Td
+72 628 Td
+(• General Manager Guide) Tj
+0 -12 Td
+72 616 Td
+(• Manager Guide) Tj
+0 -12 Td
+72 604 Td
+(• Employee Guide) Tj
+0 -12 Td
+72 592 Td
+(• Customer Guide) Tj
+0 -12 Td
+72 580 Td
+(• Common Features) Tj
+0 -12 Td
+72 568 Td
+(• Troubleshooting) Tj
+0 -12 Td
+72 556 Td
+() Tj
+0 -12 Td
+72 544 Td
+(• --) Tj
+0 -12 Td
+72 532 Td
+() Tj
+0 -12 Td
+72 520 Td
+(System Overview) Tj
+0 -12 Td
+72 508 Td
+() Tj
+0 -12 Td
+72 496 Td
+(NIRCRM is a comprehensive Customer Relationship Management system designed to) Tj
+0 -12 Td
+72 484 Td
+(streamline business operations, manage customer relationships, track leads,) Tj
+0 -12 Td
+72 472 Td
+(handle employee management, and automate various business processes.) Tj
+0 -12 Td
+72 460 Td
+() Tj
+0 -12 Td
+72 448 Td
+(Key Features) Tj
+0 -12 Td
+72 436 Td
+(• Lead Management: Track and convert leads into customers) Tj
+0 -12 Td
+72 424 Td
+(• Employee Management: Complete HR and attendance system) Tj
+0 -12 Td
+72 412 Td
+(• Invoice Management: Professional invoicing with PDF generation) Tj
+0 -12 Td
+72 400 Td
+(• WhatsApp-Style Interface: Familiar and intuitive user experience) Tj
+0 -12 Td
+72 388 Td
+(• Role-Based Access: Different features for different user roles) Tj
+0 -12 Td
+72 376 Td
+(• Real-Time Notifications: Stay updated with important events) Tj
+0 -12 Td
+72 364 Td
+(• Multi-Department Support: Organize teams by departments) Tj
+0 -12 Td
+72 352 Td
+(• Attendance Tracking: Check-in/check-out with shift management) Tj
+0 -12 Td
+72 340 Td
+(• Leave Management: Request and approve leave applications) Tj
+0 -12 Td
+72 328 Td
+(• Reporting & Analytics: Comprehensive business insights) Tj
+0 -12 Td
+72 316 Td
+() Tj
+0 -12 Td
+72 304 Td
+(• --) Tj
+0 -12 Td
+72 292 Td
+() Tj
+0 -12 Td
+72 280 Td
+(Getting Started) Tj
+0 -12 Td
+72 268 Td
+() Tj
+0 -12 Td
+72 256 Td
+(First-Time Login) Tj
+0 -12 Td
+72 244 Td
+() Tj
+0 -12 Td
+72 232 Td
+(• Access the System) Tj
+0 -12 Td
+72 220 Td
+(- Open your web browser) Tj
+0 -12 Td
+72 208 Td
+(- Navigate to your company's CRM URL) Tj
+0 -12 Td
+72 196 Td
+(- Enter your credentials provided by your administrator) Tj
+0 -12 Td
+72 184 Td
+() Tj
+0 -12 Td
+72 172 Td
+(• Initial Setup) Tj
+0 -12 Td
+72 160 Td
+(- Update your profile information) Tj
+0 -12 Td
+72 148 Td
+(- Set a strong password) Tj
+0 -12 Td
+72 136 Td
+(- Upload a profile photo \(optional\)) Tj
+0 -12 Td
+72 124 Td
+(- Configure notification preferences) Tj
+0 -12 Td
+72 112 Td
+() Tj
+0 -12 Td
+72 100 Td
+(• Navigation Basics) Tj
+0 -12 Td
+72 88 Td
+(- Sidebar: Main navigation menu \(collapsible\)) Tj
+0 -12 Td
+72 76 Td
+(- Dashboard: Your personalized home screen) Tj
+0 -12 Td
+72 64 Td
+(- Search: Quick access to records) Tj
+0 -12 Td
+72 52 Td
+(- Notifications: Stay informed about updates) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3430
+%%EOF

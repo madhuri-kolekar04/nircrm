@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - Models-Database-Schema</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>Models-Database-Schema</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - Models & Database Schema Documentation</h1><h2>Database Overview</h2><p>The NIRCRM system uses MySQL/MariaDB as its database backend, following Laravel's Eloquent ORM conventions. The database consists of over 40 tables managing users, leads, departments, invoices, attendance, leaves, and more.</p><h2>Core Models & Relationships</h2><h3>1. User Model (<code>users</code> table)</h3><p><strong>Purpose</strong>: Central user management and authentication</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>name</code>, <code>last_name</code> - User's full name</li><ul>
+<li><code>email</code> - Login email (unique)</li>
+</ul><li><code>password</code> - Hashed password</li><ul>
+<li><code>role</code> - User role (1=Admin, 2=Employee, 3=Customer, 4=Manager, 5=General Manager)</li>
+</ul><li><code>department_id</code> - Foreign key to departments</li><ul>
+<li><code>manager_id</code> - Self-referencing key for manager-subordinate relationship</li>
+</ul><li><code>employeeID</code> - Employee identification number</li><ul>
+<li><code>contact_number</code>, <code>phone</code> - Contact information</li>
+</ul><li><code>position</code>, <code>designation</code> - Job title and position</li><ul>
+<li><code>salary</code> - Employee salary</li>
+</ul><li><code>joining_date</code> - Employment start date</li><ul>
+<li><code>is_active</code> - Account status</li>
+</ul><li><code>shift_id</code> - Work shift assignment</li></p><p><strong>Relationships</strong>:<ul>
+<li><code>department()</code> - BelongsTo Department</li>
+</ul><li><code>manager()</code> - BelongsTo User (self-reference)</li><ul>
+<li><code>subordinates()</code> - HasMany User (self-reference)</li>
+</ul><li><code>attendances()</code> - HasMany Attendance</li><ul>
+<li><code>leaves()</code> - HasMany Leave</li>
+</ul><li><code>shift()</code> - BelongsTo Shift</li></p><p><strong>Key Methods</strong>:<ul>
+<li><code>isCheckedIn()</code> - Check if user is currently checked in</li>
+</ul><li><code>canApproveLeave()</code> - Check leave approval permissions</li><ul>
+<li><code>getSubordinatesIds()</code> - Get IDs of all subordinates</li>
+</ul><li><code>getDepartmentUsersIds()</code> - Get IDs of department colleagues</li></p><p>---</p><h3>2. Department Model (<code>departments</code> table)</h3><p><strong>Purpose</strong>: Organizational structure management</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>name</code> - Department name</li><ul>
+<li><code>description</code> - Department description</li>
+</ul><li><code>parent_id</code> - Self-referencing for hierarchical structure</li><ul>
+<li><code>is_active</code> - Department status</li>
+</ul><li><code>department_code</code> - Unique department identifier</li></p><p><strong>Relationships</strong>:<ul>
+<li><code>parent()</code> - BelongsTo Department (self-reference)</li>
+</ul><li><code>children()</code> - HasMany Department (self-reference)</li><ul>
+<li><code>users()</code> - HasMany User</li>
+</ul><li><code>departmentMenus()</code> - HasMany DepartmentMenu</li></p><p><strong>Key Methods</strong>:<ul>
+<li><code>getFullPathAttribute()</code> - Get full hierarchical path</li>
+</ul><li><code>getAllDescendants()</code> - Get all child departments recursively</li></p><p>---</p><h3>3. Lead Model (<code>leads</code> table)</h3><p><strong>Purpose</strong>: Customer lead management and tracking</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>name</code> - Lead contact name</li><ul>
+<li><code>email</code>, <code>phone</code> - Contact information</li>
+</ul><li><code>company_name</code> - Lead's company</li><ul>
+<li><code>website</code> - Company website</li>
+</ul><li><code>address</code>, <code>city</code>, <code>state</code>, <code>country</code>, <code>pincode</code> - Address details</li><ul>
+<li><code>industry</code> - Industry type</li>
+</ul><li><code>lead_status</code> - Current status (hot, cold, warm, qualified, lost)</li><ul>
+<li><code>source</code> - Lead source (website, referral, social_media, etc.)</li>
+</ul><li><code>budget</code> - Project budget</li><ul>
+<li><code>assigned_to</code> - Assigned user ID</li>
+</ul><li><code>follow_up_date</code> - Scheduled follow-up</li><ul>
+<li><code>priority</code> - Priority level (high, medium, low)</li>
+</ul><li><code>department_id</code> - Department assignment</li><ul>
+<li><code>created_by</code> - User who created the lead</li>
+</ul>
+<strong>Relationships</strong>:<ul>
+<li><code>creator()</code> - BelongsTo User</li>
+</ul><li><code>assignedUser()</code> - BelongsTo User</li><ul>
+<li><code>department()</code> - BelongsTo Department</li>
+</ul>
+<strong>Key Methods</strong>:<ul>
+<li><code>getLeadStatuses()</code> - Get available lead statuses</li>
+</ul><li><code>getSources()</code> - Get lead source options</li><ul>
+<li><code>getPriorities()</code> - Get priority options</li>
+</ul><li><code>getStatusColor()</code> - Get UI color for status</li></p><p>---</p><h3>4. Invoice Model (<code>invoices</code> table)</h3><p><strong>Purpose</strong>: Invoice and billing management</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>project_name</code> - Project title</li><ul>
+<li><code>project_topic</code> - Project description</li>
+</ul><li><code>project_full_details</code> - Detailed project information</li><ul>
+<li><code>start_date</code>, <code>end_date</code> - Project timeline</li>
+</ul><li><code>customer_name</code>, <code>customer_email</code>, <code>customer_phone</code> - Customer details</li><ul>
+<li><code>customer_address</code> - Customer address</li>
+</ul><li><code>advance_payment</code> - Amount paid in advance</li><ul>
+<li><code>remaining_payment</code> - Balance amount</li>
+</ul><li><code>gst</code> - GST amount</li><ul>
+<li><code>total_payment</code> - Total invoice amount</li>
+</ul><li><code>invoice_number</code> - Unique invoice identifier</li><ul>
+<li><code>invoice_date</code> - Invoice creation date</li>
+</ul><li><code>status</code> - Invoice status</li><ul>
+<li><code>installments</code> - JSON array of installment details</li>
+</ul><li><code>bank_account_number</code>, <code>ifsc_code</code> - Banking details</li><ul>
+<li><code>gst_number</code> - GST identification</li>
+</ul><li><code>place_of_supply</code> - GST place of supply</li><ul>
+<li><code>hsn_code</code> - HSN/SAC code</li>
+</ul>
+<strong>Relationships</strong>:<ul>
+<li>Soft deletes enabled</li>
+</ul><li>No direct relationships (customer data stored in invoice)</li></p><p><strong>Key Methods</strong>:<ul>
+<li><code>generateInvoiceNumber()</code> - Generate unique invoice number</li>
+</ul><li><code>calculateTotalPayment()</code> - Calculate total with GST</li><ul>
+<li><code>formatCurrency()</code> - Format amounts as currency</li>
+</ul>
+---</p><h3>5. Attendance Model (<code>attendances</code> table)</h3><p><strong>Purpose</strong>: Employee attendance tracking</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>user_id</code> - Employee ID</li><ul>
+<li><code>date</code> - Attendance date</li>
+</ul><li><code>check_in_time</code> - Check-in timestamp</li><ul>
+<li><code>check_out_time</code> - Check-out timestamp</li>
+</ul><li><code>status</code> - Attendance status (present, absent, half_day, on_leave, holiday, weekend)</li><ul>
+<li><code>working_hours</code> - Total hours worked</li>
+</ul><li><code>overtime_hours</code> - Overtime hours</li><ul>
+<li><code>notes</code> - Additional notes</li>
+</ul><li><code>ip_address</code> - Check-in IP address</li><ul>
+<li><code>location</code> - Check-in location</li>
+</ul><li><code>is_late</code> - Late arrival flag</li><ul>
+<li><code>is_early_checkout</code> - Early checkout flag</li>
+</ul>
+<strong>Relationships</strong>:<ul>
+<li><code>user()</code> - BelongsTo User</li>
+</ul>
+<strong>Key Methods</strong>:<ul>
+<li><code>calculateWorkingHours()</code> - Calculate working and overtime hours</li>
+</ul><li><code>scopeByUser()</code> - Filter by user</li><ul>
+<li><code>scopeByDateRange()</code> - Filter by date range</li>
+</ul><li><code>scopeByStatus()</code> - Filter by status</li></p><p>---</p><h3>6. Leave Model (<code>leaves</code> table)</h3><p><strong>Purpose</strong>: Employee leave management</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>user_id</code> - Employee ID</li><ul>
+<li><code>leave_type_id</code> - Leave type reference</li>
+</ul><li><code>start_date</code>, <code>end_date</code> - Leave period</li><ul>
+<li><code>total_days</code> - Number of leave days</li>
+</ul><li><code>reason</code> - Leave reason</li><ul>
+<li><code>status</code> - Leave status (pending, approved, rejected, cancelled, on_hold)</li>
+</ul><li><code>approver_id</code> - Approving manager ID</li><ul>
+<li><code>approval_date</code> - Approval timestamp</li>
+</ul><li><code>approval_notes</code> - Approval comments</li><ul>
+<li><code>rejection_reason</code> - Rejection reason</li>
+</ul><li><code>attachments</code> - File attachments (JSON array)</li><ul>
+<li><code>is_half_day</code> - Half-day leave flag</li>
+</ul><li><code>is_full_day</code> - Full-day leave flag</li><ul>
+<li><code>half_day_type</code> - First/second half</li>
+</ul><li><code>emergency_contact</code> - Emergency contact details</li><ul>
+<li><code>is_paid_leave</code> - Paid leave status</li>
+</ul>
+<strong>Relationships</strong>:<ul>
+<li><code>user()</code> - BelongsTo User</li>
+</ul><li><code>leaveType()</code> - BelongsTo LeaveType</li><ul>
+<li><code>approver()</code> - BelongsTo User</li>
+</ul><li><code>approvals()</code> - HasMany LeaveApproval</li></p><p><strong>Key Methods</strong>:<ul>
+<li><code>getNextApprovalLevel()</code> - Determine next approval in hierarchy</li>
+</ul><li><code>getNextApprover()</code> - Get next approving authority</li><ul>
+<li><code>canBeApprovedBy()</code> - Check approval permissions</li>
+</ul><li><code>approve()</code> - Approve leave request</li><ul>
+<li><code>reject()</code> - Reject leave request</li>
+</ul>
+---</p><h3>7. LeaveType Model (<code>leave_types</code> table)</h3><p><strong>Purpose</strong>: Leave type definitions and policies</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>name</code> - Leave type name</li><ul>
+<li><code>description</code> - Leave type description</li>
+</ul><li><code>days_per_year</code> - Annual entitlement</li><ul>
+<li><code>is_paid</code> - Paid leave status</li>
+</ul><li><code>requires_approval</code> - Approval requirement</li><ul>
+<li><code>is_active</code> - Active status</li>
+</ul>
+---</p><h3>8. Shift Model (<code>shifts</code> table)</h3><p><strong>Purpose</strong>: Work shift management</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>name</code> - Shift name</li><ul>
+<li><code>start_time</code> - Shift start time</li>
+</ul><li><code>end_time</code> - Shift end time</li><ul>
+<li><code>break_duration</code> - Break duration in minutes</li>
+</ul><li><code>is_active</code> - Active status</li></p><p>---</p><h3>9. Quotation Model (<code>quotations</code> table)</h3><p><strong>Purpose</strong>: Project quotations management</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>project_name</code> - Project title</li><ul>
+<li><code>customer_name</code> - Customer details</li>
+</ul><li><code>customer_email</code> - Customer email</li><ul>
+<li><code>total_amount</code> - Quotation amount</li>
+</ul><li><code>status</code> - Quotation status</li><ul>
+<li><code>valid_until</code> - Validity period</li>
+</ul><li><code>notes</code> - Additional notes</li><ul>
+<li><code>approval_status</code> - Customer approval status</li>
+</ul><li><code>customer_panel</code> - Customer panel access</li><ul>
+<li><code>banking_details</code> - Banking information</li>
+</ul>
+---</p><h3>10. ActivityLog Model (<code>activity_logs</code> table)</h3><p><strong>Purpose</strong>: System activity audit trail</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>user_id</code> - User who performed action</li><ul>
+<li><code>action</code> - Action description</li>
+</ul><li><code>model_type</code> - Model type affected</li><ul>
+<li><code>model_id</code> - Model ID affected</li>
+</ul><li><code>old_values</code> - Previous values (JSON)</li><ul>
+<li><code>new_values</code> - New values (JSON)</li>
+</ul><li><code>ip_address</code> - User IP address</li><ul>
+<li><code>user_agent</code> - Browser information</li>
+</ul><li><code>read_at</code> - Read timestamp</li></p><p>---</p><h3>11. LeadReaction Model (<code>lead_reactions</code> table)</h3><p><strong>Purpose</strong>: Lead interaction tracking</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>lead_id</code> - Lead reference</li><ul>
+<li><code>user_id</code> - User who reacted</li>
+</ul><li><code>reaction_type</code> - Type of reaction</li><ul>
+<li><code>message</code> - Reaction message</li>
+</ul><li><code>email_sent</code> - Email notification status</li><ul>
+<li><code>notification_sent</code> - Notification status</li>
+</ul>
+---</p><h3>12. DepartmentMenu Model (<code>department_menus</code> table)</h3><p><strong>Purpose</strong>: Department-specific menu permissions</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>department_id</code> - Department reference</li><ul>
+<li><code>menu_name</code> - Menu identifier</li>
+</ul><li><code>is_active</code> - Menu status</li><ul>
+<li><code>order</code> - Display order</li>
+</ul>
+---</p><h3>13. MenuPermission Model (<code>menu_permissions</code> table)</h3><p><strong>Purpose</strong>: Role-based menu access control</p><p><strong>Key Fields</strong>:<ul>
+<li><code>id</code> - Primary key</li>
+</ul><li><code>role_id</code> - Role reference</li><ul>
+<li><code>menu_name</code> - Menu identifier</li>
+</ul><li><code>can_access</code> - Access permission</li><ul>
+<li><code>can_create</code> - Create permission</li>
+</ul><li><code>can_edit</code> - Edit permission</li><ul>
+<li><code>can_delete</code> - Delete permission</li>
+</ul>
+---</p><h2>Database Schema Relationships</h2><h3>Hierarchical Relationships</h3><pre><code>
+Users
+├── Department (Many-to-One)
+├── Manager (Self-reference, Many-to-One)
+├── Subordinates (Self-reference, One-to-Many)
+├── Attendances (One-to-Many)
+├── Leaves (One-to-Many)
+└── Shift (Many-to-One)</p><p>Departments
+├── Parent Department (Self-reference, Many-to-One)
+├── Child Departments (Self-reference, One-to-Many)
+└── Users (One-to-Many)</p><p>Leads
+├── Creator (User, Many-to-One)
+├── Assigned User (User, Many-to-One)
+└── Department (Many-to-One)</p><p>Leaves
+├── User (Many-to-One)
+├── Leave Type (Many-to-One)
+├── Approver (User, Many-to-One)
+└── Approvals (One-to-Many)
+</code></pre><h3>Data Flow Relationships</h3><pre><code>
+Lead Creation → Lead Assignment → Lead Reactions → Lead Conversion
+     ↓              ↓                ↓               ↓
+User (creator)  User (assigned)  User (reactor)  Invoice/Quotation
+     ↓              ↓                ↓               ↓
+Department    Department      Department      Department
+</code></pre><h2>Database Constraints & Indexes</h2><h3>Primary Keys</h3>
+All tables use auto-incrementing integer primary keys named <code>id</code>.</p><h3>Foreign Keys</h3><ul>
+<li><code>users.department_id</code> → <code>departments.id</code></li>
+</ul><li><code>users.manager_id</code> → <code>users.id</code></li><ul>
+<li><code>users.shift_id</code> → <code>shifts.id</code></li>
+</ul><li><code>leads.assigned_to</code> → <code>users.id</code></li><ul>
+<li><code>leads.created_by</code> → <code>users.id</code></li>
+</ul><li><code>leads.department_id</code> → <code>departments.id</code></li><ul>
+<li><code>attendances.user_id</code> → <code>users.id</code></li>
+</ul><li><code>leaves.user_id</code> → <code>users.id</code></li><ul>
+<li><code>leaves.leave_type_id</code> → <code>leave_types.id</code></li>
+</ul><li><code>leaves.approver_id</code> → <code>users.id</code></li></p><h3>Indexes</h3><ul>
+<li>Unique indexes on email fields</li>
+</ul><li>Composite indexes on frequently queried combinations</li><ul>
+<li>Date indexes for time-based queries</li>
+</ul><li>Status indexes for filtering</li></p><h3>Soft Deletes</h3><ul>
+<li>Invoices model uses soft deletes</li>
+</ul><li>Preserves data integrity for financial records</li></p><h2>Data Types & Casting</h2><h3>Date/Time Fields</h3><ul>
+<li><code>date</code> fields cast to <code>date</code></li>
+</ul><li><code>datetime</code> fields cast to <code>datetime</code></li><ul>
+<li>Time fields use <code>datetime:H:i</code> format</li>
+</ul>
+<h3>Numeric Fields</h3><ul>
+<li>Currency fields cast to <code>decimal:2</code></li>
+</ul><li>Boolean fields cast to <code>boolean</code></li><ul>
+<li>Integer fields remain as integers</li>
+</ul>
+<h3>JSON Fields</h3><ul>
+<li>Array fields cast to <code>array</code></li>
+</ul><li>Configuration data stored as JSON</li><ul>
+<li>Flexible data structure support</li>
+</ul>
+<h2>Security Considerations</h2><h3>Sensitive Data</h3><ul>
+<li>Passwords are automatically hashed by Laravel</li>
+</ul><li>OTP fields have expiration dates</li><ul>
+<li>Financial data uses decimal precision</li>
+</ul>
+<h3>Audit Trail</h3><ul>
+<li>Activity logs track all changes</li>
+</ul><li>IP addresses and user agents recorded</li><ul>
+<li>Old and new values preserved</li>
+</ul>
+<h3>Access Control</h3><ul>
+<li>Role-based permissions enforced at model level</li>
+</ul><li>Department-based data filtering</li><ul>
+<li>Manager-subordinate hierarchy respected</li>
+</ul>
+---</p><h2>Migration Files Structure</h2><p>The database schema is managed through Laravel migrations in the <code>database/migrations/</code> directory. Key migration files include:
+<ul>
+<li>User management: <code>2022_12_09_144604_create_users_table.php</code></li>
+</ul><li>Department structure: <code>2024_02_18_000001_create_departments_table.php</code></li><ul>
+<li>Attendance system: <code>2024_02_18_000003_create_attendances_table.php</code></li>
+</ul><li>Leave management: <code>2024_02_18_000004_create_leaves_table.php</code></li><ul>
+<li>Lead management: <code>2026_01_30_180000_create_leads_table.php</code></li>
+</ul><li>Invoice system: <code>2026_01_07_155436_create_invoices_table.php</code></li></p><p>Each migration file contains the complete table structure with column definitions, indexes, and foreign key constraints.</p><p>---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Database Version</strong>: MySQL 5.7+ / MariaDB 10.3+
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

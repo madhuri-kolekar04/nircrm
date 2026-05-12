@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - Controllers-API-Documentation</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>Controllers-API-Documentation</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - Controllers & API Documentation</h1><h2>Controllers Overview</h2><p>The NIRCRM system follows Laravel's MVC pattern with controllers handling HTTP requests, processing business logic, and returning responses. Controllers are organized into logical groups based on functionality.</p><h2>Core Controllers</h2><h3>1. AttendanceController</h3><p><strong>Location</strong>: <code>app/Http/Controllers/AttendanceController.php</code></p><p><strong>Purpose</strong>: Manages employee attendance tracking, check-in/check-out functionality, and attendance reporting.</p><h4>Key Methods</h4><h5><code>dashboard()</code></h5><ul>
+<li><strong>Purpose</strong>: Main attendance dashboard with role-based data filtering</li>
+</ul><li><strong>Access</strong>: All authenticated users</li><ul>
+<li><strong>Features</strong>:</li>
+</ul>  - Role-based user filtering (Admin sees all, Manager sees department, Employee sees self)
+  - Today's attendance display
+  - Attendance statistics
+  - Recent leave requests (for approvers)
+  - Monthly attendance summary
+  - Shift management integration</p><h5><code>checkIn()</code></h5><ul>
+<li><strong>Purpose</strong>: Handle employee check-in</li>
+</ul><li><strong>Validation</strong>: Prevents duplicate check-ins, validates shift timing</li><ul>
+<li><strong>Features</strong>:</li>
+</ul>  - IP address tracking
+  - Location recording
+  - Late arrival detection
+  - Email notifications</p><h5><code>checkOut()</code></h5><ul>
+<li><strong>Purpose</strong>: Handle employee check-out</li>
+</ul><li><strong>Features</strong>:</li>
+  - Working hours calculation
+  - Overtime detection
+  - Early checkout tracking
+  - Automatic status updates</p><h5><code>getAttendanceStats()</code></h5><ul>
+<li><strong>Purpose</strong>: Calculate attendance statistics</li>
+</ul><li><strong>Returns</strong>: Present, absent, leave counts with percentages</li></p><h5><code>getFilteredUsers()</code></h5><ul>
+<li><strong>Purpose</strong>: Role-based user filtering</li>
+</ul><li><strong>Logic</strong>:</li>
+  - Admin/General Manager: All users
+  - Manager: Department users + subordinates
+  - Employee: Self only</p><h4>API Endpoints</h4><pre><code>
+GET /attendance/dashboard          - Attendance dashboard
+POST /attendance/check-in          - Check-in endpoint
+POST /attendance/check-out         - Check-out endpoint
+GET /attendance/reports/{date}     - Attendance reports
+GET /attendance/user/{id}          - User attendance history
+</code></pre><p>---</p><h3>2. InvoiceController</h3><p><strong>Location</strong>: <code>app/Http/Controllers/InvoiceController.php</code></p><p><strong>Purpose</strong>: Complete invoice management system with PDF generation and email delivery.</p><h4>Key Methods</h4><h5><code>index()</code></h5><ul>
+<li><strong>Purpose</strong>: Invoice listing dashboard</li>
+</ul><li><strong>Features</strong>:</li>
+  - Role-based filtering (Customers see only their invoices)
+  - Statistics (total, paid, pending invoices)
+  - Revenue calculations
+  - Pagination support</p><h5><code>create()</code></h5><ul>
+<li><strong>Purpose</strong>: Invoice creation form</li>
+</ul><li><strong>Data</strong>: Departments list for assignment</li></p><h5><code>store()</code></h5><ul>
+<li><strong>Purpose</strong>: Process invoice creation</li>
+</ul><li><strong>Validation</strong>: Comprehensive field validation</li><ul>
+<li><strong>Features</strong>:</li>
+</ul>  - Installment processing
+  - Automatic invoice number generation
+  - GST calculation (fixed 18%)
+  - Department assignment
+  - Email notifications</p><h5><code>generatePDF()</code></h5><ul>
+<li><strong>Purpose</strong>: Generate PDF version of invoice</li>
+</ul><li><strong>Library</strong>: DomPDF</li><ul>
+<li><strong>Features</strong>: Professional invoice layout with company details</li>
+</ul>
+<h5><code>sendEmail()</code></h5><ul>
+<li><strong>Purpose</strong>: Email invoice to customer</li>
+</ul><li><strong>Features</strong>: PDF attachment, professional email template</li></p><h4>API Endpoints</h4><pre><code>
+GET /invoices                    - Invoice listing
+GET /invoices/create             - Creation form
+POST /invoices                   - Store new invoice
+GET /invoices/{id}               - View invoice
+GET /invoices/{id}/edit          - Edit invoice
+PUT /invoices/{id}               - Update invoice
+DELETE /invoices/{id}            - Delete invoice
+GET /invoices/{id}/pdf          - Download PDF
+POST /invoices/{id}/email        - Send via email
+</code></pre><p>---</p><h3>3. LeaveController</h3><p><strong>Location</strong>: <code>app/Http/Controllers/LeaveController.php</code></p><p><strong>Purpose</strong>: Comprehensive leave management system with multi-level approval workflow.</p><h4>Key Methods</h4><h5><code>index()</code></h5><ul>
+<li><strong>Purpose</strong>: Leave listing with role-based filtering</li>
+</ul><li><strong>Features</strong>: Status filtering, date range filtering</li></p><h5><code>create()</code></h5><ul>
+<li><strong>Purpose</strong>: Leave request form</li>
+</ul><li><strong>Data</strong>: Leave types, user balances, statistics</li><ul>
+<li><strong>Features</strong>: Balance checking, upcoming leaves display</li>
+</ul>
+<h5><code>store()</code></h5><ul>
+<li><strong>Purpose</strong>: Process leave request</li>
+</ul><li><strong>Validation</strong>: Overlap checking, balance validation</li><ul>
+<li><strong>Features</strong>:</li>
+</ul>  - Full day and half day support
+  - Attachment handling
+  - Approval chain creation
+  - Email notifications</p><h5><code>approve()</code></h5><ul>
+<li><strong>Purpose</strong>: Approve leave request</li>
+</ul><li><strong>Access</strong>: Managers and above</li><ul>
+<li><strong>Features</strong>:</li>
+</ul>  - Multi-level approval workflow
+  - Approval chain management
+  - Email notifications
+  - Status updates</p><h5><code>reject()</code></h5><ul>
+<li><strong>Purpose</strong>: Reject leave request</li>
+</ul><li><strong>Features</strong>: Reason recording, notifications</li></p><h5><code>balanceService</code> Integration</h5><ul>
+<li><strong>Service</strong>: <code>LeaveBalanceService</code></li>
+</ul><li><strong>Features</strong>: Balance calculation, statistics, upcoming leaves</li></p><h4>Approval Workflow</h4><pre><code>
+Employee (Role 2) → Manager (Role 4) → General Manager (Role 5) → Admin (Role 1)
+</code></pre><h4>API Endpoints</h4><pre><code>
+GET /leaves                       - Leave listing
+GET /leaves/create               - Creation form
+POST /leaves                     - Store new request
+GET /leaves/{id}                 - View leave details
+PUT /leaves/{id}/approve         - Approve leave
+PUT /leaves/{id}/reject          - Reject leave
+GET /leaves/balance              - Leave balance API
+GET /leaves/calendar            - Calendar view
+</code></pre><p>---</p><h3>4. Backend Controllers</h3><h4>EmployeeController</h4>
+<strong>Purpose</strong>: Employee management with department and role assignments</p><p><strong>Key Features</strong>:<ul>
+<li>CRUD operations for employees</li>
+</ul><li>Department assignment</li><ul>
+<li>Role management</li>
+</ul><li>Shift assignment</li><ul>
+<li>Profile photo upload</li>
+</ul><li>Contact information management</li></p><p><strong>API Endpoints</strong>:
+<pre><code>
+GET /employees                   - Employee listing
+GET /employees/create            - Creation form
+POST /employees                  - Store employee
+GET /employees/{id}              - View employee
+GET /employees/{id}/edit         - Edit employee
+PUT /employees/{id}              - Update employee
+DELETE /employees/{id}           - Delete employee
+</code></pre><h4>DepartmentController</h4>
+<strong>Purpose</strong>: Organizational department management</p><p><strong>Key Features</strong>:<ul>
+<li>Hierarchical department structure</li>
+</ul><li>Parent-child relationships</li><ul>
+<li>Active/inactive status</li>
+</ul><li>Department codes</li></p><h4>CustomerController</h4>
+<strong>Purpose</strong>: Customer relationship management</p><p><strong>Key Features</strong>:<ul>
+<li>Customer profiles</li>
+</ul><li>Project history</li><ul>
+<li>Communication tracking</li>
+</ul><li>Document management</li></p><h4>QuotationController</h4>
+<strong>Purpose</strong>: Project quotation management</p><p><strong>Key Features</strong>:<ul>
+<li>Quotation creation</li>
+</ul><li>Service management</li><ul>
+<li>Customer approval workflow</li>
+</ul><li>PDF generation</li><ul>
+<li>Email delivery</li>
+</ul>
+---</p><h3>5. NotificationController</h3><p><strong>Location</strong>: <code>app/Http/Controllers/NotificationController.php</code></p><p><strong>Purpose</strong>: System-wide notification management</p><h4>Key Methods</h4><h5><code>index()</code></h5><ul>
+<li><strong>Purpose</strong>: Notification listing</li>
+</ul><li><strong>Features</strong>: Read/unread status, filtering</li></p><h5><code>markAsRead()</code></h5><ul>
+<li><strong>Purpose</strong>: Mark notifications as read</li>
+</ul><li><strong>Features</strong>: Bulk operations, individual marking</li></p><h5><code>getUnreadCount()</code></h5><ul>
+<li><strong>Purpose</strong>: Get unread notification count</li>
+</ul><li><strong>Returns</strong>: Integer count for UI display</li></p><h4>API Endpoints</h4><pre><code>
+GET /notifications               - Notification listing
+PUT /notifications/{id}/read     - Mark as read
+GET /notifications/unread/count  - Unread count
+POST /notifications/mark-all     - Mark all as read
+</code></pre><p>---</p><h3>6. LeadController (Backend)</h3><p><strong>Location</strong>: <code>app/Http/Controllers/Backend/LeadController.php</code></p><p><strong>Purpose</strong>: Lead management and conversion tracking</p><h4>Key Methods</h4><h5><code>index()</code></h5><ul>
+<li><strong>Purpose</strong>: Lead listing with advanced filtering</li>
+</ul><li><strong>Features</strong>: Status, priority, department filtering</li></p><h5><code>store()</code></h5><ul>
+<li><strong>Purpose</strong>: Lead creation</li>
+</ul><li><strong>Features</strong>: Assignment, follow-up scheduling</li></p><h5><code>convertToInvoice()</code></h5><ul>
+<li><strong>Purpose</strong>: Convert lead to invoice</li>
+</ul><li><strong>Features</strong>: Data transfer, status updates</li></p><h4>API Endpoints</h4><pre><code>
+GET /leads                       - Lead listing
+POST /leads                     - Create lead
+GET /leads/{id}                 - Lead details
+PUT /leads/{id}                 - Update lead
+DELETE /leads/{id}              - Delete lead
+POST /leads/{id}/convert        - Convert to invoice
+</code></pre><p>---</p><h2>Authentication Controllers</h2><h3>Auth Controllers Directory</h3>
+<strong>Location</strong>: <code>app/Http/Controllers/Auth/</code></p><h4>LoginController</h4><ul>
+<li><strong>Purpose</strong>: User authentication</li>
+</ul><li><strong>Features</strong>: Email/password login, remember me, session management</li></p><h4>RegisterController</h4><ul>
+<li><strong>Purpose</strong>: User registration</li>
+</ul><li><strong>Features</strong>: Account creation, email verification, role assignment</li></p><h4>ForgotPasswordController</h4><ul>
+<li><strong>Purpose</strong>: Password reset functionality</li>
+</ul><li><strong>Features</strong>: Email reset links, secure token generation</li></p><h4>OTPVerificationController</h4><ul>
+<li><strong>Purpose</strong>: Two-factor authentication</li>
+</ul><li><strong>Features</strong>: OTP generation, verification, expiration</li></p><p>---</p><h2>API Response Format</h2><h3>Standard Response Structure</h3><pre><code>json
+{
+    "success": true,
+    "message": "Operation completed successfully",
+    "data": {
+        // Response data
+    },
+    "errors": [],
+    "meta": {
+        "pagination": {
+            "current_page": 1,
+            "total_pages": 10,
+            "per_page": 15,
+            "total": 150
+        }
+    }
+}
+</code></pre><h3>Error Response Structure</h3><pre><code>json
+{
+    "success": false,
+    "message": "Validation failed",
+    "errors": {
+        "field_name": ["Error message"],
+        "another_field": ["Another error"]
+    },
+    "data": null
+}
+</code></pre><p>---</p><h2>Middleware & Security</h2><h3>Authentication Middleware</h3><ul>
+<li><code>auth</code> - Basic authentication requirement</li>
+</ul><li><code>auth:sanctum</code> - API token authentication</li></p><h3>Role-Based Middleware</h3><ul>
+<li><code>role:admin</code> - Admin only access</li>
+</ul><li><code>role:manager</code> - Manager and above</li><ul>
+<li><code>role:employee</code> - All authenticated users</li>
+</ul>
+<h3>Custom Middleware</h3><ul>
+<li><code>department.access</code> - Department-based access control</li>
+</ul><li><code>permission.check</code> - Custom permission verification</li></p><p>---</p><h2>Request Validation</h2><h3>Common Validation Rules</h3><pre><code>php
+// User Data
+<table>
+<tr><th>'name' => 'required</th><th>string</th><th>max:255'</th></tr>
+<tr><td>'email' => 'required</td><td>email</td><td>unique:users'</td></tr>
+<tr><td>'password' => 'required</td><td>min:8</td><td>confirmed'</td></tr>
+</table><p>// Lead Data
+<table>
+<tr><th>'name' => 'required</th><th>string</th><th>max:255'</th></tr>
+<tr><td>'email' => 'required</td><td>email'</td></tr>
+<tr><td>'phone' => 'required</td><td>string</td><td>max:20'</td></tr>
+<tr><td>'budget' => 'nullable</td><td>numeric</td><td>min:0'</td></tr>
+</table><p>// Invoice Data
+<table>
+<tr><th>'project_name' => 'required</th><th>string</th><th>max:255'</th></tr>
+<tr><td>'customer_email' => 'required</td><td>email'</td></tr>
+<tr><td>'advance_payment' => 'required</td><td>numeric</td><td>min:0'</td></tr>
+<tr><td>'total_payment' => 'required</td><td>numeric</td><td>min:0'</td></tr>
+</table>
+</code></pre><h3>Custom Validation Rules</h3><ul>
+<li>Unique invoice numbers</li>
+</ul><li>Leave date overlap checking</li><ul>
+<li>Department assignment validation</li>
+</ul><li>Role hierarchy validation</li></p><p>---</p><h2>File Upload Handling</h2><h3>Supported File Types</h3><ul>
+<li>PDF documents</li>
+</ul><li>Microsoft Office documents</li><ul>
+<li>Images (JPG, JPEG, PNG)</li>
+</ul><li>Maximum file size: 2MB</li></p><h3>Upload Process</h3>
+<li>File validation</li>
+<li>Secure storage in <code>storage/app/uploads</code></li>
+<li>Database path recording</li>
+<li>Thumbnail generation (for images)</li></p><p>---</p><h2>Email Integration</h2><h3>Email Services</h3><ul>
+<li>SMTP configuration</li>
+</ul><li>Queue-based sending</li><ul>
+<li>Template system</li>
+</ul><li>Attachment support</li></p><h3>Email Types</h3><ul>
+<li>Welcome emails</li>
+</ul><li>Password reset</li><ul>
+<li>Leave notifications</li>
+</ul><li>Invoice delivery</li><ul>
+<li>System notifications</li>
+</ul>
+---</p><h2>API Rate Limiting</h2><h3>Rate Limits</h3><ul>
+<li>Standard users: 60 requests per minute</li>
+</ul><li>API users: 1000 requests per hour</li><ul>
+<li>Admin users: No limits</li>
+</ul>
+<h3>Throttling Response</h3>
+<pre><code>json
+{
+    "success": false,
+    "message": "Too many requests",
+    "retry_after": 60
+}
+</code></pre><p>---</p><h2>Error Handling</h2><h3>Exception Types</h3><ul>
+<li>Validation exceptions</li>
+</ul><li>Authentication exceptions</li><ul>
+<li>Authorization exceptions</li>
+</ul><li>Model not found exceptions</li><ul>
+<li>Custom business exceptions</li>
+</ul>
+<h3>Error Logging</h3><ul>
+<li>Laravel logging system</li>
+</ul><li>Custom error tracking</li><ul>
+<li>Production error monitoring</li>
+</ul><li>Debug information for development</li></p><p>---</p><h2>Performance Optimization</h2><h3>Query Optimization</h3><ul>
+<li>Eager loading relationships</li>
+</ul><li>Query result caching</li><ul>
+<li>Database indexing</li>
+</ul><li>Pagination for large datasets</li></p><h3>Response Caching</h3><ul>
+<li>View caching</li>
+</ul><li>API response caching</li><ul>
+<li>Static asset caching</li>
+</ul><li>Browser caching headers</li></p><p>---</p><h2>Testing Coverage</h2><h3>Controller Tests</h3><ul>
+<li>HTTP response testing</li>
+</ul><li>Authentication testing</li><ul>
+<li>Authorization testing</li>
+</ul><li>Validation testing</li></p><h3>Feature Tests</h3><ul>
+<li>Complete workflow testing</li>
+</ul><li>Multi-user scenarios</li><ul>
+<li>Edge case handling</li>
+</ul><li>Performance testing</li></p><p>---</p><h2>API Versioning</h2><h3>Current Version: v1</h3><ul>
+<li>Stable API endpoints</li>
+</ul><li>Backward compatibility</li><ul>
+<li>Deprecation warnings</li>
+</ul><li>Version-specific documentation</li></p><h3>Future Versions</h3><ul>
+<li>v2 planning phase</li>
+</ul><li>Breaking changes notification</li><ul>
+<li>Migration guides</li>
+</ul><li>Parallel version support</li></p><p>---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>API Version</strong>: v1.0  
+<strong>Laravel Version</strong>: 9.x
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

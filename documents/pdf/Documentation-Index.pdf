@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3029 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(Documentation-Index) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM - Complete Documentation Index) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(Documentation Overview) Tj
+0 -12 Td
+72 676 Td
+() Tj
+0 -12 Td
+72 664 Td
+(This documentation provides comprehensive information about the NIRCRM \(Niranjan) Tj
+0 -12 Td
+72 652 Td
+(Enterprises Customer Relationship Management\) system. The documentation is) Tj
+0 -12 Td
+72 640 Td
+(organized into several key sections to serve different audiences and purposes.) Tj
+0 -12 Td
+72 628 Td
+() Tj
+0 -12 Td
+72 616 Td
+(• --) Tj
+0 -12 Td
+72 604 Td
+() Tj
+0 -12 Td
+72 592 Td
+(Document Structure) Tj
+0 -12 Td
+72 580 Td
+() Tj
+0 -12 Td
+72 568 Td
+(📋 Technical Overview) Tj
+0 -12 Td
+72 556 Td
+(Purpose: High-level system architecture and technical specifications) Tj
+0 -12 Td
+72 544 Td
+(Audience: Developers, System Administrators, Technical Managers) Tj
+0 -12 Td
+72 532 Td
+(Key Topics:) Tj
+0 -12 Td
+72 520 Td
+(• System architecture and technologies) Tj
+0 -12 Td
+72 508 Td
+(• Core features and capabilities) Tj
+0 -12 Td
+72 496 Td
+(• User roles and permissions) Tj
+0 -12 Td
+72 484 Td
+(• Security and performance considerations) Tj
+0 -12 Td
+72 472 Td
+(• Scalability and maintenance) Tj
+0 -12 Td
+72 460 Td
+() Tj
+0 -12 Td
+72 448 Td
+(• --) Tj
+0 -12 Td
+72 436 Td
+() Tj
+0 -12 Td
+72 424 Td
+(🗄️ Models & Database Schema) Tj
+0 -12 Td
+72 412 Td
+(Purpose: Complete database structure and model relationships) Tj
+0 -12 Td
+72 400 Td
+(Audience: Developers, Database Administrators) Tj
+0 -12 Td
+72 388 Td
+(Key Topics:) Tj
+0 -12 Td
+72 376 Td
+(• Core models and their relationships) Tj
+0 -12 Td
+72 364 Td
+(• Database schema documentation) Tj
+0 -12 Td
+72 352 Td
+(• Data types and constraints) Tj
+0 -12 Td
+72 340 Td
+(• Migration files structure) Tj
+0 -12 Td
+72 328 Td
+(• Security considerations) Tj
+0 -12 Td
+72 316 Td
+() Tj
+0 -12 Td
+72 304 Td
+(• --) Tj
+0 -12 Td
+72 292 Td
+() Tj
+0 -12 Td
+72 280 Td
+(🔧 Controllers & API Documentation) Tj
+0 -12 Td
+72 268 Td
+(Purpose: API endpoints and controller functionality) Tj
+0 -12 Td
+72 256 Td
+(Audience: Developers, API Consumers, Integration Specialists) Tj
+0 -12 Td
+72 244 Td
+(Key Topics:) Tj
+0 -12 Td
+72 232 Td
+(• Core controllers and their methods) Tj
+0 -12 Td
+72 220 Td
+(• API endpoints and responses) Tj
+0 -12 Td
+72 208 Td
+(• Request/response formats) Tj
+0 -12 Td
+72 196 Td
+(• Authentication and authorization) Tj
+0 -12 Td
+72 184 Td
+(• Error handling and validation) Tj
+0 -12 Td
+72 172 Td
+() Tj
+0 -12 Td
+72 160 Td
+(• --) Tj
+0 -12 Td
+72 148 Td
+() Tj
+0 -12 Td
+72 136 Td
+(🎨 UI/UX Design System) Tj
+0 -12 Td
+72 124 Td
+(Purpose: Complete design system and UI guidelines) Tj
+0 -12 Td
+72 112 Td
+(Audience: Frontend Developers, Designers, UI/UX Specialists) Tj
+0 -12 Td
+72 100 Td
+(Key Topics:) Tj
+0 -12 Td
+72 88 Td
+(• WhatsApp-inspired design philosophy) Tj
+0 -12 Td
+72 76 Td
+(• Color system and typography) Tj
+0 -12 Td
+72 64 Td
+(• Component library) Tj
+0 -12 Td
+72 52 Td
+(• Responsive design patterns) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3392
+%%EOF

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - Installation-Deployment-Guide</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>Installation-Deployment-Guide</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - Installation & Deployment Guide</h1><h2>Table of Contents</h2><p><li><a href="#system-requirements" target="_blank">System Requirements</a></li>
+<li><a href="#installation-overview" target="_blank">Installation Overview</a></li>
+<li><a href="#local-development-setup" target="_blank">Local Development Setup</a></li>
+<li><a href="#production-deployment" target="_blank">Production Deployment</a></li>
+<li><a href="#database-configuration" target="_blank">Database Configuration</a></li>
+<li><a href="#environment-configuration" target="_blank">Environment Configuration</a></li>
+<li><a href="#web-server-configuration" target="_blank">Web Server Configuration</a></li>
+<li><a href="#ssl-certificate-setup" target="_blank">SSL Certificate Setup</a></li>
+<li><a href="#backup--maintenance" target="_blank">Backup & Maintenance</a></li>
+<li><a href="#troubleshooting" target="_blank">Troubleshooting</a></li></p><p>---</p><h2>System Requirements</h2><h3>Minimum Requirements</h3><h4>Software</h4><ul>
+<li><strong>PHP</strong>: 8.0.2 or higher</li>
+</ul><li><strong>Web Server</strong>: Apache 2.4+ or Nginx 1.18+</li><ul>
+<li><strong>Database</strong>: MySQL 5.7+ or MariaDB 10.3+</li>
+</ul><li><strong>Composer</strong>: 2.0+</li><ul>
+<li><strong>Node.js</strong>: 16.0+ (for asset compilation)</li>
+</ul><li><strong>npm</strong>: 8.0+ (for asset compilation)</li></p><h4>Hardware</h4><ul>
+<li><strong>CPU</strong>: 2 cores or more</li>
+</ul><li><strong>RAM</strong>: 4GB minimum, 8GB recommended</li><ul>
+<li><strong>Storage</strong>: 20GB available space</li>
+</ul><li><strong>Network</strong>: Stable internet connection</li></p><h3>Recommended Requirements</h3><h4>Production Environment</h4><ul>
+<li><strong>PHP</strong>: 8.1+ (latest stable)</li>
+</ul><li><strong>Web Server</strong>: Nginx 1.20+ with PHP-FPM</li><ul>
+<li><strong>Database</strong>: MySQL 8.0+ or MariaDB 10.6+</li>
+</ul><li><strong>RAM</strong>: 8GB minimum, 16GB recommended</li><ul>
+<li><strong>Storage</strong>: 50GB SSD storage</li>
+</ul><li><strong>CPU</strong>: 4 cores or more</li></p><h4>Development Environment</h4><ul>
+<li><strong>PHP</strong>: 8.1+</li>
+</ul><li><strong>Database</strong>: MySQL 8.0+ or MariaDB 10.6+</li><ul>
+<li><strong>RAM</strong>: 8GB</li>
+</ul><li><strong>Storage</strong>: 20GB</li><ul>
+<li><strong>CPU</strong>: 2 cores minimum</li>
+</ul>
+<h3>PHP Extensions Required</h3><pre><code>bash
+<h1>Required Extensions</h1>
+php-cli
+php-fpm
+php-mysql
+php-xml
+php-curl
+php-zip
+php-gd
+php-mbstring
+php-bcmath
+php-json
+php-tokenizer
+php-fileinfo
+php-intl</p><h1>Optional but Recommended</h1>
+php-opcache    # Performance optimization
+php-xdebug     # Development debugging
+php-redis      # Caching (if using Redis)
+</code></pre><p>---</p><h2>Installation Overview</h2><h3>Installation Methods</h3><p><li><strong>Manual Installation</strong> - Step-by-step manual setup</li>
+<li><strong>Automated Script</strong> - One-click installation script</li>
+<li><strong>Docker Deployment</strong> - Containerized deployment</li>
+<li><strong>Cloud Deployment</strong> - Cloud platform deployment</li></p><h3>Installation Flow</h3><pre><code>
+<li>Environment Setup</li>
+   ├── Install dependencies (PHP, Database, Web Server)
+   ├── Configure PHP settings
+   └── Setup database</p><p><li>Application Setup</li>
+   ├── Download NIRCRM files
+   ├── Install Composer dependencies
+   ├── Install npm dependencies
+   └── Configure environment</p><p><li>Database Setup</li>
+   ├── Create database
+   ├── Run migrations
+   └── Seed initial data</p><p><li>Final Configuration</li>
+   ├── Set file permissions
+   ├── Configure web server
+   ├── Set up SSL
+   └── Test application
+</code></pre><p>---</p><h2>Local Development Setup</h2><h3>Step 1: Environment Preparation</h3><h4>Install XAMPP (Recommended for Windows)</h4>
+<pre><code>bash
+<h1>Download and install XAMPP from https://www.apachefriends.org</h1>
+<h1>Ensure the following components are selected:</h1>
+<h1>- Apache</h1>
+<h1>- MySQL</h1>
+<h1>- PHP (8.0+)</h1>
+<h1>- phpMyAdmin</h1>
+</code></pre><h4>Verify Installation</h4>
+<pre><code>bash
+<h1>Check PHP version</h1>
+php --version</p><h1>Check Composer</h1>
+composer --version</p><h1>Check Node.js</h1>
+node --version
+npm --version
+</code></pre><h3>Step 2: Database Setup</h3><h4>Create Database</h4>
+<pre><code>sql
+-- Using phpMyAdmin or MySQL command line
+CREATE DATABASE nircrm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'nircrm_user'@'localhost' IDENTIFIED BY 'strong_password';
+GRANT ALL PRIVILEGES ON nircrm.* TO 'nircrm_user'@'localhost';
+FLUSH PRIVILEGES;
+</code></pre><h3>Step 3: Application Setup</h3><h4>Download and Extract</h4>
+<pre><code>bash
+<h1>Extract the NIRCRM archive to your web directory</h1>
+<h1>For XAMPP: C:/xampp/htdocs/nircrm/</h1>
+</code></pre><h4>Install Dependencies</h4>
+<pre><code>bash
+<h1>Navigate to project directory</h1>
+cd C:/xampp/htdocs/nircrm/</p><h1>Install PHP dependencies</h1>
+composer install</p><h1>Install Node.js dependencies</h1>
+npm install
+</code></pre><h4>Environment Configuration</h4>
+<pre><code>bash
+<h1>Copy environment file</h1>
+cp .env.example .env</p><h1>Generate application key</h1>
+php artisan key:generate</p><h1>Edit .env file with your configuration</h1>
+</code></pre><h4>Environment File (.env) Configuration</h4>
+<pre><code>env
+APP_NAME="NIRCRM"
+APP_ENV=local
+APP_KEY=base64:your_generated_key_here
+APP_DEBUG=true
+APP_URL=http://localhost/nircrm</p><p>LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug</p><p>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nircrm
+DB_USERNAME=nircrm_user
+DB_PASSWORD=strong_password</p><p>BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120</p><p>MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+</code></pre><h3>Step 4: Database Migration</h3><pre><code>bash
+<h1>Run database migrations</h1>
+php artisan migrate</p><h1>Seed initial data (optional)</h1>
+php artisan db:seed</p><h1>Create storage links</h1>
+php artisan storage:link
+</code></pre><h3>Step 5: Asset Compilation</h3><pre><code>bash
+<h1>Compile frontend assets</h1>
+npm run build</p><h1>Or for development</h1>
+npm run dev
+</code></pre><h3>Step 6: Start Development Server</h3><pre><code>bash
+<h1>Start Laravel development server</h1>
+php artisan serve</p><h1>Or access via XAMPP Apache</h1>
+<h1>http://localhost/nircrm</h1>
+</code></pre><h3>Step 7: Initial Setup</h3><p><li><strong>Access the Application</strong></li>
+   - Navigate to <code>http://localhost/nircrm</code>
+   - Follow the setup wizard
+   - Create admin account</p><p><li><strong>Configure Basic Settings</strong></li>
+   - Company information
+   - Email settings
+   - Default departments
+   - User roles</p><p>---</p><h2>Production Deployment</h2><h3>Option 1: Traditional Server Deployment</h3><h4>Server Preparation</h4><h5>Update System Packages</h5>
+<pre><code>bash
+<h1>Ubuntu/Debian</h1>
+sudo apt update && sudo apt upgrade -y</p><h1>CentOS/RHEL</h1>
+sudo yum update -y
+</code></pre><h5>Install Required Software</h5>
+<pre><code>bash
+<h1>Ubuntu/Debian</h1>
+sudo apt install -y nginx mysql-server php8.1-fpm php8.1-mysql php8.1-xml php8.1-curl php8.1-zip php8.1-gd php8.1-mbstring php8.1-bcmath php8.1-intl php8.1-cli composer nodejs npm</p><h1>CentOS/RHEL</h1>
+sudo yum install -y nginx mariadb-server php81-php-fpm php81-php-mysqlnd php81-php-xml php81-php-curl php81-php-zip php81-php-gd php81-php-mbstring php81-php-bcmath php81-php-intl composer nodejs npm
+</code></pre><h4>Database Configuration</h4><h5>Secure MySQL Installation</h5>
+<pre><code>bash
+<h1>Secure MySQL</h1>
+sudo mysql_secure_installation</p><h1>Create Database</h1>
+mysql -u root -p
+CREATE DATABASE nircrm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'nircrm_user'@'localhost' IDENTIFIED BY 'very_strong_password';
+GRANT ALL PRIVILEGES ON nircrm.* TO 'nircrm_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+</code></pre><h4>Application Deployment</h4><h5>Deploy Application Files</h5>
+<pre><code>bash
+<h1>Create application directory</h1>
+sudo mkdir -p /var/www/nircrm
+sudo chown $USER:$USER /var/www/nircrm</p><h1>Clone or upload application files</h1>
+cd /var/www/nircrm
+<h1>Upload your files here or clone from repository</h1><h1>Install dependencies</h1>
+composer install --optimize-autoloader --no-dev
+npm install --production
+npm run build</p><h1>Set permissions</h1>
+sudo chown -R www-data:www-data /var/www/nircrm
+sudo chmod -R 755 /var/www/nircrm
+sudo chmod -R 777 /var/www/nircrm/storage
+sudo chmod -R 777 /var/www/nircrm/bootstrap/cache
+</code></pre><h5>Environment Configuration</h5>
+<pre><code>bash
+<h1>Copy and configure environment file</h1>
+cp .env.example .env
+php artisan key:generate</p><h1>Edit .env for production</h1>
+nano .env
+</code></pre><h5>Production Environment Configuration</h5>
+<pre><code>env
+APP_NAME="NIRCRM"
+APP_ENV=production
+APP_KEY=base64:your_generated_key_here
+APP_DEBUG=false
+APP_URL=https://your-domain.com</p><p>LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=error</p><p>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nircrm
+DB_USERNAME=nircrm_user
+DB_PASSWORD=very_strong_password</p><p>BROADCAST_DRIVER=log
+CACHE_DRIVER=redis
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+SESSION_LIFETIME=120</p><p>MAIL_MAILER=smtp
+MAIL_HOST=your-smtp-server.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@domain.com
+MAIL_PASSWORD=your-email-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@your-domain.com"
+MAIL_FROM_NAME="${APP_NAME}"</p><p>REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+</code></pre><h5>Run Deployment Commands</h5>
+<pre><code>bash
+<h1>Clear and cache configurations</h1>
+php artisan config:clear
+php artisan config:cache
+php artisan route:clear
+php artisan route:cache
+php artisan view:clear
+php artisan view:cache</p><h1>Run database migrations</h1>
+php artisan migrate --force</p><h1>Create storage links</h1>
+php artisan storage:link</p><h1>Optimize for production</h1>
+php artisan optimize
+</code></pre><h3>Option 2: Docker Deployment</h3><h4>Dockerfile</h4>
+<pre><code>dockerfile
+FROM php:8.1-fpm</p><h1>Install system dependencies</h1>
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    nodejs \
+    npm</p><h1>Clear package cache</h1>
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*</p><h1>Install PHP extensions</h1>
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd</p><h1>Get latest Composer</h1>
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer</p><h1>Set working directory</h1>
+WORKDIR /var/www</p><h1>Copy application files</h1>
+COPY . /var/www</p><h1>Install dependencies</h1>
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install && npm run build</p><h1>Set permissions</h1>
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www/storage</p><h1>Expose port</h1>
+EXPOSE 9000</p><h1>Start PHP-FPM</h1>
+CMD ["php-fpm"]
+</code></pre><h4>Docker Compose</h4>
+<pre><code>yaml
+version: '3.8'</p><p>services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nircrm-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./storage/app/public:/var/www/storage/app/public
+    networks:
+      - nircrm-network
+    depends_on:
+      - database
+      - redis</p><p>  webserver:
+    image: nginx:alpine
+    container_name: nircrm-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+      - ./docker/nginx/ssl/:/etc/nginx/ssl/
+    networks:
+      - nircrm-network
+    depends_on:
+      - app</p><p>  database:
+    image: mysql:8.0
+    container_name: nircrm-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: nircrm
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_PASSWORD: user_password
+      MYSQL_USER: nircrm_user
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - nircrm-network</p><p>  redis:
+    image: redis:7-alpine
+    container_name: nircrm-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - nircrm-network</p><p>networks:
+  nircrm-network:
+    driver: bridge</p><p>volumes:
+  dbdata:
+    driver: local
+  redisdata:
+    driver: local
+</code></pre><h4>Docker Deployment Commands</h4>
+<pre><code>bash
+<h1>Build and start containers</h1>
+docker-compose up -d --build</p><h1>Run database migrations</h1>
+docker-compose exec app php artisan migrate --force</p><h1>Create storage link</h1>
+docker-compose exec app php artisan storage:link</p><h1>Clear caches</h1>
+docker-compose exec app php artisan config:cache
+docker-compose exec app php artisan route:cache
+docker-compose exec app php artisan view:cache
+</code></pre><p>---</p><h2>Database Configuration</h2><h3>MySQL Configuration</h3><h4>Production MySQL Settings</h4>
+<pre><code>ini
+<h1>/etc/mysql/mysql.conf.d/mysqld.cnf</h1><p>[mysqld]
+<h1>Basic Settings</h1>
+user = mysql
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+port = 3306
+basedir = /usr
+datadir = /var/lib/mysql
+tmpdir = /tmp
+lc-messages-dir = /usr/share/mysql</p><h1>Performance Settings</h1>
+innodb_buffer_pool_size = 2G
+innodb_log_file_size = 256M
+innodb_flush_method = O_DIRECT
+innodb_flush_log_at_trx_commit = 2
+innodb_file_per_table = 1</p><h1>Connection Settings</h1>
+max_connections = 200
+max_connect_errors = 1000
+wait_timeout = 300
+interactive_timeout = 300</p><h1>Character Set</h1>
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci</p><h1>Security</h1>
+local-infile = 0
+skip-show-database = 1
+</code></pre><h4>Database Optimization</h4>
+<pre><code>sql
+-- Create indexes for performance
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_users_department ON users(department_id);
+CREATE INDEX idx_leads_assigned ON leads(assigned_to);
+CREATE INDEX idx_leads_status ON leads(lead_status);
+CREATE INDEX idx_attendance_date ON attendances(date);
+CREATE INDEX idx_attendance_user ON attendances(user_id);
+CREATE INDEX idx_leaves_user ON leaves(user_id);
+CREATE INDEX idx_leaves_status ON leaves(status);</p><p>-- Optimize tables
+OPTIMIZE TABLE users, leads, attendances, leaves, invoices;
+</code></pre><h3>Redis Configuration (Optional)</h3><h4>Redis Setup</h4>
+<pre><code>bash
+<h1>Install Redis</h1>
+sudo apt install redis-server</p><h1>Configure Redis</h1>
+sudo nano /etc/redis/redis.conf
+</code></pre><h4>Redis Configuration</h4>
+<pre><code>ini
+<h1>/etc/redis/redis.conf</h1><h1>Memory</h1>
+maxmemory 512mb
+maxmemory-policy allkeys-lru</p><h1>Persistence</h1>
+save 900 1
+save 300 10
+save 60 10000</p><h1>Security</h1>
+requirepass your_redis_password
+bind 127.0.0.1</p><h1>Performance</h1>
+tcp-keepalive 300
+timeout 0
+</code></pre><p>---</p><h2>Environment Configuration</h2><h3>Environment Variables</h3><h4>Core Application Settings</h4>
+<pre><code>env
+<h1>Application</h1>
+APP_NAME="NIRCRM"
+APP_ENV=production
+APP_KEY=base64:your_key_here
+APP_DEBUG=false
+APP_URL=https://your-domain.com</p><h1>Logging</h1>
+LOG_CHANNEL=stack
+LOG_LEVEL=error</p><h1>Database</h1>
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nircrm
+DB_USERNAME=nircrm_user
+DB_PASSWORD=secure_password
+</code></pre><h4>Cache and Session Settings</h4>
+<pre><code>env
+<h1>Cache</h1>
+CACHE_DRIVER=redis
+FILESYSTEM_DISK=local</p><h1>Session</h1>
+SESSION_DRIVER=redis
+SESSION_LIFETIME=120</p><h1>Queue</h1>
+QUEUE_CONNECTION=redis
+</code></pre><h4>Email Configuration</h4>
+<pre><code>env
+<h1>Mail Settings</h1>
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@your-domain.com"
+MAIL_FROM_NAME="${APP_NAME}"
+</code></pre><h4>File Storage Settings</h4>
+<pre><code>env
+<h1>File Storage</h1>
+FILESYSTEM_DISK=local</p><h1>AWS S3 (Optional)</h1>
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=your-bucket
+AWS_USE_PATH_STYLE_ENDPOINT=false
+</code></pre><h3>Security Configuration</h3><h4>Security Headers</h4>
+<pre><code>php
+// app/Http/Middleware/SecurityHeaders.php
+public function handle($request, Closure $next)
+{
+    $response = $next($request);
+    
+    $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+    $response->headers->set('X-XSS-Protection', '1; mode=block');
+    $response->headers->set('X-Content-Type-Options', 'nosniff');
+    $response->headers->set('Referrer-Policy', 'no-referrer-when-downgrade');
+    $response->headers->set('Content-Security-Policy', "default-src 'self' 'unsafe-inline' 'unsafe-eval';");
+    
+    return $response;
+}
+</code></pre><p>---</p><h2>Web Server Configuration</h2><h3>Nginx Configuration</h3><h4>Nginx Server Block</h4>
+<pre><code>nginx
+<h1>/etc/nginx/sites-available/nircrm</h1>
+server {
+    listen 80;
+    server_name your-domain.com www.your-domain.com;
+    return 301 https://$server_name$request_uri;
+}</p><p>server {
+    listen 443 ssl http2;
+    server_name your-domain.com www.your-domain.com;</p><p>    root /var/www/nircrm/public;
+    index index.php index.html index.htm;</p><p>    # SSL Configuration
+    ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;</p><p>    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;</p><p>    # Gzip Compression
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/xml+rss
+        application/atom+xml
+        image/svg+xml;</p><p>    # Laravel Specific
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }</p><p>    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_param HTTPS on;
+    }</p><p>    # Static Assets Caching
+<table>
+<tr><th>location ~* \.(js</th><th>css</th><th>png</th><th>jpg</th><th>jpeg</th><th>gif</th><th>ico</th><th>svg)$ {</th></tr>
+</table>
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }</p><p>    # Deny access to .htaccess files
+    location ~ /\.ht {
+        deny all;
+    }</p><p>    # PHP-FPM Status (Optional)
+    location /status {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+</code></pre><h4>Enable Site</h4>
+<pre><code>bash
+<h1>Enable site</h1>
+sudo ln -s /etc/nginx/sites-available/nircrm /etc/nginx/sites-enabled/</p><h1>Test configuration</h1>
+sudo nginx -t</p><h1>Restart Nginx</h1>
+sudo systemctl restart nginx
+</code></pre><h3>Apache Configuration</h3><h4>Apache Virtual Host</h4>
+<pre><code>apache
+<h1>/etc/apache2/sites-available/nircrm.conf</h1>
+<VirtualHost *:80>
+    ServerName your-domain.com
+    ServerAlias www.your-domain.com
+    Redirect permanent / https://your-domain.com/
+</VirtualHost></p><p><VirtualHost *:443>
+    ServerName your-domain.com
+    ServerAlias www.your-domain.com
+    DocumentRoot /var/www/nircrm/public</p><p>    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/your-domain.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/your-domain.com/privkey.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/your-domain.com/chain.pem</p><p>    # Security Headers
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "no-referrer-when-downgrade"</p><p>    # Enable Rewrite Engine
+    RewriteEngine On</p><p>    # Handle Laravel Routes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [L]</p><p>    # PHP Settings
+    <FilesMatch \.php$>
+<table>
+<tr><th>SetHandler "proxy:unix:/var/run/php/php8.1-fpm.sock</th><th>fcgi://localhost/"</th></tr>
+</table>
+    </FilesMatch></p><p>    # Security
+    <Directory /var/www/nircrm>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory></p><p>    # Logging
+    ErrorLog ${APACHE_LOG_DIR}/nircrm_error.log
+    CustomLog ${APACHE_LOG_DIR}/nircrm_access.log combined
+</VirtualHost>
+</code></pre><h4>Enable Apache Modules</h4>
+<pre><code>bash
+<h1>Enable required modules</h1>
+sudo a2enmod rewrite
+sudo a2enmod ssl
+sudo a2enmod headers
+sudo a2enmod proxy_fcgi</p><h1>Enable site</h1>
+sudo a2ensite nircrm.conf</p><h1>Test configuration</h1>
+sudo apache2ctl configtest</p><h1>Restart Apache</h1>
+sudo systemctl restart apache2
+</code></pre><p>---</p><h2>SSL Certificate Setup</h2><h3>Let's Encrypt Certificate</h3><h4>Install Certbot</h4>
+<pre><code>bash
+<h1>Ubuntu/Debian</h1>
+sudo apt install certbot python3-certbot-nginx</p><h1>CentOS/RHEL</h1>
+sudo yum install certbot python3-certbot-nginx
+</code></pre><h4>Obtain SSL Certificate</h4>
+<pre><code>bash
+<h1>For Nginx</h1>
+sudo certbot --nginx -d your-domain.com -d www.your-domain.com</p><h1>For Apache</h1>
+sudo certbot --apache -d your-domain.com -d www.your-domain.com
+</code></pre><h4>Auto-Renewal Setup</h4>
+<pre><code>bash
+<h1>Test renewal</h1>
+sudo certbot renew --dry-run</p><h1>Add cron job for auto-renewal</h1>
+sudo crontab -e
+<h1>Add: 0 12 <em> </em> * /usr/bin/certbot renew --quiet</h1>
+</code></pre><h3>Custom SSL Certificate</h3><h4>Generate Private Key and CSR</h4>
+<pre><code>bash
+<h1>Generate private key</h1>
+openssl genrsa -out nircrm.key 2048</p><h1>Generate CSR</h1>
+openssl req -new -key nircrm.key -out nircrm.csr
+</code></pre><h4>Configure SSL in Web Server</h4>
+<pre><code>nginx
+<h1>Nginx SSL Configuration</h1>
+ssl_certificate /path/to/your/certificate.crt;
+ssl_certificate_key /path/to/your/private.key;
+</code></pre><p>---</p><h2>Backup & Maintenance</h2><h3>Database Backup</h3><h4>Automated Backup Script</h4>
+<pre><code>bash
+#!/bin/bash
+<h1>/usr/local/bin/backup-nircrm.sh</h1><h1>Configuration</h1>
+DB_NAME="nircrm"
+DB_USER="nircrm_user"
+DB_PASS="secure_password"
+BACKUP_DIR="/var/backups/nircrm"
+DATE=$(date +%Y%m%d_%H%M%S)
+RETENTION_DAYS=30</p><h1>Create backup directory</h1>
+mkdir -p $BACKUP_DIR</p><h1>Database backup</h1>
+<table>
+<tr><th>mysqldump -u $DB_USER -p$DB_PASS $DB_NAME</th><th>gzip > $BACKUP_DIR/db_backup_$DATE.sql.gz</th></tr>
+</table><h1>File backup</h1>
+tar -czf $BACKUP_DIR/files_backup_$DATE.tar.gz /var/www/nircrm/storage/app /var/www/nircrm/public/uploads</p><h1>Clean old backups</h1>
+find $BACKUP_DIR -name "*.gz" -mtime +$RETENTION_DAYS -delete</p><h1>Log backup</h1>
+echo "Backup completed: $DATE" >> /var/log/nircrm-backup.log
+</code></pre><h4>Schedule Backups</h4>
+<pre><code>bash
+<h1>Add to crontab</h1>
+sudo crontab -e</p><h1>Daily backup at 2 AM</h1>
+0 2 <em> </em> * /usr/local/bin/backup-nircrm.sh</p><h1>Weekly optimization</h1>
+0 3 <em> </em> 0 /usr/bin/mysql -u nircrm_user -p'secure_password' -e "OPTIMIZE TABLE users, leads, attendances, leaves, invoices;"
+</code></pre><h3>Application Maintenance</h3><h4>Laravel Optimization Commands</h4>
+<pre><code>bash
+#!/bin/bash
+<h1>/usr/local/bin/maintain-nircrm.sh</h1><h1>Navigate to application directory</h1>
+cd /var/www/nircrm</p><h1>Clear and cache</h1>
+php artisan config:clear
+php artisan config:cache
+php artisan route:clear
+php artisan route:cache
+php artisan view:clear
+php artisan view:cache</p><h1>Optimize autoloader</h1>
+composer dump-autoload --optimize</p><h1>Clear application cache</h1>
+php artisan cache:clear</p><h1>Log rotation</h1>
+truncate -s 0 storage/logs/laravel.log</p><p>echo "Maintenance completed: $(date)" >> /var/log/nircrm-maintenance.log
+</code></pre><h4>Schedule Maintenance</h4>
+<pre><code>bash
+<h1>Weekly maintenance</h1>
+sudo crontab -e
+0 4 <em> </em> 0 /usr/local/bin/maintain-nircrm.sh
+</code></pre><h3>Monitoring</h3><h4>System Monitoring Script</h4>
+<pre><code>bash
+#!/bin/bash
+<h1>/usr/local/bin/monitor-nircrm.sh</h1><h1>Check if application is responding</h1>
+if ! curl -f -s https://your-domain.com > /dev/null; then
+    echo "Application is down! Restarting services..." >> /var/log/nircrm-monitor.log
+    sudo systemctl restart nginx
+    sudo systemctl restart php8.1-fpm
+    sudo systemctl restart redis
+fi</p><h1>Check disk space</h1>
+<table>
+<tr><th>DISK_USAGE=$(df /</th><th>awk 'NR==2 {print $5}'</th><th>sed 's/%//')</th></tr>
+</table>
+if [ $DISK_USAGE -gt 80 ]; then
+    echo "Disk usage is ${DISK_USAGE}%" >> /var/log/nircrm-monitor.log
+fi</p><h1>Check memory usage</h1>
+<table>
+<tr><th>MEMORY_USAGE=$(free</th><th>awk 'NR==2{printf "%.2f", $3*100/$2}')</th></tr>
+<tr><td>if (( $(echo "$MEMORY_USAGE > 80"</td><td>bc -l) )); then</td></tr>
+</table>
+    echo "Memory usage is ${MEMORY_USAGE}%" >> /var/log/nircrm-monitor.log
+fi
+</code></pre><p>---</p><h2>Troubleshooting</h2><h3>Common Issues</h3><h4>1. White Screen / 500 Error</h4>
+<strong>Possible Causes:</strong><ul>
+<li>File permissions issue</li>
+</ul><li>Missing dependencies</li><ul>
+<li>Configuration error</li>
+</ul>
+<strong>Solutions:</strong>
+<pre><code>bash
+<h1>Check file permissions</h1>
+sudo chown -R www-data:www-data /var/www/nircrm
+sudo chmod -R 755 /var/www/nircrm
+sudo chmod -R 777 /var/www/nircrm/storage
+sudo chmod -R 777 /var/www/nircrm/bootstrap/cache</p><h1>Check Laravel logs</h1>
+tail -f /var/www/nircrm/storage/logs/laravel.log</p><h1>Check web server logs</h1>
+sudo tail -f /var/log/nginx/error.log
+</code></pre><h4>2. Database Connection Error</h4>
+<strong>Possible Causes:</strong><ul>
+<li>Database credentials incorrect</li>
+</ul><li>Database server not running</li><ul>
+<li>Firewall blocking connection</li>
+</ul>
+<strong>Solutions:</strong>
+<pre><code>bash
+<h1>Test database connection</h1>
+mysql -u nircrm_user -p -h localhost nircrm</p><h1>Check MySQL status</h1>
+sudo systemctl status mysql</p><h1>Check firewall</h1>
+sudo ufw status
+</code></pre><h4>3. Asset Loading Issues</h4>
+<strong>Possible Causes:</strong><ul>
+<li>Assets not compiled</li>
+</ul><li>Incorrect asset paths</li><ul>
+<li>Permission issues</li>
+</ul>
+<strong>Solutions:</strong>
+<pre><code>bash
+<h1>Recompile assets</h1>
+npm run build</p><h1>Clear view cache</h1>
+php artisan view:clear</p><h1>Create storage link</h1>
+php artisan storage:link
+</code></pre><h4>4. Performance Issues</h4>
+<strong>Possible Causes:</strong><ul>
+<li>Insufficient server resources</li>
+</ul><li>Database not optimized</li><ul>
+<li>Caching not configured</li>
+</ul>
+<strong>Solutions:</strong>
+<pre><code>bash
+<h1>Optimize database</h1>
+mysql -u root -p -e "OPTIMIZE TABLE nircrm.users, nircrm.leads, nircrm.attendances;"</p><h1>Enable OPcache</h1>
+sudo phpenmod opcache</p><h1>Configure Redis for caching</h1>
+<h1>Update .env file with Redis settings</h1>
+</code></pre><h3>Debug Mode</h3><h4>Enable Debug Mode (Development Only)</h4>
+<pre><code>env
+<h1>.env file</h1>
+APP_DEBUG=true
+LOG_LEVEL=debug
+</code></pre><h4>Debug Commands</h4>
+<pre><code>bash
+<h1>Check Laravel status</h1>
+php artisan about</p><h1>Check route list</h1>
+php artisan route:list</p><h1>Check configuration</h1>
+php artisan config:show</p><h1>Run diagnostics</h1>
+php artisan tinker
+<h1>Then run: app()->environment()</h1>
+</code></pre><h3>Performance Optimization</h3><h4>PHP Optimization</h4>
+<pre><code>ini
+<h1>/etc/php/8.1/fpm/php.ini</h1><h1>Memory</h1>
+memory_limit = 256M</p><h1>Execution time</h1>
+max_execution_time = 300</p><h1>OPcache settings</h1>
+opcache.enable=1
+opcache.memory_consumption=128
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=4000
+opcache.revalidate_freq=2
+opcache.fast_shutdown=1
+</code></pre><h4>Database Optimization</h4>
+<pre><code>sql
+-- Analyze table performance
+EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';</p><p>-- Create missing indexes
+CREATE INDEX idx_missing_column ON table_name(column_name);</p><p>-- Optimize tables
+OPTIMIZE TABLE table_name;
+</code></pre><p>---</p><h2>Security Best Practices</h2><h3>Application Security</h3><h4>1. Environment Security</h4>
+<pre><code>bash
+<h1>Secure .env file</h1>
+chmod 600 .env</p><h1>Prevent .env from being served</h1>
+<h1>Add to .htaccess or nginx config</h1>
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+</code></pre><h4>2. Regular Updates</h4>
+<pre><code>bash
+<h1>Update system packages</h1>
+sudo apt update && sudo apt upgrade</p><h1>Update Composer dependencies</h1>
+composer update</p><h1>Update npm dependencies</h1>
+npm update
+</code></pre><h4>3. Security Headers</h4>
+<pre><code>nginx
+<h1>Add to nginx configuration</h1>
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+</code></pre><h3>Monitoring and Alerting</h3><h4>Log Monitoring</h4>
+<pre><code>bash
+<h1>Monitor error logs</h1>
+tail -f /var/www/nircrm/storage/logs/laravel.log</p><h1>Monitor access logs</h1>
+tail -f /var/log/nginx/access.log
+</code></pre><h4>Uptime Monitoring</h4>
+<pre><code>bash
+<h1>Simple uptime check</h1>
+<table>
+<tr><th>curl -f https://your-domain.com/health</th><th>echo "Site is down"</th></tr>
+</table>
+</code></pre><p>---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Document Type</strong>: Installation Guide  
+<strong>Complexity</strong>: Intermediate to Advanced
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

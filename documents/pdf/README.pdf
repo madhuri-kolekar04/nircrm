@@ -1,0 +1,198 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 1 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [2 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 3 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2730 >>
+stream
+BT
+/F1 12 Tf
+72 742 Td
+(README) Tj
+/F1 10 Tf
+72 712 Td
+(NIRCRM Documentation) Tj
+0 -12 Td
+72 700 Td
+() Tj
+0 -12 Td
+72 688 Td
+(This folder contains comprehensive documentation for the NIRCRM \(Niranjan) Tj
+0 -12 Td
+72 676 Td
+(Enterprises Customer Relationship Management\) system.) Tj
+0 -12 Td
+72 664 Td
+() Tj
+0 -12 Td
+72 652 Td
+(Document Structure) Tj
+0 -12 Td
+72 640 Td
+() Tj
+0 -12 Td
+72 628 Td
+(📋 Core Documentation Files) Tj
+0 -12 Td
+72 616 Td
+() Tj
+0 -12 Td
+72 604 Td
+(• 00-Documentation-Index.md) Tj
+0 -12 Td
+72 592 Td
+(- Complete documentation index and overview) Tj
+0 -12 Td
+72 580 Td
+(- Quick reference guide) Tj
+0 -12 Td
+72 568 Td
+(- Navigation help) Tj
+0 -12 Td
+72 556 Td
+() Tj
+0 -12 Td
+72 544 Td
+(• 01-Technical-Overview.md) Tj
+0 -12 Td
+72 532 Td
+(- System architecture and technologies) Tj
+0 -12 Td
+72 520 Td
+(- Core features and capabilities) Tj
+0 -12 Td
+72 508 Td
+(- Security and performance considerations) Tj
+0 -12 Td
+72 496 Td
+() Tj
+0 -12 Td
+72 484 Td
+(• 02-Models-Database-Schema.md) Tj
+0 -12 Td
+72 472 Td
+(- Complete database structure) Tj
+0 -12 Td
+72 460 Td
+(- Model relationships and documentation) Tj
+0 -12 Td
+72 448 Td
+(- Migration files and constraints) Tj
+0 -12 Td
+72 436 Td
+() Tj
+0 -12 Td
+72 424 Td
+(• 03-Controllers-API-Documentation.md) Tj
+0 -12 Td
+72 412 Td
+(- API endpoints and controllers) Tj
+0 -12 Td
+72 400 Td
+(- Request/response formats) Tj
+0 -12 Td
+72 388 Td
+(- Authentication and authorization) Tj
+0 -12 Td
+72 376 Td
+() Tj
+0 -12 Td
+72 364 Td
+(• 04-UI-UX-Design-System.md) Tj
+0 -12 Td
+72 352 Td
+(- WhatsApp-inspired design system) Tj
+0 -12 Td
+72 340 Td
+(- Component library and patterns) Tj
+0 -12 Td
+72 328 Td
+(- Accessibility guidelines) Tj
+0 -12 Td
+72 316 Td
+() Tj
+0 -12 Td
+72 304 Td
+(• 05-User-Manual-Roles.md) Tj
+0 -12 Td
+72 292 Td
+(- Role-based user guides) Tj
+0 -12 Td
+72 280 Td
+(- Daily workflows and procedures) Tj
+0 -12 Td
+72 268 Td
+(- Troubleshooting and support) Tj
+0 -12 Td
+72 256 Td
+() Tj
+0 -12 Td
+72 244 Td
+(• 06-Installation-Deployment-Guide.md) Tj
+0 -12 Td
+72 232 Td
+(- Complete setup instructions) Tj
+0 -12 Td
+72 220 Td
+(- Production deployment guide) Tj
+0 -12 Td
+72 208 Td
+(- Maintenance and backup procedures) Tj
+0 -12 Td
+72 196 Td
+() Tj
+0 -12 Td
+72 184 Td
+(🔧 Utility Files) Tj
+0 -12 Td
+72 172 Td
+() Tj
+0 -12 Td
+72 160 Td
+(• generate-pdf.php) Tj
+0 -12 Td
+72 148 Td
+(- PDF generation script) Tj
+0 -12 Td
+72 136 Td
+(- Combines all documentation into single PDF) Tj
+0 -12 Td
+72 124 Td
+(- Requires mPDF library) Tj
+0 -12 Td
+72 112 Td
+() Tj
+0 -12 Td
+72 100 Td
+(Quick Start) Tj
+0 -12 Td
+72 88 Td
+() Tj
+0 -12 Td
+72 76 Td
+(For Developers) Tj
+0 -12 Td
+72 64 Td
+(• Read the Technical Overview) Tj
+0 -12 Td
+72 52 Td
+(• Study the Database Schema) Tj
+0 -12 Td
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3093
+%%EOF

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - User-Manual-Roles</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>User-Manual-Roles</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - User Manual for Different Roles</h1><h2>Table of Contents</h2><p><li><a href="#system-overview" target="_blank">System Overview</a></li>
+<li><a href="#getting-started" target="_blank">Getting Started</a></li>
+<li><a href="#super-admin-guide" target="_blank">Super Admin Guide</a></li>
+<li><a href="#general-manager-guide" target="_blank">General Manager Guide</a></li>
+<li><a href="#manager-guide" target="_blank">Manager Guide</a></li>
+<li><a href="#employee-guide" target="_blank">Employee Guide</a></li>
+<li><a href="#customer-guide" target="_blank">Customer Guide</a></li>
+<li><a href="#common-features" target="_blank">Common Features</a></li>
+<li><a href="#troubleshooting" target="_blank">Troubleshooting</a></li></p><p>---</p><h2>System Overview</h2><p>NIRCRM is a comprehensive Customer Relationship Management system designed to streamline business operations, manage customer relationships, track leads, handle employee management, and automate various business processes.</p><h3>Key Features</h3><ul>
+<li><strong>Lead Management</strong>: Track and convert leads into customers</li>
+</ul><li><strong>Employee Management</strong>: Complete HR and attendance system</li><ul>
+<li><strong>Invoice Management</strong>: Professional invoicing with PDF generation</li>
+</ul><li><strong>WhatsApp-Style Interface</strong>: Familiar and intuitive user experience</li><ul>
+<li><strong>Role-Based Access</strong>: Different features for different user roles</li>
+</ul><li><strong>Real-Time Notifications</strong>: Stay updated with important events</li><ul>
+<li><strong>Multi-Department Support</strong>: Organize teams by departments</li>
+</ul><li><strong>Attendance Tracking</strong>: Check-in/check-out with shift management</li><ul>
+<li><strong>Leave Management</strong>: Request and approve leave applications</li>
+</ul><li><strong>Reporting & Analytics</strong>: Comprehensive business insights</li></p><p>---</p><h2>Getting Started</h2><h3>First-Time Login</h3><p><li><strong>Access the System</strong></li>
+   - Open your web browser
+   - Navigate to your company's CRM URL
+   - Enter your credentials provided by your administrator</p><p><li><strong>Initial Setup</strong></li>
+   - Update your profile information
+   - Set a strong password
+   - Upload a profile photo (optional)
+   - Configure notification preferences</p><p><li><strong>Navigation Basics</strong></li>
+   - <strong>Sidebar</strong>: Main navigation menu (collapsible)
+   - <strong>Dashboard</strong>: Your personalized home screen
+   - <strong>Search</strong>: Quick access to records
+   - <strong>Notifications</strong>: Stay informed about updates</p><h3>Interface Overview</h3><pre><code>
+┌─────────────────────────────────────────────────────────┐
+│                    Header Bar                            │
+├─────────┬───────────────────────────────────────────────┤
+│ Sidebar │                Main Content                   │
+│         │                                               │
+│ • Profile│  • Dashboard                                   │
+│ • Notifs│  • Search Bar                                  │
+│ • Chat  │  • List View                                   │
+│ • Leads │  • Detail View                                 │
+│ • Tasks │  • Action Buttons                              │
+│ • ...   │                                               │
+├─────────┴───────────────────────────────────────────────┤
+│                    Status Bar                            │
+└─────────────────────────────────────────────────────────┘
+</code></pre><p>---</p><h2>Super Admin Guide</h2><h3>Role Overview</h3>
+<strong>Super Admin</strong> has complete system access and can manage all aspects of the CRM system.</p><h3>Responsibilities</h3><ul>
+<li>System configuration and maintenance</li>
+</ul><li>User account management</li><ul>
+<li>Department structure setup</li>
+</ul><li>Global reporting and analytics</li><ul>
+<li>Security and permissions management</li>
+</ul><li>System backups and maintenance</li></p><h3>Key Features Access</h3><h4>1. User Management</h4>
+<pre><code>
+Path: Users → Employee Management
+</code></pre><p><strong>Actions Available:</strong><ul>
+<li>Create, edit, delete user accounts</li>
+</ul><li>Assign roles and departments</li><ul>
+<li>Set manager-subordinate relationships</li>
+</ul><li>Manage user permissions</li><ul>
+<li>Deactivate/reactivate accounts</li>
+</ul><li>Reset passwords</li></p><p><strong>Step-by-Step: Creating a New User</strong>
+<li>Navigate to <strong>Users → Employee Management</strong></li>
+<li>Click <strong>"Add New Employee"</strong></li>
+<li>Fill in required information:</li>
+   - Personal details (name, email, phone)
+   - Job information (position, department, salary)
+   - Account settings (role, permissions)
+<li>Assign to department and manager</li>
+<li>Set work shift if applicable</li>
+<li>Click <strong>"Create Employee"</strong></li></p><h4>2. Department Management</h4>
+<pre><code>
+Path: Settings → Departments
+</code></pre><p><strong>Actions Available:</strong><ul>
+<li>Create hierarchical department structure</li>
+</ul><li>Assign department managers</li><ul>
+<li>Set department-specific permissions</li>
+</ul><li>Configure department menus</li><ul>
+<li>Activate/deactivate departments</li>
+</ul>
+<strong>Creating Department Hierarchy:</strong>
+<li>Go to <strong>Settings → Departments</strong></li>
+<li>Click <strong>"Add Department"</strong></li>
+<li>Enter department details:</li>
+   - Department name
+   - Description
+   - Parent department (for sub-departments)
+   - Department code
+<li>Assign department manager</li>
+<li>Configure menu access</li>
+<li>Save department</li></p><h4>3. System Configuration</h4>
+<pre><code>
+Path: Settings → System Configuration
+</code></pre><p><strong>Configuration Options:</strong><ul>
+<li>Company information</li>
+</ul><li>Email settings</li><ul>
+<li>Backup schedules</li>
+</ul><li>Security policies</li><ul>
+<li>Notification preferences</li>
+</ul><li>Theme customization</li></p><h4>4. Global Reports</h4>
+<pre><code>
+Path: Reports → Analytics
+</code></pre><p><strong>Available Reports:</strong><ul>
+<li>User activity reports</li>
+</ul><li>Department performance</li><ul>
+<li>Lead conversion rates</li>
+</ul><li>Revenue analytics</li><ul>
+<li>Attendance statistics</li>
+</ul><li>System usage metrics</li></p><h4>5. Security Management</h4>
+<pre><code>
+Path: Settings → Security
+</code></pre><p><strong>Security Tasks:</strong><ul>
+<li>Password policy configuration</li>
+</ul><li>Two-factor authentication setup</li><ul>
+<li>Session management</li>
+</ul><li>Access log monitoring</li><ul>
+<li>Security audit reports</li>
+</ul>
+<h3>Daily Workflow</h3><h4>Morning Routine</h4>
+<li><strong>Check System Status</strong></li>
+   - Review system health
+   - Check backup completion
+   - Monitor error logs</p><p><li><strong>Review User Activity</strong></li>
+   - Check new user registrations
+   - Review permission requests
+   - Monitor unusual activity</p><p><li><strong>Department Updates</strong></li>
+   - Review department changes
+   - Approve department requests
+   - Update organizational structure</p><h4>Weekly Tasks</h4>
+<li><strong>User Management Review</strong></li>
+   - Deactivate inactive accounts
+   - Update user permissions
+   - Review role assignments</p><p><li><strong>System Maintenance</strong></li>
+   - Apply security updates
+   - Optimize database performance
+   - Review backup integrity</p><p><li><strong>Reporting</strong></li>
+   - Generate weekly usage reports
+   - Analyze system performance
+   - Plan system improvements</p><p>---</p><h2>General Manager Guide</h2><h3>Role Overview</h3>
+<strong>General Manager</strong> oversees multiple departments and has high-level approval authority.</p><h3>Responsibilities</h3><ul>
+<li>Multi-department oversight</li>
+</ul><li>High-level leave approvals</li><ul>
+<li>Strategic decision support</li>
+</ul><li>Performance monitoring</li><ul>
+<li>Resource allocation</li>
+</ul>
+<h3>Key Features Access</h3><h4>1. Department Oversight</h4>
+<pre><code>
+Path: Dashboard → Department Overview
+</code></pre><p><strong>Features:</strong><ul>
+<li>View all department performance</li>
+</ul><li>Compare department metrics</li><ul>
+<li>Resource allocation analysis</li>
+</ul><li>Inter-department collaboration</li></p><h4>2. High-Level Approvals</h4>
+<pre><code>
+Path: Approvals → Pending Items
+</code></pre><p><strong>Approval Authority:</strong><ul>
+<li>Manager leave requests</li>
+</ul><li>High-value invoices</li><ul>
+<li>Department budget requests</li>
+</ul><li>Strategic project approvals</li></p><h4>3. Strategic Reports</h4>
+<pre><code>
+Path: Reports → Strategic Analytics
+</code></pre><p><strong>Report Types:</strong><ul>
+<li>Department performance comparison</li>
+</ul><li>Revenue trends analysis</li><ul>
+<li>Resource utilization</li>
+</ul><li>Growth projections</li></p><h4>4. Team Management</h4>
+<pre><code>
+Path: Teams → Management
+</code></pre><p><strong>Management Features:</strong><ul>
+<li>Manager assignments</li>
+</ul><li>Department restructuring</li><ul>
+<li>Performance reviews</li>
+</ul><li>Team coordination</li></p><h3>Daily Workflow</h3><h4>Morning Review</h4>
+<li><strong>Department Status Check</strong></li>
+   - Review department dashboards
+   - Check critical issues
+   - Monitor team performance</p><p><li><strong>Approval Queue</strong></li>
+   - Review pending high-level approvals
+   - Process urgent requests
+   - Delegate when appropriate</p><h4>Strategic Planning</h4>
+<li><strong>Performance Analysis</strong></li>
+   - Review department metrics
+   - Identify improvement areas
+   - Plan resource allocation</p><p><li><strong>Team Coordination</strong></li>
+   - Meet with department managers
+   - Address cross-department issues
+   - Align team objectives</p><p>---</p><h2>Manager Guide</h2><h3>Role Overview</h3>
+<strong>Manager</strong> oversees specific departments and teams with approval authority for team members.</p><h3>Responsibilities</h3><ul>
+<li>Department team management</li>
+</ul><li>Leave approval for team members</li><ul>
+<li>Performance monitoring</li>
+</ul><li>Task assignment and tracking</li><ul>
+<li>Team coordination</li>
+</ul>
+<h3>Key Features Access</h3><h4>1. Team Management</h4>
+<pre><code>
+Path: Dashboard → My Team
+</code></pre><p><strong>Team Features:</strong><ul>
+<li>View team member profiles</li>
+</ul><li>Monitor attendance</li><ul>
+<li>Track performance metrics</li>
+</ul><li>Assign tasks and projects</li><ul>
+<li>Team communication</li>
+</ul>
+<strong>Managing Team Members:</strong>
+<li>Navigate to <strong>Dashboard → My Team</strong></li>
+<li>View team roster with status</li>
+<li>Click on team member for details</li>
+<li>Review attendance and performance</li>
+<li>Assign tasks or projects</li>
+<li>Send messages or notifications</li></p><h4>2. Leave Management</h4>
+<pre><code>
+Path: Leave → Team Leave Requests
+</code></pre><p><strong>Leave Approval Process:</strong>
+<li><strong>Review Leave Requests</strong></li>
+   - Check leave details
+   - Verify team coverage
+   - Review leave balance</p><p><li><strong>Approval Actions</strong></li>
+   - Approve with notes
+   - Reject with reason
+   - Request more information</p><p><li><strong>Team Coverage Planning</strong></li>
+   - Plan for absence coverage
+   - Reassign tasks if needed
+   - Update project timelines</p><p><strong>Step-by-Step Leave Approval:</strong>
+<li>Go to <strong>Leave → Team Leave Requests</strong></li>
+<li>Review pending requests</li>
+<li>Click on request for details:</li>
+   - Leave dates and duration
+   - Reason for leave
+   - Team impact assessment
+<li>Make decision:</li>
+   - <strong>Approve</strong>: Add approval notes
+   - <strong>Reject</strong>: Provide clear reason
+   - <strong>Request Info</strong>: Ask for clarification</p><h4>3. Attendance Monitoring</h4>
+<pre><code>
+Path: Attendance → Team Attendance
+</code></pre><p><strong>Attendance Features:</strong><ul>
+<li>Real-time attendance status</li>
+</ul><li>Late arrival tracking</li><ul>
+<li>Absence reporting</li>
+</ul><li>Monthly attendance summaries</li></p><p><strong>Daily Attendance Review:</strong>
+<li>Check team check-in status</li>
+<li>Identify late arrivals</li>
+<li>Follow up on absent team members</li>
+<li>Address attendance issues</li></p><h4>4. Task Management</h4>
+<pre><code>
+Path: Tasks → Team Tasks
+</code></pre><p><strong>Task Management Features:</strong><ul>
+<li>Create and assign tasks</li>
+</ul><li>Set priorities and deadlines</li><ul>
+<li>Track task progress</li>
+</ul><li>Monitor completion rates</li></p><p><strong>Assigning Tasks:</strong>
+<li>Go to <strong>Tasks → Team Tasks</strong></li>
+<li>Click <strong>"New Task"</strong></li>
+<li>Fill in task details:</li>
+   - Task title and description
+   - Assigned team member(s)
+   - Priority level
+   - Due date
+   - Required resources
+<li>Set up notifications</li>
+<li>Save and assign task</li></p><h4>5. Performance Tracking</h4>
+<pre><code>
+Path: Reports → Team Performance
+</code></pre><p><strong>Performance Metrics:</strong><ul>
+<li>Individual performance scores</li>
+</ul><li>Team productivity metrics</li><ul>
+<li>Goal completion rates</li>
+</ul><li>Attendance patterns</li></p><h3>Daily Workflow</h3><h4>Morning Routine</h4>
+<li><strong>Team Status Check</strong></li>
+   - Review team attendance
+   - Check urgent messages
+   - Review overnight updates</p><p><li><strong>Task Prioritization</strong></li>
+   - Review new task assignments
+   - Prioritize daily activities
+   - Allocate resources</p><p><li><strong>Leave Approvals</strong></li>
+   - Process pending leave requests
+   - Plan team coverage
+   - Update schedules</p><h4>Throughout the Day</h4>
+<li><strong>Team Communication</strong></li>
+   - Check team messages
+   - Address team issues
+   - Provide guidance and support</p><p><li><strong>Progress Monitoring</strong></li>
+   - Track task completion
+   - Monitor project progress
+   - Address bottlenecks</p><p><li><strong>Performance Management</strong></li>
+   - Provide feedback
+   - Address performance issues
+   - Recognize achievements</p><h4>End of Day</h4>
+<li><strong>Daily Review</strong></li>
+   - Review completed tasks
+   - Plan next day's priorities
+   - Update project status</p><p><li><strong>Team Check-in</strong></li>
+   - Review team accomplishments
+   - Address outstanding issues
+   - Plan for tomorrow</p><p>---</p><h2>Employee Guide</h2><h3>Role Overview</h3>
+<strong>Employee</strong> has access to personal dashboard, assigned tasks, and basic CRM functions.</p><h3>Responsibilities</h3><ul>
+<li>Complete assigned tasks</li>
+</ul><li>Manage personal attendance</li><ul>
+<li>Request leave when needed</li>
+</ul><li>Update personal information</li><ul>
+<li>Communicate with team</li>
+</ul>
+<h3>Key Features Access</h3><h4>1. Personal Dashboard</h4>
+<pre><code>
+Path: Dashboard (Home)
+</code></pre><p><strong>Dashboard Features:</strong><ul>
+<li>Personal attendance status</li>
+</ul><li>Assigned tasks list</li><ul>
+<li>Recent notifications</li>
+</ul><li>Quick actions menu</li><ul>
+<li>Team updates</li>
+</ul>
+<strong>Using Your Dashboard:</strong>
+<li><strong>Check Attendance Status</strong></li>
+   - View current check-in status
+   - See working hours today
+   - Review attendance history</p><p><li><strong>Task Overview</strong></li>
+   - View assigned tasks
+   - Check due dates
+   - Mark tasks as complete</p><p><li><strong>Notifications Center</strong></li>
+   - Review new notifications
+   - Check important updates
+   - Respond to messages</p><h4>2. Attendance Management</h4>
+<pre><code>
+Path: Attendance → My Attendance
+</code></pre><p><strong>Attendance Features:</strong><ul>
+<li>Daily check-in/check-out</li>
+</ul><li>Attendance history</li><ul>
+<li>Working hours summary</li>
+</ul><li>Leave records</li></p><p><strong>Daily Check-in Process:</strong>
+<li>Go to <strong>Attendance → My Attendance</strong></li>
+<li>Click <strong>"Check In"</strong> button</li>
+<li>Confirm check-in time</li>
+<li>Add notes if needed</li>
+<li>System records location and time</li></p><p><strong>Check-out Process:</strong>
+<li>Click <strong>"Check Out"</strong> button</li>
+<li>Review working hours</li>
+<li>Add end-of-day notes</li>
+<li>Confirm check-out</li></p><h4>3. Leave Management</h4>
+<pre><code>
+Path: Leave → My Leave Requests
+</code></pre><p><strong>Leave Features:</strong><ul>
+<li>Request leave</li>
+</ul><li>View leave balance</li><ul>
+<li>Track leave status</li>
+</ul><li>Leave history</li></p><p><strong>Requesting Leave:</strong>
+<li>Go to <strong>Leave → My Leave Requests</strong></li>
+<li>Click <strong>"Request Leave"</strong></li>
+<li>Select leave type:</li>
+   - Casual Leave
+   - Sick Leave
+   - Annual Leave
+   - Half Day Leave
+<li>Choose dates:</li>
+   - Start date and end date
+   - Or half day with time
+<li>Add reason for leave</li>
+<li>Upload supporting documents (if required)</li>
+<li>Submit request</li></p><p><strong>Leave Balance Check:</strong>
+<li>View available leave days</li>
+<li>Check leave type balances</li>
+<li>Review used leave history</li>
+<li>Plan future leave requests</li></p><h4>4. Task Management</h4>
+<pre><code>
+Path: Tasks → My Tasks
+</code></pre><p><strong>Task Features:</strong><ul>
+<li>View assigned tasks</li>
+</ul><li>Update task status</li><ul>
+<li>Add task comments</li>
+</ul><li>Mark tasks complete</li></p><p><strong>Working on Tasks:</strong>
+<li><strong>View Task List</strong></li>
+   - See all assigned tasks
+   - Check priorities and due dates
+   - Review task details</p><p><li><strong>Update Task Progress</strong></li>
+   - Mark tasks as in progress
+   - Add status updates
+   - Upload completed work</p><p><li><strong>Complete Tasks</strong></li>
+   - Mark tasks as complete
+   - Add completion notes
+   - Request review if needed</p><h4>5. Lead Management</h4>
+<pre><code>
+Path: Leads → My Leads
+</code></pre><p><strong>Lead Features:</strong><ul>
+<li>View assigned leads</li>
+</ul><li>Update lead status</li><ul>
+<li>Add lead notes</li>
+</ul><li>Schedule follow-ups</li></p><p><strong>Managing Leads:</strong>
+<li><strong>Review Lead Details</strong></li>
+   - Contact information
+   - Lead source and status
+   - Previous interactions</p><p><li><strong>Update Lead Status</strong></li>
+   - Change lead status
+   - Add new information
+   - Schedule follow-up actions</p><p><li><strong>Lead Communication</strong></li>
+   - Add contact notes
+   - Record communication
+   - Plan next steps</p><h4>6. Profile Management</h4>
+<pre><code>
+Path: Profile → My Profile
+</code></pre><p><strong>Profile Features:</strong><ul>
+<li>Update personal information</li>
+</ul><li>Change password</li><ul>
+<li>Upload profile photo</li>
+</ul><li>Set preferences</li></p><p><strong>Updating Your Profile:</strong>
+<li>Go to <strong>Profile → My Profile</strong></li>
+<li>Edit personal details:</li>
+   - Contact information
+   - Emergency contacts
+   - Personal preferences
+<li>Update password if needed</li>
+<li>Upload new profile photo</li>
+<li>Save changes</li></p><h3>Daily Workflow</h3><h4>Start of Day</h4>
+<li><strong>Check In</strong></li>
+   - Log into system
+   - Check in for attendance
+   - Review dashboard</p><p><li><strong>Review Priorities</strong></li>
+   - Check assigned tasks
+   - Review notifications
+   - Plan daily activities</p><h4>During the Day</h4>
+<li><strong>Task Management</strong></li>
+   - Work on assigned tasks
+   - Update task progress
+   - Communicate with team</p><p><li><strong>Lead Management</strong></li>
+   - Follow up on leads
+   - Update lead information
+   - Schedule next actions</p><p><li><strong>Communication</strong></li>
+   - Check messages
+   - Respond to notifications
+   - Collaborate with team</p><h4>End of Day</h4>
+<li><strong>Complete Tasks</strong></li>
+   - Finish daily tasks
+   - Update task status
+   - Report progress</p><p><li><strong>Check Out</strong></li>
+   - Check out from attendance
+   - Review day's accomplishments
+   - Plan for tomorrow</p><p>---</p><h2>Customer Guide</h2><h3>Role Overview</h3>
+<strong>Customer</strong> has limited access to view their projects, invoices, and communicate with the team.</p><h3>Responsibilities</h3><ul>
+<li>View project status</li>
+</ul><li>Access invoices and quotations</li><ul>
+<li>Communicate with service team</li>
+</ul><li>Provide feedback and requirements</li></p><h3>Key Features Access</h3><h4>1. Customer Dashboard</h4>
+<pre><code>
+Path: Dashboard (Customer View)
+</code></pre><p><strong>Dashboard Features:</strong><ul>
+<li>Active projects overview</li>
+</ul><li>Recent invoices</li><ul>
+<li>Unpaid invoices</li>
+</ul><li>Messages from team</li><ul>
+<li>Quick contact options</li>
+</ul>
+<h4>2. Project Management</h4>
+<pre><code>
+Path: Projects → My Projects
+</code></pre><p><strong>Project Features:</strong><ul>
+<li>View project details</li>
+</ul><li>Track project progress</li><ul>
+<li>Download project files</li>
+</ul><li>View project timeline</li></p><h4>3. Invoice Management</h4>
+<pre><code>
+Path: Invoices → My Invoices
+</code></pre><p><strong>Invoice Features:</strong><ul>
+<li>View invoice details</li>
+</ul><li>Download PDF copies</li><ul>
+<li>Check payment status</li>
+</ul><li>View payment history</li></p><h4>4. Communication</h4>
+<pre><code>
+Path: Messages → Communication
+</code></pre><p><strong>Communication Features:</strong><ul>
+<li>Send messages to team</li>
+</ul><li>View conversation history</li><ul>
+<li>Share files and documents</li>
+</ul><li>Request support</li></p><p>---</p><h2>Common Features</h2><h3>1. Search Functionality</h3>
+<pre><code>
+Keyboard Shortcut: Ctrl/Cmd + K
+</code></pre><p><strong>Search Options:</strong><ul>
+<li>Global search across all modules</li>
+</ul><li>Filter by record type</li><ul>
+<li>Advanced search options</li>
+</ul><li>Search history</li></p><h3>2. Notifications System</h3>
+<pre><code>
+Path: Notifications (Bell Icon)
+</code></pre><p><strong>Notification Types:</strong><ul>
+<li>Task assignments</li>
+</ul><li>Leave approvals</li><ul>
+<li>System updates</li>
+</ul><li>Message alerts</li><ul>
+<li>Deadline reminders</li>
+</ul>
+<h3>3. Theme Switching</h3>
+<pre><code>
+Path: Sidebar → Theme Toggle
+</code></pre><p><strong>Theme Options:</strong><ul>
+<li>Light mode (default)</li>
+</ul><li>Dark mode</li><ul>
+<li>System preference</li>
+</ul><li>Auto-switch based on time</li></p><h3>4. File Management</h3>
+<pre><code>
+Supported Formats: PDF, DOC, DOCX, JPG, JPEG, PNG
+Maximum Size: 2MB per file
+</code></pre><p><strong>File Operations:</strong><ul>
+<li>Upload files</li>
+</ul><li>Download documents</li><ul>
+<li>Preview files</li>
+</ul><li>Share with team</li></p><h3>5. Reporting</h3>
+<pre><code>
+Path: Reports → [Report Type]
+</code></pre><p><strong>Report Features:</strong><ul>
+<li>Generate custom reports</li>
+</ul><li>Export to PDF/Excel</li><ul>
+<li>Schedule reports</li>
+</ul><li>Share reports</li></p><p>---</p><h2>Troubleshooting</h2><h3>Common Issues</h3><h4>Login Problems</h4>
+<strong>Problem</strong>: Can't log into the system
+<strong>Solutions</strong>:
+<li>Check username and password</li>
+<li>Verify account is active</li>
+<li>Clear browser cache</li>
+<li>Try password reset</li>
+<li>Contact administrator</li></p><h4>Attendance Issues</h4>
+<strong>Problem</strong>: Can't check in or check out
+<strong>Solutions</strong>:
+<li>Check internet connection</li>
+<li>Verify current time</li>
+<li>Ensure you're not already checked in/out</li>
+<li>Contact manager if system error</li></p><h4>Leave Request Issues</h4>
+<strong>Problem</strong>: Leave request not submitting
+<strong>Solutions</strong>:
+<li>Check leave balance</li>
+<li>Verify date format</li>
+<li>Ensure required fields are filled</li>
+<li>Try different browser</li>
+<li>Contact HR department</li></p><h4>Performance Issues</h4>
+<strong>Problem</strong>: System running slowly
+<strong>Solutions</strong>:
+<li>Clear browser cache</li>
+<li>Check internet speed</li>
+<li>Close unnecessary tabs</li>
+<li>Try different browser</li>
+<li>Report to IT department</li></p><h3>Getting Help</h3><h4>Self-Service Options</h4>
+<li><strong>Help Center</strong>: Built-in documentation</li>
+<li><strong>FAQ Section</strong>: Common questions answered</li>
+<li><strong>Video Tutorials</strong>: Step-by-step guides</li>
+<li><strong>System Status</strong>: Check current system status</li></p><h4>Contact Support</h4>
+<li><strong>IT Helpdesk</strong>: Technical issues</li>
+<li><strong>HR Department</strong>: Account and leave issues</li>
+<li><strong>Manager</strong>: Work-related questions</li>
+<li><strong>System Admin</strong>: System-wide issues</li></p><h4>Emergency Contacts</h4><ul>
+<li><strong>System Administrator</strong>: [Admin Email/Phone]</li>
+</ul><li><strong>IT Support</strong>: [IT Email/Phone]</li><ul>
+<li><strong>HR Department</strong>: [HR Email/Phone]</li>
+</ul>
+<h3>Best Practices</h3><h4>Security</h4><ul>
+<li>Use strong passwords</li>
+</ul><li>Log out when finished</li><ul>
+<li>Don't share credentials</li>
+</ul><li>Report suspicious activity</li></p><h4>Data Management</h4><ul>
+<li>Save work frequently</li>
+</ul><li>Backup important data</li><ul>
+<li>Follow data retention policies</li>
+</ul><li>Keep information accurate</li></p><h4>Communication</h4><ul>
+<li>Check notifications regularly</li>
+</ul><li>Respond to messages promptly</li><ul>
+<li>Use professional communication</li>
+</ul><li>Document important conversations</li></p><p>---</p><h2>Quick Reference</h2><h3>Keyboard Shortcuts</h3>
+<pre><code>
+Ctrl/Cmd + K     - Open search
+Ctrl/Cmd + /     - Show keyboard shortcuts
+Escape           - Close modals/popup
+Ctrl/Cmd + S     - Save (in forms)
+Enter            - Submit forms
+Tab              - Navigate fields
+</code></pre><h3>Common Paths</h3>
+<pre><code>
+Dashboard        - Home/Dashboard
+Profile          - User profile
+Attendance       - Check-in/Check-out
+Leave            - Leave requests
+Tasks            - Task management
+Leads            - Lead management
+Invoices         - Invoice management
+Reports          - Reports and analytics
+Settings         - System settings
+</code></pre><h3>Contact Information</h3>
+<pre><code>
+System Admin:    admin@company.com
+IT Support:       it@company.com
+HR Department:    hr@company.com
+Manager:          manager@company.com
+</code></pre><p>---</p><p><strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Document Type</strong>: User Manual  
+<strong>Target Audience</strong>: All System Users
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>

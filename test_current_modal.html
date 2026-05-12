@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-button {
+            margin: 10px 0;
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 Modal Functionality Test</h1>
+        
+        <button class="btn btn-primary test-button" onclick="testModal()">
+            <i class="fas fa-play"></i> Test Meeting Modal
+        </button>
+        
+        <div class="debug-info" id="debugInfo">
+            <strong>Debug Information:</strong><br>
+            Click the test button to check modal functionality...
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="meetingModal" tabindex="-1" aria-labelledby="meetingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="meetingModalLabel">
+                        <i class="fas fa-calendar-check me-2"></i>
+                        Schedule Meeting & Call Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="meetingForm">
+                        <div class="mb-3">
+                            <label for="testInput" class="form-label">Test Input</label>
+                            <input type="text" class="form-control" id="testInput" placeholder="Enter test text">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="clearTest()">Clear</button>
+                    <button type="button" class="btn btn-primary" onclick="saveTest()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function testModal() {
+            console.log("=== TEST MODAL CALLED ===");
+            
+            const debugInfo = document.getElementById("debugInfo");
+            
+            // Check if modal exists
+            const modal = document.getElementById("meetingModal");
+            if (!modal) {
+                debugInfo.innerHTML = "❌ Modal element not found!";
+                return;
+            }
+            
+            // Check if Bootstrap is loaded
+            if (typeof bootstrap === "undefined") {
+                debugInfo.innerHTML = "❌ Bootstrap not loaded!";
+                return;
+            }
+            
+            // Check if function exists
+            if (typeof openMeetingModal === "undefined") {
+                debugInfo.innerHTML = "❌ openMeetingModal function not defined!";
+                return;
+            }
+            
+            debugInfo.innerHTML = `
+✅ All checks passed!
+✅ Modal element found: ${modal ? "Yes" : "No"}
+✅ Bootstrap loaded: ${typeof bootstrap !== "undefined" ? "Yes" : "No"}
+✅ Function exists: ${typeof openMeetingModal !== "undefined" ? "Yes" : "No"}
+
+Now attempting to open modal...`;
+            
+            try {
+                // Test modal opening
+                const modalInstance = new bootstrap.Modal(modal);
+                modalInstance.show();
+                
+                setTimeout(() => {
+                    const isVisible = modal.classList.contains("show");
+                    debugInfo.innerHTML += `<br><br>✅ Modal opened successfully: ${isVisible ? "Yes" : "No"}`;
+                    
+                    if (isVisible) {
+                        debugInfo.innerHTML += `<br><br>🎉 Modal is working!`;
+                    } else {
+                        debugInfo.innerHTML += `<br><br>❌ Modal failed to open`;
+                    }
+                }, 500);
+                
+            } catch (error) {
+                debugInfo.innerHTML = `❌ Error opening modal: ${error.message}`;
+                console.error("Modal error:", error);
+            }
+        }
+        
+        function clearTest() {
+            document.getElementById("testInput").value = "";
+            console.log("Form cleared");
+        }
+        
+        function saveTest() {
+            const inputValue = document.getElementById("testInput").value;
+            if (!inputValue.trim()) {
+                alert("Please enter test text");
+                return;
+            }
+            
+            alert("Test saved: " + inputValue);
+            console.log("Test saved:", inputValue);
+        }
+    </script>
+</body>
+</html>

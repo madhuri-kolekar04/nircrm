@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+body{
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+
+.container{
+	max-width: 1170px;
+	margin:auto;
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+ul{
+	list-style: none;
+}
+
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col p{
+	color: #fff;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #FFFFFF ;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+/*	text-align: center;*/
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #fff;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #FFFFFF ;
+	text-decoration: none;
+	font-weight: 300;
+	color: #fff;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #FFFFFF ;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #FFFFFF ;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #FFFFFF ;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+.footer{
+    background-image:linear-gradient(to right,rgba(0, 0, 0, .5) 25%,rgba(0, 0, 0, .6) 50%),url("{{URL::asset('images/office-desk2.png.jpg') }}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+.card_item{
+    border: 1px solid black;
+    border-radius: 22px;
+    margin: 10px;
+}
+ul li{
+    font-size: 20px;
+}
+.gradient{
+       
+              background: linear-gradient(-45deg, #2f2f2f, #404040, #303131, #525252);
+          background-size: 400% 400%;
+          animation: gradient 15s ease infinite;
+          height: auto;
+          color: #fff;
+      }
+
+      
+.gradient a{
+          text-decoration: none;
+          color: #fff;
+          
+      }
+
+      @keyframes gradient {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
+
+
+
+
+
+
+
+    /* second file data */
+
+.wrapper .header{
+	width: 100%;
+	height: 50px;
+	background: #e36686;
+	color: #fff;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-weight: 900;
+}
+.topnav {
+	overflow: left;
+	color: #fff;
+	text-align:center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	background-color: #FFFFFF ;
+}
+
+.topnav .col-md-4 a{
+ text-decoration: none;
+ color: #fff;
+ text-align: center;
+ padding-top: 30px;
+
+}
+
+.social-links{
+	color: #fff;
+}
+.cards_wrap{
+	padding: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.cards_wrap .card_item{
+	padding: 10px 20px;
+	width: 25%;
+}
+
+.cards_wrap .card_inner{
+	
+	border-radius: 5px;
+	padding: 35px 20px;
+	min-width: 225px;
+	height: auto;
+	width: 100%;
+}
+
+.cards_wrap .card_item img{
+	width: 80px;
+	height: 80px;
+	margin-bottom: 5px;
+}
+
+.cards_wrap .card_item .role_name{
+	color: #e36686;
+	font-weight: 900;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 20px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cards_wrap .card_item .real_name{
+	color: #b6c0c2;
+	font-size: 12px;
+	font-weight: 100;
+	margin: 5px 0 10px;
+}
+
+.cards_wrap .card_item .film{
+	font-size: 14px;
+	line-height: 24px;
+	color: #fff;
+}
+
+@media screen and (max-width: 1024px){
+	.cards_wrap .card_item{
+		width: 33%;
+	}
+}
+
+@media screen and (max-width: 768px){
+	.cards_wrap .card_item{
+		width: 50%;
+	}
+	.wrapper .header{
+		font-size: 16px;
+		height: 60px;
+	}
+}
+
+@media screen and (max-width: 568px){
+	.cards_wrap .card_item{
+		width: 100%;
+	}
+	.wrapper .header{
+		font-size: 14px;
+	}
+}
+
+.topnav .col-md-4 ul{
+  		display: flex;
+
+  	}
+  	.topnav .col-md-4 ul li a{
+  		padding-right: 18px;
+  		align-content: space-around;
+  		align-content: space-between;
+  		font-size: 10px;
+
+  	}
+  	.topnav .col-md-4 ul li a i{
+  		align-self: flex-end;
+  		padding-top: 55px;
+  	
+  		align-content: space-around;
+  		align-content: space-between;
+  		font-size: 12px;
+
+  	}
+
+
+    /* changes */
+.logdiv{
+    line-height: 50px;
+}
+.dashboardbutton{
+    background-color: #fdfdfd;
+    padding:8px 8px;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius:3px;
+    color:black;
+    transition:all ease 0.2s;
+    font-weight: 700;
+
+}
+.dashboardbutton:hover{
+   transform:scale(0.2);
+   background-color: rgb(241, 104, 134);
+   color:white;
+
+}
+
+
+
+/* animation */
+
+/*
+CSS code from cssprojectpro.com website
+*/
+
+.codeoutlook-15 {
+    -webkit-tap-highlight-color: transparent;
+    height:40px; width:140px;
+    background-color: #FFFFFF ;
+    background-image: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+      Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+    -webkit-mask-image: -webkit-radial-gradient(#FFFFFF, #fff);
+    padding: 10px 20px;
+    text-transform: uppercase;
+  }
+  .codeoutlook-15:disabled {
+    cursor: default;
+  }
+  .codeoutlook-15:-moz-focusring {
+    outline: auto;
+  }
+  .codeoutlook-15 svg {
+    display: block;
+    vertical-align: middle;
+  }
+  .codeoutlook-15 [hidden] {
+    display: none;
+  }
+  .codeoutlook-15 {
+    border-radius: 5px;
+    border-width: 2px;
+    overflow: hidden;
+    padding: 0.8rem 3rem;
+    position: relative;
+    z-index: 0;
+  }
+  .codeoutlook-15 span {
+    mix-blend-mode: difference;
+  }
+  .codeoutlook-15:after,
+  .codeoutlook-15:before {
+    --skew: 0.2;
+    background: #fff;
+    content: "";
+    display: block;
+    height: 102%;
+    left: calc(-50% - 50% * var(--skew));
+    pointer-events: none;
+    position: absolute;
+    top: -104%;
+    transform: skew(calc(150deg * var(--skew))) translateY(var(--progress, 0));
+    transition: transform 0.2s ease;
+    width: 100%;
+  }
+  .codeoutlook-15:after {
+    --progress: 0%;
+    left: calc(50% + 50% * var(--skew));
+    top: 102%;
+    z-index: -1;
+  }
+  .codeoutlook-15:hover:before {
+    --progress: 100%;
+  }
+  .codeoutlook-15:hover:after {
+    --progress: -102%;
+  }
+   
+  

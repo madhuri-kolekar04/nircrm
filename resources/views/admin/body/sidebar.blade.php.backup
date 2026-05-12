@@ -1,0 +1,291 @@
+@php
+$prefix = Request::route()->getPrefix();
+$route = Route::current()->getName();
+
+@endphp
+
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+<style>
+  td{
+    padding:0px 10px ;
+  }
+
+
+</style>
+
+<style>
+        .mobile-logo {
+            display: none;
+        }
+
+        @media only screen and (max-width: 999px) {
+            .regular-logo {
+                display: none;
+            }
+
+            .mobile-logo {
+                display: block;
+            }
+        }
+    </style>
+<aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar">
+ @auth
+ @if ((auth()->user()->role == 1))
+   <div class="user-profile">
+        <div class="ulogo">
+            <a href="/redirect">
+                <!-- logo for regular state -->
+                <div class="d-flex align-items-center justify-content-center" style="padding:7px 0;">
+                    <img class="regular-logo" style="height:45px; width:180px;" src="{{ asset('backend/images/logo-dark.png') }}" href="/">
+                    <img class="mobile-logo" style="height:45px; width:180px;" src="https://promising.co.in/assets/img/logo/pdpl-ball-2.png" href="/">
+                </div>
+            </a>
+        </div>
+    </div>
+@endif
+
+ @if ((auth()->user()->role == 2))
+    <div class="user-profile">
+			<div class="ulogo">
+				 <a href="/product/manage">
+				  <!-- logo for regular state and mobile devices -->
+					 <div class="d-flex align-items-center justify-content-center padding:7px 0px !important; " style="">					 	
+           <img style="height:45px; width:180px;  "src="{{ asset('backend/images/logo-dark.png') }}"  href="/ " >
+                       
+					 </div>
+				</a>
+			</div>
+        </div>
+@endif
+
+        
+      		     
+            <!-- sidebar menu-->
+            <div class="sidebar-menu" data-widget="tree">
+        @auth\r\n@if ((auth()->user()->role == 3))
+            <li class="{{ ($route == 'manage-product')? 'active':'' }}">
+            <a href="{{ route('manage-product') }}">
+            <i   style="font-size:25px;" class="fa-solid fa-gauge-high"></i>
+            <!-- <i class="fa-solid fa-gauge-max"></i> -->
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASZJREFUSEvtlM9Rg0AUxn8LetYcxPGWtxXECowVaAnagVaiHWgJ2gGpQCpg48kxp3gX1llkHSRDRAI5OHLlm/ft+/48xcCfGng+2yVYmDQGThq2iiPRp+5fW5zDfttgYVK7TrJIdIFvi2sk8IM8mR9YJ/gJ909AZ4majO7D5HUxnUWipy1i+oVbMXmIVm+3yW6DF2PGO+Q3FjX5XNEm7wTXRyLzSi9aNX5FIjc8xD4B+zW5lhnq2JN0bvKrSR8UnAGzDHXhSELsvbtPFh4PRZ9XT0WXmC6BvQwl/rXlVgaYR6KlF4Jd1Ggk4sgKT0KsUfB8IHq8EUFFojhDXZYS3QHTXiQqX5s4mWomv2WoycYme0kC7G0ARUxzSHLU1S9i+teb3Pc9+gBI+uQZvSLIvQAAAABJRU5ErkJggg=="/>                     -->
+                    
+                    <span> Dashboard </span>
+                </a>
+            </li>
+             
+            <li class="{{ ($route == 'add-product')? 'active':'' }}">
+                <a href="{{ route('add-productuser') }}">
+                <i  style="font-size:25px;" class="fa-solid fa-ticket"></i>
+                
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASZJREFUSEvtlM9Rg0AUxn8LetYcxPGWtxXECowVaAnagVaiHWgJ2gGpQCpg48kxp3gX1llkHSRDRAI5OHLlm/ft+/48xcCfGng+2yVYmDQGThq2iiPRp+5fW5zDfttgYVK7TrJIdIFvi2sk8IM8mR9YJ/gJ909AZ4majO7D5HUxnUWipy1i+oVbMXmIVm+3yW6DF2PGO+Q3FjX5XNEm7wTXRyLzSi9aNX5FIjc8xD4B+zW5lhnq2JN0bvKrSR8UnAGzDHXhSELsvbtPFh4PRZ9XT0WXmC6BvQwl/rXlVgaYR6KlF4Jd1Ggk4sgKT0KsUfB8IHq8EUFFojhDXZYS3QHTXiQqX5s4mWomv2WoycYme0kC7G0ARUxzSHLU1S9i+teb3Pc9+gBI+uQZvSLIvQAAAABJRU5ErkJggg=="/>                     -->
+
+                    <span>Add Tickets</span>
+                </a>
+            </li>
+     
+            @else
+            @endif
+
+
+ @if ((auth()->user()->role == 1))
+        <li class="{{ ($route == 'dashboard')? 'active':'' }}">
+                <a href="{{ url('admin/dashboard') }}">
+                <i   style="font-size:25px;" class="fa-solid fa-gauge-high"></i>
+                    <!-- <i class="fa-solid fa-gauge-max"></i> -->
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASZJREFUSEvtlM9Rg0AUxn8LetYcxPGWtxXECowVaAnagVaiHWgJ2gGpQCpg48kxp3gX1llkHSRDRAI5OHLlm/ft+/48xcCfGng+2yVYmDQGThq2iiPRp+5fW5zDfttgYVK7TrJIdIFvi2sk8IM8mR9YJ/gJ909AZ4majO7D5HUxnUWipy1i+oVbMXmIVm+3yW6DF2PGO+Q3FjX5XNEm7wTXRyLzSi9aNX5FIjc8xD4B+zW5lhnq2JN0bvKrSR8UnAGzDHXhSELsvbtPFh4PRZ9XT0WXmC6BvQwl/rXlVgaYR6KlF4Jd1Ggk4sgKT0KsUfB8IHq8EUFFojhDXZYS3QHTXiQqX5s4mWomv2WoycYme0kC7G0ARUxzSHLU1S9i+teb3Pc9+gBI+uQZvSLIvQAAAABJRU5ErkJggg=="/>                     -->
+                    &nbsp
+                    <span> Dashboard </span>
+                </a>
+            </li>
+            
+            @endif
+
+            @if ((auth()->user()->role == 2) || (auth()->user()->role == 1))
+    
+               @if ((auth()->user()->employeeID == "admin"))
+        <li class="treeview {{ ($prefix == '/product')?'active':'' }}  ">
+          <a href="#">
+              <i  style="font-size:25px;" class="fa-solid fa-ticket"></i>
+            <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATlJREFUSEvtVctNw0AQfRPwnVwWcSLjBuJUAHQAHUAFpBNSAlQAHUAHWTfggRPCHOAOyqB17Gjt2MSxsLhkb9bOvJ88s4SeD/WMj1qCVOQS0GsAUUsBFqCZYb6r1pcIPkQOvqCPWwBX8WwAOhsyfxYXJYJUEgtgTMDLAjRdAPaI+fk3F68iowEQDaAzBY4BWMPhZI3gXWSq0BsHvg+KfBVtYnLuv6F2SUJXhvnW9a0cFOoVdHHI/NAGtFrzJnJO0HvfhU+griEADbdVXxC5uPag4r4Nhxn2GkFx0cWB60klyYTuCBoT3EW08efqNaLe58Cb5NhwmG3iPxu0fBPPAYyadlFpAjeGnRe4WAgYu226BMdKfa2DtsANdXEAOq19D1JJngCcdCSI8xctW9H++Z83uaOL2rbeHfwANBaxGbYNsjUAAAAASUVORK5CYII="/> -->
+            &nbsp
+              
+            <span> Assign Ticket </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+         
+            <li class="{{ ($route == 'add-product')? 'active':'' }}"><a href="{{ route('add-product') }}"><i class="ti-more"></i>Create Task</a></li>
+
+             <li class="{{ ($route == 'manage-product')? 'active':'' }}"><a href="{{ route('manage-product') }}"><i class="ti-more"></i>Manage Task</a></li>
+            
+          </ul>
+        </li> 
+        @endif
+        
+         @if ((auth()->user()->employeeID !== "admin"))
+               <li class="{{ ($route == 'manage-product')? 'active':'' }}"><a href="{{ route('manage-product') }}"><i class="ti-more"></i>Manage Tickets</a></li>
+               
+               @endif
+            <li class="{{ ($route == 'all.ITEmployee')? 'active':'' }}">
+                <a href="{{  route('all.ITEmployee') }}">
+                <i   style="font-size:25px;"class="fa-solid fa-user-gear"></i>
+                    
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAc9JREFUSEvVlU9WE0EQxn8FZA+LNM+VqeEAhhMYTmA8AfEE5gaGExBOAJzA3MB4AscDkMKVj2GhrKNpX2dmTCckE0B4PGc3Pd31/amveoQnfuSJ6/P8AN/NGltwWFc9eojaSgU/zLbHeAO2PfJ2V3Vwbdb1+DdACxiCDJzqySrwSoDMRmfAIfC5hrTHTHog728X8ydO97rLQFYCBGs2c/Y3NaQxhgb4L3kReedUzzKzDvjTYm3fqaaLICsBrs1aHv8psHeatAprjoFzp0mnLDRTmYM+AsC8HQ8GyMyahSWXThON3oNFHad6/k8WBamZjYKnrzz+aFf3epld9B+tyYXnH0JE48YW623gdeiPIIO6av9eMY3iGc59Ben/huEL1cv7DtutFF3ZRU+QwPzGI50wXLld00iGGWguAUkDidCXyhRF2UeQg7rqsJjmENdlhRfrpTXkYEf1Z/lhTkHUxL9ZLxst8G2CdCeQxlYFUhvQ3MD3PbwEUqfJ/gqAMjVz985xKL6FNGNmi9SD0l/4NAeZDd2CgpEPB50m0/VZTHPAdQ2+MmsL/mOsYt1lNwWsITtV7EvguIclyTsBlJvXKShUz7nw/H+0u7Cu2vP/K/gDJf70GX2MyEEAAAAASUVORK5CYII="/> -->
+                    &nbsp
+                    <span> Employee Details </span>
+                </a>
+            </li>
+           @if ((auth()->user()->employeeID == "admin"))
+            <li class="{{ ($route == 'all.reminder')? 'active':'' }}">
+                <a href="{{  route('all.reminder') }}">
+                <i  style="font-size:25px;" class="fa-solid fa-users"></i>
+                   
+                    &nbsp
+                    <span> Customers </span>
+                </a>
+            </li>
+            
+            
+           
+ @endif
+  @if ((auth()->user()->employeeID == "admin"))
+  <li class="{{ ($route == 'all.customer')? 'active':'' }}">
+                <a href="{{  route('all.customer') }}">
+                <i  style="font-size:25px;" class="fa-solid fa-users"></i>
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAc9JREFUSEvVlU9WE0EQxn8FZA+LNM+VqeEAhhMYTmA8AfEE5gaGExBOAJzA3MB4AscDkMKVj2GhrKNpX2dmTCckE0B4PGc3Pd31/amveoQnfuSJ6/P8AN/NGltwWFc9eojaSgU/zLbHeAO2PfJ2V3Vwbdb1+DdACxiCDJzqySrwSoDMRmfAIfC5hrTHTHog728X8ydO97rLQFYCBGs2c/Y3NaQxhgb4L3kReedUzzKzDvjTYm3fqaaLICsBrs1aHv8psHeatAprjoFzp0mnLDRTmYM+AsC8HQ8GyMyahSWXThON3oNFHad6/k8WBamZjYKnrzz+aFf3epld9B+tyYXnH0JE48YW623gdeiPIIO6av9eMY3iGc59Ben/huEL1cv7DtutFF3ZRU+QwPzGI50wXLld00iGGWguAUkDidCXyhRF2UeQg7rqsJjmENdlhRfrpTXkYEf1Z/lhTkHUxL9ZLxst8G2CdCeQxlYFUhvQ3MD3PbwEUqfJ/gqAMjVz985xKL6FNGNmi9SD0l/4NAeZDd2CgpEPB50m0/VZTHPAdQ2+MmsL/mOsYt1lNwWsITtV7EvguIclyTsBlJvXKShUz7nw/H+0u7Cu2vP/K/gDJf70GX2MyEEAAAAASUVORK5CYII="/> -->
+                    &nbsp
+                    <span> Leaves </span>
+                </a>
+            </li>
+ @endif
+ 
+   @if ((auth()->user()->employeeID !== "admin"))
+  <li class="{{ ($route == 'all.customer')? 'active':'' }}">
+                <a href="{{  route('all.customer') }}">
+                <i  style="font-size:25px;" class="fa-solid fa-users"></i>
+                    <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAc9JREFUSEvVlU9WE0EQxn8FZA+LNM+VqeEAhhMYTmA8AfEE5gaGExBOAJzA3MB4AscDkMKVj2GhrKNpX2dmTCckE0B4PGc3Pd31/amveoQnfuSJ6/P8AN/NGltwWFc9eojaSgU/zLbHeAO2PfJ2V3Vwbdb1+DdACxiCDJzqySrwSoDMRmfAIfC5hrTHTHog728X8ydO97rLQFYCBGs2c/Y3NaQxhgb4L3kReedUzzKzDvjTYm3fqaaLICsBrs1aHv8psHeatAprjoFzp0mnLDRTmYM+AsC8HQ8GyMyahSWXThON3oNFHad6/k8WBamZjYKnrzz+aFf3epld9B+tyYXnH0JE48YW623gdeiPIIO6av9eMY3iGc59Ben/huEL1cv7DtutFF3ZRU+QwPzGI50wXLld00iGGWguAUkDidCXyhRF2UeQg7rqsJjmENdlhRfrpTXkYEf1Z/lhTkHUxL9ZLxst8G2CdCeQxlYFUhvQ3MD3PbwEUqfJ/gqAMjVz985xKL6FNGNmi9SD0l/4NAeZDd2CgpEPB50m0/VZTHPAdQ2+MmsL/mOsYt1lNwWsITtV7EvguIclyTsBlJvXKShUz7nw/H+0u7Cu2vP/K/gDJf70GX2MyEEAAAAASUVORK5CYII="/> -->
+                    &nbsp
+                    <span> Leaves </span>
+                </a>
+            </li>
+ @endif
+            <!-- <li class="treeview {{ ($prefix == '/department')?'active':'' }}  ">
+        <!--  <a href="#">-->
+        <!--    <i data-feather="mail"></i> <span>Department </span>-->
+        <!--    <span class="pull-right-container">-->
+        <!--      <i class="fa fa-angle-right pull-right"></i>-->
+        <!--    </span>-->
+        <!--  </a>-->
+        <!--  <ul class="treeview-menu">-->
+        <!--     <li class="{{ ($route == 'it.department')? 'active':'' }}"><a href="{{ route('all.category') }}"><i class="ti-more"></i>IT Department</a></li>-->
+        <!--     <li class="{{ ($route == 'leed.ganeration')? 'active':'' }}"><a href="{{ route('all.subcategory') }}"><i class="ti-more"></i>Leed Ganeration</a></li>-->
+        <!--     <li class="{{ ($route == 'digital.marketing')? 'active':'' }}"><a href="{{ route('all.subsubcategory') }}"><i class="ti-more"></i>Digital Marketing</a></li>-->
+        <!--     <li class="{{ ($route == 'hr.manager')? 'active':'' }}"><a href="{{ route('all.subsubcategory') }}"><i class="ti-more"></i>HR Manager</a></li>-->
+        <!--  </ul>-->
+        <!--</li> -->
+
+
+        @if ((auth()->user()->role == 1))
+        <li class="treeview {{ ($prefix == '/category')?'active':'' }}  ">
+          <a href="#">
+          <i style="font-size:25px;" class="fa-solid fa-layer-group"></i>
+          <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUBJREFUSEu9lMFRwzAQRf86cIYcMMMtqwpCBYQKoAToACqBDqCE0IFTAa7ACicGn8IdW4yCd0Y22BJObB3l3f3e3f9EGPjQwPUxrkCuswTARUtXSczqUr69az07QPlgQHN7RzDpF6L7M+a1m1/rINeZ6RpZzGobb4tPYF4BHDfiNwXo3BX5U0AKSbIIy/2HzpYEXAFYFaAbGzeBebbdG+DllNW15PYSyHW2AXBUgFj+tupKA1jHrHgvAoeg6ZTZisnYNAFvJ6xmOwk4I0oK0G01oicAi6ARtS26seTUjqkR+1mA5l1L7rLpKma1cG0awTxGwNamJZCWoLtOmw5B9bgkixt8hP6H+FoHoYSGEv/zhDgnlNAm2W3E/xIIJXRnAR+hvQVCCe0tUC3ZS2jvJYtNfYR6bFojfnzQ9v1cDN7BN1l7AChZdqRoAAAAAElFTkSuQmCC"/>   -->
+            
+           
+            &nbsp
+            <span> Category </span>
+            <span class="pull-right-container">
+            <i class="fa fa-angle-right pull-right"></i>
+
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <li class="{{ ($route == 'all.service_category')? 'active':'' }}"><a href="{{ route('all.service_category') }}"><i class="ti-more" ></i><span>All Service Category</Span></a></li>
+
+             <li class="{{ ($route == 'all.category')? 'active':'' }}"><a href="{{ route('all.category') }}"><i class="ti-more"></i>All Category</a></li>
+             <li class="{{ ($route == 'all.subcategory')? 'active':'' }}"><a href="{{ route('all.subcategory') }}"><i class="ti-more"></i>All SubCategory</a></li>
+             
+            
+          
+            </ul>
+        </li>
+
+
+        
+
+      
+            <li class="treeview {{ ($prefix == '/control')?'active':'' }}  ">
+          <a href="#">
+          <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAk5JREFUSEu1Vc112kAQ/gY7Z+MD8sspjNwAVACuILiCmAqCKzBUYFxBcAUhFUSpIDRgrXLKQz4EnxMxfiOtyErCCCf2XkDS7vx8P7OEV170yvGxV4J7Y/oC+QSgbQuKCDRsMQd1Be6ZIIwEeFcKFnns838n+GlM+wBiNJDHflpQbELR3wTEb5mjXUkqHSzN3ZhAPUD04AqgkQ3w4LHftAlWAI6y9zIF0ASoTaCgxTxxExYSxMZcIMO6vG4T0Div1nY1BvChupWGHvMsf79J8MuY5m/IdyVSIBNKK0JfQAOPebENhtiYDkHmAgQCUeKvAERvQN1jZu3yr4qsUr4C+Oax33cDasWHWF8LqJMdksUfNC7L+McmVFX1CHSWK2zTwdKYAUE+57h6fHqp/y0c2lmKv7NWCaibJ4nN3RSgjykroPMT5nmhg4w8lwPqKjRLE84JeK+dJaAL3XcAUYx7Anw5YX/gdK/9becgryyXoCPJVDGuJB3pbrxQPlch+V8SEPCjxX7q7r0S3BszEsh1lqwCUZCAhhYilXL/WRCVSL7x+DQ1mIVDZWqNtaH5IQF19ibZISrw2D8ry7QBmTaAVKZrYLEGjZ4lU2s0HQ9HBBoL1m2A+gCd7zIaUmlLQGhEAhkrL4egTsVoVZm6PcgsQWNSHBXrK1jZFu1RI1NL9EAtD4gOu9Q8Ovg89o+tYtxhdwOQmlCH3bzFrMNvs2rvgxcf18V2s6fYhE7FVsSOB7adedJo2zarwgCZ5beaEqn4v9iVuavCum+1HNQFqPv+CO2oRyimx+1MAAAAAElFTkSuQmCC"/> -->
+
+          <i  style="font-size:25px;" class="fa-solid fa-rotate-left"></i>
+            &nbsp
+            <span> Controls </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+          <li class="{{ ($route == 'all.Department')? 'active':'' }}"><a href="{{ route('all.Department') }}"><i class="ti-more" ></i><span>Managers List</Span></a></li>
+            <li class="{{ ($route == 'all.brand')? 'active':'' }}"><a href="{{ route('all.brand') }}"><i class="ti-more"></i>All Priority</a></li>
+            <li class="{{ ($route == 'all.Group')? 'active':'' }}"><a href="{{ route('all.Group') }}"><i class="ti-more" ></i><span>Department List</Span></a></li>
+            <!--<li class="{{ ($route == 'all.Ticket_status')? 'active':'' }}"><a href="{{ route('all.Ticket_status') }}"><i class="ti-more" ></i><span>All Ticket Status</Span></a></li>-->
+            
+                        <li class="{{ ($route == 'all.system_type')? 'active':'' }}"><a href="{{ route('all.system_type') }}"><i class="ti-more" ></i><span>Groups List</Span></a></li>
+          <li class="{{ ($route == 'all.operating_system')? 'active':'' }}"><a href="{{ route('all.operating_system') }}"><i class="ti-more" ></i><span>Customer Categories</Span></a></li>
+          </ul>
+        </li> 
+        @endif
+        @else
+            @endif
+
+      
+
+
+
+            
+          
+
+            </ul>
+    </section>
+
+
+
+    
+    <div class="sidebar-footer">
+       
+        <!-- <a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings"
+            aria-describedby="tooltip92529"><i class="ti-settings"></i></a>
+
+        <a href="mailbox_inbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
+                class="ti-email"></i></a> -->
+        <!-- item-->
+      
+        <!-- <a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
+                class="ti-lock"></i></a> -->
+
+
+                  <li class="btn btn-danger mt-10" style="display:flex;justify-content:space-between;align-item:center; flex-flow:row;  background-color: #252e35;" >
+            <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a   class="font-weight-500 text-white  " style=" color:white !important;; width:200px;font-size:14px;padding:0;" href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+												<i style="color:white !important;"class="ti-lock font-weight-500 text-white mr-2"></i> 
+                                {{ __('Log Out') }}
+                            </a>
+            </form>
+            </li> 
+    </div>
+</aside>
+<script>
+
+
+</script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->

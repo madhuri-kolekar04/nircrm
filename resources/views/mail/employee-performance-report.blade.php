@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+        .summary-card h3 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .summary-card h5 {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .employee-section {
+            margin-bottom: 40px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .employee-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+        }
+        .employee-details {
+            padding: 30px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .metric-card h6 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-success { background: #28a745; color: white; }
+        .badge-warning { background: #ffc107; color: #212529; }
+        .badge-info { background: #17a2b8; color: white; }
+        .badge-primary { background: #007bff; color: white; }
+        .badge-secondary { background: #6c757d; color: white; }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .table th, .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+        .section-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #6c757d;
+        }
+        .project-item, .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        .project-item:last-child, .invoice-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Employee Performance Report</h1>
+        <p style="font-size: 1.2em; margin: 10px 0;">Comprehensive Analysis of Employee Project Updates</p>
+        <p style="opacity: 0.9;">
+            <strong>Period:</strong> {{ $startDate->format('M d, Y') }} - {{ $endDate->format('M d, Y') }}<br>
+            <strong>Generated by:</strong> {{ $requestedBy->name }} ({{ $requestedBy->email }})<br>
+            <strong>Generated on:</strong> {{ now()->format('M d, Y H:i') }}
+        </p>
+    </div>
+
+    <div class="content">
+        @if(count($employeePerformanceData) > 0)
+            <!-- Executive Summary -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <h3>{{ count($employeePerformanceData) }}</h3>
+                    <h5>Total Employees</h5>
+                </div>
+                <div class="summary-card">
+                    <h3>{{ array_sum(array_column(array_column($employeePerformanceData, 'total_updates'), 'total_updates')) }}</h3>
+                    <h5>Total Updates</h5>
+                </div>
+                <div class="summary-card">
+                    <h3>{{ array_sum(array_column(array_column($employeePerformanceData, 'project_updates'), 'project_updates')) }}</h3>
+                    <h5>Project Updates</h5>
+                </div>
+                <div class="summary-card">
+                    <h3>{{ array_sum(array_column(array_column($employeePerformanceData, 'invoice_updates'), 'invoice_updates')) }}</h3>
+                    <h5>Invoice Updates</h5>
+                </div>
+            </div>
+
+            <!-- Employee Performance Details -->
+            @foreach($employeePerformanceData as $employeeId => $employeeData)
+                <div class="employee-section">
+                    <div class="employee-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3 style="margin: 0;">👤 {{ $employeeData['employee']->name }}</h3>
+                                <p style="margin: 5px 0 0 0; opacity: 0.9;">
+                                    {{ $employeeData['employee']->department }} Department
+                                </p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.9em; opacity: 0.9;">Performance Overview</div>
+                                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 5px;">
+                                    <span class="badge badge-primary">{{ $employeeData['total_updates'] }} Total</span>
+                                    <span class="badge badge-info">{{ $employeeData['project_updates'] }} Projects</span>
+                                    <span class="badge badge-warning">{{ $employeeData['invoice_updates'] }} Invoices</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="employee-details">
+                        <!-- Performance Metrics -->
+                        <div class="section-title">
+                            📈 Performance Metrics
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h6>Update Frequency</h6>
+                                <span class="badge badge-{{ $employeeData['performance_metrics']['update_frequency'] == 'high' ? 'success' : ($employeeData['performance_metrics']['update_frequency'] == 'medium' ? 'warning' : 'secondary') }}">
+                                    {{ ucfirst($employeeData['performance_metrics']['update_frequency']) }} Activity
+                                </span>
+                                <div style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">
+                                    {{ $employeeData['performance_metrics']['avg_updates_per_day'] }} updates per day
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <h6>Project Diversity</h6>
+                                <span class="badge badge-info">{{ $employeeData['performance_metrics']['project_diversity'] }} Projects</span>
+                                <div style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">
+                                    Different projects worked on
+                                </div>
+                            </div>
+                            @if($employeeData['performance_metrics']['most_active_day'])
+                                <div class="metric-card">
+                                    <h6>Most Active Day</h6>
+                                    <div style="font-weight: 600; color: #495057;">
+                                        {{ $employeeData['performance_metrics']['most_active_day'] }}
+                                    </div>
+                                    <div style="margin-top: 10px; color: #6c757d; font-size: 0.9em;">
+                                        Peak activity day
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Project Breakdown -->
+                        @if(count($employeeData['projects']) > 0)
+                            <div class="section-title">
+                                🏗️ Project Breakdown
+                            </div>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                @foreach($employeeData['projects'] as $projectName => $count)
+                                    <div class="project-item">
+                                        <span style="font-weight: 500;">{{ $projectName }}</span>
+                                        <span class="badge badge-primary">{{ $count }} {{ $count == 1 ? 'update' : 'updates' }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <!-- Invoice Breakdown -->
+                        @if(count($employeeData['invoices']) > 0)
+                            <div class="section-title">
+                                📄 Invoice Breakdown
+                            </div>
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                @foreach($employeeData['invoices'] as $invoiceKey => $count)
+                                    <div class="invoice-item">
+                                        <span style="font-weight: 500;">{{ $invoiceKey }}</span>
+                                        <span class="badge badge-warning">{{ $count }} {{ $count == 1 ? 'update' : 'updates' }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <!-- Recent Updates -->
+                        @if(count($employeeData['updates']) > 0)
+                            <div class="section-title">
+                                🕐 Recent Updates
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Type</th>
+                                        <th>Reference</th>
+                                        <th>Update Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(array_slice($employeeData['updates'], 0, 10) as $update)
+                                        <tr>
+                                            <td>{{ $update->update_date->format('d-m-Y H:i') }}</td>
+                                            <td>
+                                                @if($update->product_id)
+                                                    <span class="badge badge-info">Project</span>
+                                                @elseif($update->invoice_id)
+                                                    <span class="badge badge-warning">Invoice</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($update->product_id && $update->product)
+                                                    {{ $update->product->product_name_en }}
+                                                @elseif($update->invoice_id && $update->invoice)
+                                                    {{ $update->invoice->invoice_number }} - {{ $update->invoice->project_name }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($update->request_text)
+                                                    <div style="color: #6c757d;">
+                                                        <small><strong>Request:</strong></small><br>
+                                                        {!! nl2br(e(Str::limit($update->request_text, 150))) !!}
+                                                    </div>
+                                                @else
+                                                    @if($update->update_point_1)
+                                                        <div>{{ Str::limit($update->update_point_1, 120) }}</div>
+                                                    @endif
+                                                    @if($update->update_point_2)
+                                                        <div>{{ Str::limit($update->update_point_2, 120) }}</div>
+                                                    @endif
+                                                    @if($update->update_point_3)
+                                                        @if(json_decode($update->update_point_3))
+                                                            @foreach(array_slice(json_decode($update->update_point_3), 0, 2) as $point)
+                                                                <div>{{ Str::limit($point, 120) }}</div>
+                                                            @endforeach
+                                                        @else
+                                                            <div>{{ Str::limit($update->update_point_3, 120) }}</div>
+                                                        @endif
+                                                    @endif
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <div style="text-align: center; padding: 60px;">
+                <div style="font-size: 4em; color: #6c757d; margin-bottom: 30px;">📊</div>
+                <h3 style="color: #6c757d;">No Employee Data Found</h3>
+                <p style="color: #6c757d; font-size: 1.1em;">No project updates found for the selected criteria and time period.</p>
+            </div>
+        @endif
+
+        <div class="footer">
+            <h4><strong>Niranjan Enterprises</strong></h4>
+            <p>This is an automated professional performance report generated from the CRM system.</p>
+            <p style="margin-top: 10px;">
+                <em>"Excellence in Performance, Transparency in Reporting"</em>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                If you have any questions about this report, please contact the system administrator.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIRCRM - Documentation-Index</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #111B21;
+            font-size: 14px;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 15px;
+                font-size: 12px;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            h1 {
+                page-break-before: auto;
+                page-break-after: avoid;
+            }
+            
+            h2, h3, h4 {
+                page-break-after: avoid;
+            }
+            
+            pre, blockquote {
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: auto;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #25D366;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #25D366;
+            font-size: 32px;
+            margin: 0;
+        }
+        
+        .header p {
+            color: #667781;
+            margin: 5px 0 0 0;
+            font-size: 16px;
+        }
+        
+        h1 { 
+            color: #25D366; 
+            border-bottom: 2px solid #25D366; 
+            padding-bottom: 10px; 
+            font-size: 28px;
+            margin-top: 30px;
+            page-break-before: auto;
+        }
+        
+        h2 { 
+            color: #075E54; 
+            border-bottom: 1px solid #075E54; 
+            padding-bottom: 5px; 
+            font-size: 22px;
+            margin-top: 25px;
+        }
+        
+        h3 { 
+            color: #111B21; 
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        h4 { 
+            color: #667781; 
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        h5, h6 { 
+            color: #667781; 
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        code { 
+            background-color: #f4f4f4; 
+            padding: 2px 4px; 
+            border-radius: 3px; 
+            font-family: "Courier New", monospace; 
+            font-size: 13px;
+        }
+        
+        pre { 
+            background-color: #f4f4f4; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid #ddd;
+        }
+        
+        blockquote { 
+            border-left: 4px solid #25D366; 
+            padding-left: 20px; 
+            margin: 20px 0; 
+            font-style: italic; 
+            color: #667781;
+            background-color: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+            font-size: 12px;
+        }
+        
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+            vertical-align: top;
+        }
+        
+        th { 
+            background-color: #25D366; 
+            color: white; 
+            font-weight: bold;
+        }
+        
+        ul, ol { 
+            margin: 15px 0; 
+            padding-left: 30px; 
+        }
+        
+        li { 
+            margin: 5px 0; 
+        }
+        
+        a { 
+            color: #25D366; 
+            text-decoration: none; 
+        }
+        
+        a:hover { 
+            text-decoration: underline; 
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #667781;
+            font-size: 12px;
+        }
+        
+        .no-print {
+            background: #f0f8ff;
+            border: 1px solid #25D366;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="instructions">
+            <h3>📋 PDF Generation Instructions</h3>
+            <p><strong>To create a PDF from this HTML file:</strong></p>
+            <ol>
+                <li>Use Ctrl+P (or Cmd+P on Mac) to open the print dialog</li>
+                <li>Select "Save as PDF" as the destination</li>
+                <li>Adjust settings if needed (margins: 0.5cm, paper size: A4)</li>
+                <li>Click "Save" to create your PDF</li>
+            </ol>
+            <p><em>This section will not appear in the printed PDF.</em></p>
+        </div>
+    </div>
+    
+    <div class="header">
+        <h1>NIRCRM Documentation</h1>
+        <p>Documentation-Index</p>
+        <p><small>Generated on 2026-02-28 07:16:05</small></p>
+    </div>
+    
+    <div class="content">
+        <h1>NIRCRM - Complete Documentation Index</h1><h2>Documentation Overview</h2><p>This documentation provides comprehensive information about the NIRCRM (Niranjan Enterprises Customer Relationship Management) system. The documentation is organized into several key sections to serve different audiences and purposes.</p><p>---</p><h2>Document Structure</h2><h3>📋 <a href="./01-Technical-Overview.md" target="_blank">Technical Overview</a></h3>
+<strong>Purpose</strong>: High-level system architecture and technical specifications  
+<strong>Audience</strong>: Developers, System Administrators, Technical Managers  
+<strong>Key Topics</strong>:<ul>
+<li>System architecture and technologies</li>
+</ul><li>Core features and capabilities</li><ul>
+<li>User roles and permissions</li>
+</ul><li>Security and performance considerations</li><ul>
+<li>Scalability and maintenance</li>
+</ul>
+---</p><h3>🗄️ <a href="./02-Models-Database-Schema.md" target="_blank">Models & Database Schema</a></h3>
+<strong>Purpose</strong>: Complete database structure and model relationships  
+<strong>Audience</strong>: Developers, Database Administrators  
+<strong>Key Topics</strong>:<ul>
+<li>Core models and their relationships</li>
+</ul><li>Database schema documentation</li><ul>
+<li>Data types and constraints</li>
+</ul><li>Migration files structure</li><ul>
+<li>Security considerations</li>
+</ul>
+---</p><h3>🔧 <a href="./03-Controllers-API-Documentation.md" target="_blank">Controllers & API Documentation</a></h3>
+<strong>Purpose</strong>: API endpoints and controller functionality  
+<strong>Audience</strong>: Developers, API Consumers, Integration Specialists  
+<strong>Key Topics</strong>:<ul>
+<li>Core controllers and their methods</li>
+</ul><li>API endpoints and responses</li><ul>
+<li>Request/response formats</li>
+</ul><li>Authentication and authorization</li><ul>
+<li>Error handling and validation</li>
+</ul>
+---</p><h3>🎨 <a href="./04-UI-UX-Design-System.md" target="_blank">UI/UX Design System</a></h3>
+<strong>Purpose</strong>: Complete design system and UI guidelines  
+<strong>Audience</strong>: Frontend Developers, Designers, UI/UX Specialists  
+<strong>Key Topics</strong>:<ul>
+<li>WhatsApp-inspired design philosophy</li>
+</ul><li>Color system and typography</li><ul>
+<li>Component library</li>
+</ul><li>Responsive design patterns</li><ul>
+<li>Accessibility features</li>
+</ul>
+---</p><h3>👥 <a href="./05-User-Manual-Roles.md" target="_blank">User Manual for Different Roles</a></h3>
+<strong>Purpose</strong>: Role-based user guides and training materials  
+<strong>Audience</strong>: All System Users, Trainers, Support Staff  
+<strong>Key Topics</strong>:<ul>
+<li>Super Admin guide and responsibilities</li>
+</ul><li>General Manager workflow</li><ul>
+<li>Manager daily operations</li>
+</ul><li>Employee user guide</li><ul>
+<li>Customer portal usage</li>
+</ul><li>Common features and troubleshooting</li></p><p>---</p><h3>🚀 <a href="./06-Installation-Deployment-Guide.md" target="_blank">Installation & Deployment Guide</a></h3>
+<strong>Purpose</strong>: Complete setup and deployment instructions  
+<strong>Audience</strong>: System Administrators, DevOps Engineers, IT Staff  
+<strong>Key Topics</strong>:<ul>
+<li>System requirements and prerequisites</li>
+</ul><li>Local development setup</li><ul>
+<li>Production deployment</li>
+</ul><li>Database configuration</li><ul>
+<li>Web server setup</li>
+</ul><li>SSL certificate configuration</li><ul>
+<li>Backup and maintenance procedures</li>
+</ul>
+---</p><h2>Quick Reference</h2><h3>System Architecture</h3><ul>
+<li><strong>Framework</strong>: Laravel 9.x</li>
+</ul><li><strong>Database</strong>: MySQL/MariaDB</li><ul>
+<li><strong>Frontend</strong>: Blade Templates, TailwindCSS</li>
+</ul><li><strong>Authentication</strong>: Laravel Sanctum</li><ul>
+<li><strong>PDF Generation</strong>: DomPDF</li>
+</ul><li><strong>UI Design</strong>: WhatsApp-inspired interface</li></p><h3>Key Features</h3><ul>
+<li>✅ Multi-role user management</li>
+</ul><li>✅ Department-based organization</li><ul>
+<li>✅ Lead management and tracking</li>
+</ul><li>✅ Attendance and leave management</li><ul>
+<li>✅ Invoice and quotation system</li>
+</ul><li>✅ Real-time notifications</li><ul>
+<li>✅ WhatsApp-style UI/UX</li>
+</ul><li>✅ Mobile-responsive design</li><ul>
+<li>✅ API endpoints for integration</li>
+</ul>
+<h3>User Roles</h3>
+<li><strong>Super Admin</strong> - Full system access</li>
+<li><strong>General Manager</strong> - Multi-department oversight</li>
+<li><strong>Manager</strong> - Department and team management</li>
+<li><strong>Employee</strong> - Basic system access</li>
+<li><strong>Customer</strong> - Limited portal access</li></p><h3>Core Modules</h3><ul>
+<li><strong>User Management</strong> - Employee and customer accounts</li>
+</ul><li><strong>Lead Management</strong> - Customer lead tracking</li><ul>
+<li><strong>Attendance System</strong> - Check-in/check-out functionality</li>
+</ul><li><strong>Leave Management</strong> - Request and approval workflow</li><ul>
+<li><strong>Invoice System</strong> - Professional invoicing</li>
+</ul><li><strong>Quotation System</strong> - Project quotations</li><ul>
+<li><strong>Notifications</strong> - Real-time updates</li>
+</ul><li><strong>Reports</strong> - Analytics and insights</li></p><p>---</p><h2>Document Navigation</h2><h3>For Developers</h3>
+<li>Start with <a href="./01-Technical-Overview.md" target="_blank">Technical Overview</a></li>
+<li>Review <a href="./02-Models-Database-Schema.md" target="_blank">Models & Database Schema</a></li>
+<li>Study <a href="./03-Controllers-API-Documentation.md" target="_blank">Controllers & API Documentation</a></li>
+<li>Reference <a href="./04-UI-UX-Design-System.md" target="_blank">UI/UX Design System</a></li>
+<li>Use <a href="./06-Installation-Deployment-Guide.md" target="_blank">Installation Guide</a> for setup</li></p><h3>For System Administrators</h3>
+<li>Review <a href="./01-Technical-Overview.md" target="_blank">Technical Overview</a> for architecture</li>
+<li>Follow <a href="./06-Installation-Deployment-Guide.md" target="_blank">Installation & Deployment Guide</a></li>
+<li>Reference <a href="./05-User-Manual-Roles.md" target="_blank">User Manual</a> for user support</li>
+<li>Use <a href="./02-Models-Database-Schema.md" target="_blank">Database Schema</a> for maintenance</li></p><h3>For End Users</h3>
+<li>Start with <a href="./05-User-Manual-Roles.md" target="_blank">User Manual</a></li>
+<li>Find your specific role section</li>
+<li>Follow daily workflow guides</li>
+<li>Use troubleshooting section for issues</li></p><h3>For Designers/Frontend Developers</h3>
+<li>Study <a href="./04-UI-UX-Design-System.md" target="_blank">UI/UX Design System</a></li>
+<li>Review component library</li>
+<li>Understand responsive patterns</li>
+<li>Reference accessibility guidelines</li></p><p>---</p><h2>System Requirements Summary</h2><h3>Minimum Requirements</h3><ul>
+<li><strong>PHP</strong>: 8.0.2+</li>
+</ul><li><strong>Database</strong>: MySQL 5.7+ / MariaDB 10.3+</li><ul>
+<li><strong>Web Server</strong>: Apache 2.4+ / Nginx 1.18+</li>
+</ul><li><strong>RAM</strong>: 4GB</li><ul>
+<li><strong>Storage</strong>: 20GB</li>
+</ul>
+<h3>Recommended Requirements</h3><ul>
+<li><strong>PHP</strong>: 8.1+</li>
+</ul><li><strong>Database</strong>: MySQL 8.0+ / MariaDB 10.6+</li><ul>
+<li><strong>Web Server</strong>: Nginx 1.20+ with PHP-FPM</li>
+</ul><li><strong>RAM</strong>: 8GB+</li><ul>
+<li><strong>Storage</strong>: 50GB SSD</li>
+</ul>
+---</p><h2>Installation Quick Start</h2><h3>1. Environment Setup</h3>
+<pre><code>bash
+<h1>Install dependencies</h1>
+composer install
+npm install</p><h1>Configure environment</h1>
+cp .env.example .env
+php artisan key:generate
+</code></pre><h3>2. Database Setup</h3>
+<pre><code>bash
+<h1>Create database and user</h1>
+mysql -u root -p
+CREATE DATABASE nircrm;
+CREATE USER 'nircrm_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON nircrm.* TO 'nircrm_user'@'localhost';</p><h1>Run migrations</h1>
+php artisan migrate
+</code></pre><h3>3. Asset Compilation</h3>
+<pre><code>bash
+<h1>Build frontend assets</h1>
+npm run build
+</code></pre><h3>4. Start Application</h3>
+<pre><code>bash
+<h1>Development server</h1>
+php artisan serve</p><h1>Production deployment</h1>
+<h1>Follow Installation Guide for detailed instructions</h1>
+</code></pre><p>---</p><h2>Support and Resources</h2><h3>Documentation Updates</h3><ul>
+<li><strong>Version</strong>: 1.0.0</li>
+</ul><li><strong>Last Updated</strong>: February 2026</li><ul>
+<li><strong>Framework Version</strong>: Laravel 9.x</li>
+</ul>
+<h3>Getting Help</h3>
+<li><strong>Technical Issues</strong>: Refer to troubleshooting sections</li>
+<li><strong>Feature Requests</strong>: Contact development team</li>
+<li><strong>User Support</strong>: Contact system administrator</li>
+<li><strong>Documentation Issues</strong>: Report to documentation team</li></p><h3>Additional Resources</h3><ul>
+<li><strong>Code Repository</strong>: [Link to repository]</li>
+</ul><li><strong>API Reference</strong>: [Link to API docs]</li><ul>
+<li><strong>Video Tutorials</strong>: [Link to tutorials]</li>
+</ul><li><strong>Community Forum</strong>: [Link to forum]</li></p><p>---</p><h2>Document Metadata</h2><table>
+<tr><th>Document</th><th>Size</th><th>Pages</th><th>Audience</th><th>Last Updated</th></tr>
+<tr><td>----------</td><td>------</td><td>-------</td><td>----------</td><td>--------------</td></tr>
+<tr><td>Technical Overview</td><td>~15KB</td><td>15</td><td>Developers, Admins</td><td>Feb 2026</td></tr>
+<tr><td>Database Schema</td><td>~20KB</td><td>20</td><td>Developers, DBAs</td><td>Feb 2026</td></tr>
+<tr><td>Controllers & API</td><td>~25KB</td><td>25</td><td>Developers, Integrators</td><td>Feb 2026</td></tr>
+<tr><td>UI/UX Design System</td><td>~30KB</td><td>30</td><td>Designers, Frontend Devs</td><td>Feb 2026</td></tr>
+<tr><td>User Manual</td><td>~35KB</td><td>35</td><td>All Users, Trainers</td><td>Feb 2026</td></tr>
+<tr><td>Installation Guide</td><td>~40KB</td><td>40</td><td>Admins, DevOps</td><td>Feb 2026</td></tr>
+</table><p>---</p><h2>Version History</h2><h3>v1.0.0 (February 2026)</h3><ul>
+<li>Initial complete documentation release</li>
+</ul><li>All six core documents created</li><ul>
+<li>Comprehensive coverage of system features</li>
+</ul><li>Role-based user guides included</li><ul>
+<li>Installation and deployment procedures documented</li>
+</ul>
+<h3>Planned Updates</h3><ul>
+<li>Video tutorial supplements</li>
+</ul><li>API interactive documentation</li><ul>
+<li>Advanced customization guides</li>
+</ul><li>Integration case studies</li><ul>
+<li>Performance optimization guides</li>
+</ul>
+---</p><h2>Document Formats</h2><p>This documentation is available in multiple formats:</p><h3>📄 Markdown (.md)</h3><ul>
+<li>Source format for all documents</li>
+</ul><li>Easy to edit and maintain</li><ul>
+<li>Version control friendly</li>
+</ul><li>Available in <code>/documents</code> folder</li></p><h3>📑 PDF (Combined)</h3><ul>
+<li>Single comprehensive PDF document</li>
+</ul><li>Printable format</li><ul>
+<li>Suitable for distribution</li>
+</ul><li>Generated from markdown sources</li></p><h3>🌐 HTML (Online)</h3><ul>
+<li>Web-based documentation</li>
+</ul><li>Interactive navigation</li><ul>
+<li>Search functionality</li>
+</ul><li>Mobile-friendly</li></p><p>---</p><h2>Contributing to Documentation</h2><h3>Documentation Standards</h3><ul>
+<li>Use clear, concise language</li>
+</ul><li>Follow established formatting</li><ul>
+<li>Include code examples</li>
+</ul><li>Provide step-by-step instructions</li><ul>
+<li>Add troubleshooting sections</li>
+</ul>
+<h3>Update Process</h3>
+<li>Edit markdown files</li>
+<li>Test code examples</li>
+<li>Update version numbers</li>
+<li>Regenerate PDF documentation</li>
+<li>Update changelog</li></p><h3>Quality Assurance</h3><ul>
+<li>Review for accuracy</li>
+</ul><li>Check for completeness</li><ul>
+<li>Validate code examples</li>
+</ul><li>Test installation procedures</li><ul>
+<li>Verify user instructions</li>
+</ul>
+---</p><h2>Conclusion</h2><p>This comprehensive documentation provides all necessary information for understanding, implementing, and maintaining the NIRCRM system. Whether you are a developer, system administrator, or end user, these documents will guide you through every aspect of the system.</p><p>For the most up-to-date information, always refer to the latest version of these documents and contact your system administrator for specific implementation details.</p><p>---</p><p><strong>NIRCRM Documentation Suite</strong>  
+<strong>Version</strong>: 1.0.0  
+<strong>Last Updated</strong>: February 2026  
+<strong>Total Pages</strong>: ~165 pages  
+<strong>Document Count</strong>: 6 core documents + index  </p><p><em>This documentation is part of the NIRCRM system developed by Niranjan Enterprises.</em>
+</p>
+    </div>
+    
+    <div class="footer">
+        <p>NIRCRM - Niranjan Enterprises Customer Relationship Management</p>
+        <p>Documentation Version 1.0.0 | February 2026</p>
+        <p>Generated from markdown documentation</p>
+    </div>
+</body>
+</html>
