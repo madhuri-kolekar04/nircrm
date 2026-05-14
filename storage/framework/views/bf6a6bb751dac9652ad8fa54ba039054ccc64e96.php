@@ -1,25 +1,26 @@
-@extends('admin.admin_master')
 
-@section('page-title', 'Invoice Update - ' . $invoice->project_name)
 
-@section('admin')
+<?php $__env->startSection('page-title', 'Invoice Update - ' . $invoice->project_name); ?>
+
+<?php $__env->startSection('admin'); ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Invoice Details</h5>
-                    <a href="{{ route('project-updates.index') }}" class="btn btn-secondary">
+                    <a href="<?php echo e(route('project-updates.index')); ?>" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back to Invoices
                     </a>
                 </div>
                 <div class="card-body">
-                    @if(session('success'))
+                    <?php if(session('success')): ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
+                            <?php echo e(session('success')); ?>
+
                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                    @endif
+                    <?php endif; ?>
                     
                     <!-- Invoice Details Section -->
                     <div class="row mb-4">
@@ -29,19 +30,19 @@
                                     <h6 class="card-title">Invoice Information</h6>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <p><strong>Invoice Number:</strong> {{ $invoice->invoice_number }}</p>
-                                            <p><strong>Project Name:</strong> {{ $invoice->project_name }}</p>
-                                            <p><strong>Project Topic:</strong> {{ $invoice->project_topic ?? 'N/A' }}</p>
-                                            <p><strong>Project Details:</strong> {{ $invoice->project_full_details ?? 'N/A' }}</p>
+                                            <p><strong>Invoice Number:</strong> <?php echo e($invoice->invoice_number); ?></p>
+                                            <p><strong>Project Name:</strong> <?php echo e($invoice->project_name); ?></p>
+                                            <p><strong>Project Topic:</strong> <?php echo e($invoice->project_topic ?? 'N/A'); ?></p>
+                                            <p><strong>Project Details:</strong> <?php echo e($invoice->project_full_details ?? 'N/A'); ?></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p><strong>Start Date:</strong> {{ \Carbon\Carbon::parse($invoice->start_date)->format('d-m-Y') }}</p>
-                                            <p><strong>End Date:</strong> {{ \Carbon\Carbon::parse($invoice->end_date)->format('d-m-Y') }}</p>
-                                            <p><strong>Department:</strong> {{ $invoice->department }}</p>
-                                            <p><strong>Mail Id:</strong> {{ $invoice->customer_email ?? 'N/A' }}</p>
-                                            @if(auth()->user()->role == 1) <!-- Show only to admin -->
-                                                <p><strong>Total Payment:</strong> ₹{{ number_format($invoice->total_payment, 2) }}</p>
-                                            @endif
+                                            <p><strong>Start Date:</strong> <?php echo e(\Carbon\Carbon::parse($invoice->start_date)->format('d-m-Y')); ?></p>
+                                            <p><strong>End Date:</strong> <?php echo e(\Carbon\Carbon::parse($invoice->end_date)->format('d-m-Y')); ?></p>
+                                            <p><strong>Department:</strong> <?php echo e($invoice->department); ?></p>
+                                            <p><strong>Mail Id:</strong> <?php echo e($invoice->customer_email ?? 'N/A'); ?></p>
+                                            <?php if(auth()->user()->role == 1): ?> <!-- Show only to admin -->
+                                                <p><strong>Total Payment:</strong> ₹<?php echo e(number_format($invoice->total_payment, 2)); ?></p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -52,22 +53,22 @@
 
 
                      <!-- Project Completion Status Section -->
-                    @php
+                    <?php
                         $completionStatus = \App\Models\ProjectCompletionStatus::getLatestStatus(null, $invoice->id);
-                    @endphp
+                    ?>
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h6 class="card-title mb-0">Overall Project Completion Status</h6>
-                                    @if(Auth::user()->role != 3 && strtolower(Auth::user()->position ?? '') != 'customer')
-                                        <a href="{{ route('project-updates.completion-status.create', $invoice->id) }}" class="btn btn-{{ $completionStatus ? 'warning' : 'primary' }}">
-                                            <i class="fas fa-{{ $completionStatus ? 'edit' : 'plus' }}"></i> {{ $completionStatus ? 'Edit' : 'Create' }} Status
+                                    <?php if(Auth::user()->role != 3 && strtolower(Auth::user()->position ?? '') != 'customer'): ?>
+                                        <a href="<?php echo e(route('project-updates.completion-status.create', $invoice->id)); ?>" class="btn btn-<?php echo e($completionStatus ? 'warning' : 'primary'); ?>">
+                                            <i class="fas fa-<?php echo e($completionStatus ? 'edit' : 'plus'); ?>"></i> <?php echo e($completionStatus ? 'Edit' : 'Create'); ?> Status
                                         </a>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card-body">
-                                    @if($completionStatus)
+                                    <?php if($completionStatus): ?>
                                         <!-- Interactive Progress Bar with Mouse Position -->
                                         <div class="progress-container mb-3" style="position: relative;">
                                             <!-- Mouse Position Indicator -->
@@ -79,8 +80,8 @@
                                             </div>
                                             
                                             <div class="progress" style="height: 35px; cursor: pointer;" id="interactiveProgressBarInvoice">
-                                                @foreach($completionStatus->formatted_status_items as $index => $item)
-                                                    @php
+                                                <?php $__currentLoopData = $completionStatus->formatted_status_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php
                                                         $progressData = json_decode($completionStatus->progress_data ?? '[]', true) ?? [];
                                                         $isCompleted = false;
                                                         $isPartial = false;
@@ -91,32 +92,32 @@
                                                             $isPartial = isset($progressData[$index]['partial']) && ($progressData[$index]['partial'] === 'true' || $progressData[$index]['partial'] === true || $progressData[$index]['partial'] === 1);
                                                             $completionPercentage = $progressData[$index]['completion_percentage'] ?? 0;
                                                         }
-                                                    @endphp
+                                                    ?>
                                                     <div class="progress-segment" 
-                                                         data-index="{{ $index }}" 
-                                                         data-completed="{{ $isCompleted ? 'true' : ($isPartial ? 'partial' : 'false') }}"
-                                                         @if($isCompleted)
-                                                             style="width: {{ $item['percentage'] }}%; background-color: #28a745; border-right: 1px solid #fff;"
-                                                             title="{{ $item['text'] }}: {{ $item['percentage'] }}%">
-                                                            <span class="segment-text" style="color: #ffffff;">{{ $item['text'] }}</span>
-                                                         @elseif($isPartial)
-                                                             style="width: {{ $item['percentage'] }}%; background: linear-gradient(to right, #28a745 0%, #28a745 {{ $completionPercentage }}%, #e9ecef {{ $completionPercentage }}%, #e9ecef 100%); border-right: 1px solid #fff;"
-                                                             title="{{ $item['text'] }}: {{ $item['percentage'] }}%">
-                                                            <span class="segment-text" style="color: {{ $isCompleted || ($isPartial && $completionPercentage > 50) ? '#ffffff' : '#6c757d' }};">{{ $item['text'] }}</span>
-                                                         @else
-                                                             style="width: {{ $item['percentage'] }}%; background-color: #e9ecef; border-right: 1px solid #fff;"
-                                                             title="{{ $item['text'] }}: {{ $item['percentage'] }}%">
-                                                            <span class="segment-text" style="color: #6c757d;">{{ $item['text'] }}</span>
-                                                         @endif
+                                                         data-index="<?php echo e($index); ?>" 
+                                                         data-completed="<?php echo e($isCompleted ? 'true' : ($isPartial ? 'partial' : 'false')); ?>"
+                                                         <?php if($isCompleted): ?>
+                                                             style="width: <?php echo e($item['percentage']); ?>%; background-color: #28a745; border-right: 1px solid #fff;"
+                                                             title="<?php echo e($item['text']); ?>: <?php echo e($item['percentage']); ?>%">
+                                                            <span class="segment-text" style="color: #ffffff;"><?php echo e($item['text']); ?></span>
+                                                         <?php elseif($isPartial): ?>
+                                                             style="width: <?php echo e($item['percentage']); ?>%; background: linear-gradient(to right, #28a745 0%, #28a745 <?php echo e($completionPercentage); ?>%, #e9ecef <?php echo e($completionPercentage); ?>%, #e9ecef 100%); border-right: 1px solid #fff;"
+                                                             title="<?php echo e($item['text']); ?>: <?php echo e($item['percentage']); ?>%">
+                                                            <span class="segment-text" style="color: <?php echo e($isCompleted || ($isPartial && $completionPercentage > 50) ? '#ffffff' : '#6c757d'); ?>;"><?php echo e($item['text']); ?></span>
+                                                         <?php else: ?>
+                                                             style="width: <?php echo e($item['percentage']); ?>%; background-color: #e9ecef; border-right: 1px solid #fff;"
+                                                             title="<?php echo e($item['text']); ?>: <?php echo e($item['percentage']); ?>%">
+                                                            <span class="segment-text" style="color: #6c757d;"><?php echo e($item['text']); ?></span>
+                                                         <?php endif; ?>
                                                     </div>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
                                             
                                             <!-- Progress Info -->
                                             <div class="row mt-2">
                                                 <div class="col-md-4">
                                                     <small class="text-muted">Completed: <span id="completedCountInvoice" class="fw-bold text-success">
-                                                        @php
+                                                        <?php
                                                             $completedSegments = 0;
                                                             $progressData = json_decode($completionStatus->progress_data ?? '[]', true) ?? [];
                                                             if (is_array($progressData)) {
@@ -127,62 +128,61 @@
                                                                         }
                                                                     }
                                                             echo $completedSegments;
-                                                        @endphp
-                                                    </span> / {{ count($completionStatus->formatted_status_items) }}</small>
+                                                        ?>
+                                                    </span> / <?php echo e(count($completionStatus->formatted_status_items)); ?></small>
                                                 </div>
                                                 <div class="col-md-4 text-center">
                                                     <small class="text-muted">Mouse Position: <span id="mousePositionTextInvoice" class="fw-bold text-primary">-</span></small>
                                                 </div>
                                                 <div class="col-md-4 text-end">
-                                                    <small class="text-muted">Progress: <span id="progressTextInvoice" class="fw-bold">{{ $completionStatus->exact_percentage ?? 0 }}%</span></small>
+                                                    <small class="text-muted">Progress: <span id="progressTextInvoice" class="fw-bold"><?php echo e($completionStatus->exact_percentage ?? 0); ?>%</span></small>
                                                 </div>
                                             </div>
                                         </div>
                                         
                                         <!-- Status Items Grid -->
                                         <div class="row">
-                                            @foreach($completionStatus->formatted_status_items as $item)
+                                            <?php $__currentLoopData = $completionStatus->formatted_status_items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <div class="col-md-6 col-lg-4 mb-3">
-                                                    <div class="card border-left" style="border-left-color: {{ $item['color'] }} !important; border-left-width: 4px !important;">
+                                                    <div class="card border-left" style="border-left-color: <?php echo e($item['color']); ?> !important; border-left-width: 4px !important;">
                                                         <div class="card-body py-2">
                                                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                                                <small class="text-muted">Stage {{ $item['order'] }}</small>
-                                                                <span class="badge bg-{{ $item['color'] }} text-white">{{ $item['percentage'] }}%</span>
+                                                                <small class="text-muted">Stage <?php echo e($item['order']); ?></small>
+                                                                <span class="badge bg-<?php echo e($item['color']); ?> text-white"><?php echo e($item['percentage']); ?>%</span>
                                                             </div>
-                                                            <h6 class="mb-1">{{ $item['text'] }}</h6>
+                                                            <h6 class="mb-1"><?php echo e($item['text']); ?></h6>
                                                             <div class="progress mb-2" style="height: 8px;">
-                                                                <div class="progress-bar" style="width: {{ $item['percentage'] }}%; background-color: {{ $item['color'] }};"></div>
+                                                                <div class="progress-bar" style="width: <?php echo e($item['percentage']); ?>%; background-color: <?php echo e($item['color']); ?>;"></div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
                                         
                                         <div class="mt-3 pt-3 border-top">
                                             <small class="text-muted">
-                                                Total Completion: {{ $completionStatus->total_percentage }}% | 
-                                             
+                                                Total Completion: <?php echo e($completionStatus->total_percentage); ?>% | 
+                                                Created by: <?php echo e($completionStatus->user->name); ?> on <?php echo e($completionStatus->created_at->format('M d, Y')); ?>
+
                                             </small>
                                         </div>
-                                    @else
-                                        @if(Auth::user()->role == 3)
+                                    <?php else: ?>
+                                        <?php if(Auth::user()->role == 3): ?>
                                             <div class="text-center py-4">
                                                 <i class="fas fa-chart-pie fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted">No completion status defined yet.</p>
-                                                @if(Auth::user()->role !== 3)
-                                                <a href="{{ route('project-updates.completion-status.create', $invoice->id) }}" class="btn btn-primary">
+                                                <a href="<?php echo e(route('project-updates.completion-status.create', $invoice->id)); ?>" class="btn btn-primary">
                                                     <i class="fas fa-plus-circle"></i> Create Completion Status
                                                 </a>
-                                                @endif
                                             </div>
-                                        @else
+                                        <?php else: ?>
                                             <div class="text-center py-4">
                                                 <i class="fas fa-chart-pie fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted">No completion status defined yet. Customer will define the project completion stages.</p>
                                             </div>
-                                        @endif
-                                    @endif
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -206,14 +206,14 @@
                                                 <h6 class="text-primary mb-0">
                                                     <i class="fas fa-tools"></i> Work Updates
                                                 </h6>
-                                                 @if((auth()->user()->role == 2) || (auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->role == 5))
+                                                 <?php if((auth()->user()->role == 2) || (auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->role == 5)): ?>
                                                     <button type="button" class="btn btn-primary btn-sm" onclick="showWorkUpdateModal()">
                                                         <i class="fas fa-plus"></i> Add Work Update
                                                     </button>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                             
-                                            @php
+                                            <?php
                                                 // Ensure $updates is always a collection
                                                 if (!isset($updates)) {
                                                     $updates = collect([]);
@@ -230,18 +230,20 @@
                                                         $workUpdates[] = $update;
                                                     }
                                                 }
-                                            @endphp
+                                            ?>
                                             
-                                            @forelse($workUpdates as $update)
+                                            <?php $__empty_1 = true; $__currentLoopData = $workUpdates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $update): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                                 <div class="update-item mb-3 p-3 border rounded bg-light">
                                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                                         <div>
-                                                            <strong>Updated by:</strong> {{ $update->user->name }}
+                                                            <strong>Updated by:</strong> <?php echo e($update->user->name); ?>
+
                                                             <span class="text-muted">(
-                                                                @if(isset($update->user->department) && is_object($update->user->department))
-                                                                    {{ $update->user->department->name ?? 'Administration' }}
-                                                                @elseif(isset($update->user->department) && is_string($update->user->department))
-                                                                    @php
+                                                                <?php if(isset($update->user->department) && is_object($update->user->department)): ?>
+                                                                    <?php echo e($update->user->department->name ?? 'Administration'); ?>
+
+                                                                <?php elseif(isset($update->user->department) && is_string($update->user->department)): ?>
+                                                                    <?php
                                                                         $deptData = json_decode($update->user->department);
                                                                         if ($deptData && isset($deptData->name)) {
                                                                             echo $deptData->name;
@@ -250,29 +252,31 @@
                                                                         } else {
                                                                             echo 'Administration';
                                                                         }
-                                                                    @endphp
-                                                                @else
-                                                                    {{ $update->user->department ?? 'Administration' }}
-                                                                @endif
+                                                                    ?>
+                                                                <?php else: ?>
+                                                                    <?php echo e($update->user->department ?? 'Administration'); ?>
+
+                                                                <?php endif; ?>
                                                             )</span>
                                                         </div>
                                                         <div class="d-flex align-items-center">
                                                             <small class="text-muted me-2">
-                                                                <i class="fas fa-clock"></i> {{ $update->update_date->format('M d, Y H:i') }}
+                                                                <i class="fas fa-clock"></i> <?php echo e($update->update_date->format('M d, Y H:i')); ?>
+
                                                             </small>
-                                                            @if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id))
-                                                                <form action="{{ route('project-updates.destroy', $update->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this work update?');" style="display: inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
+                                                            <?php if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id)): ?>
+                                                                <form action="<?php echo e(route('project-updates.destroy', $update->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this work update?');" style="display: inline;">
+                                                                    <?php echo csrf_field(); ?>
+                                                                    <?php echo method_field('DELETE'); ?>
                                                                     <button type="submit" class="btn btn-sm btn-outline-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                         <i class="fas fa-trash"></i>
                                                                     </button>
                                                                 </form>
-                                                            @endif
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                     <div class="update-points">
-                                                        @php
+                                                        <?php
                                                             // Parse update points from JSON or individual columns
                                                             $updatePoint3 = $update->update_point_3;
                                                             $isJson = false;
@@ -321,31 +325,31 @@
                                                                 }
                                                                 echo '</div>';
                                                             }
-                                                        @endphp
+                                                        ?>
                                                     </div>
                                                     
                                                     <!-- Attachment Display for Work Updates -->
-                                                    @if(!empty($update->attachment))
+                                                    <?php if(!empty($update->attachment)): ?>
                                                         <div class="attachment mt-3 pt-2 border-top">
                                                             <small class="text-muted">
                                                                 <i class="fas fa-paperclip"></i> 
                                                                 <strong>Attachment:</strong>
-                                                                <a href="{{ route('attachments.view', basename($update->attachment)) }}" target="_blank" class="btn btn-sm btn-outline-info ms-2">
+                                                                <a href="<?php echo e(route('attachments.view', basename($update->attachment))); ?>" target="_blank" class="btn btn-sm btn-outline-info ms-2">
                                                                     <i class="fas fa-eye"></i> View
                                                                 </a>
-                                                                <a href="{{ route('attachments.public.download', basename($update->attachment)) }}" class="btn btn-sm btn-outline-primary ms-1">
+                                                                <a href="<?php echo e(route('attachments.public.download', basename($update->attachment))); ?>" class="btn btn-sm btn-outline-primary ms-1">
                                                                     <i class="fas fa-download"></i> Download
                                                                 </a>
                                                             </small>
                                                         </div>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </div>
-                                            @empty
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                                 <div class="text-center text-muted py-4">
                                                     <i class="fas fa-tools fa-3x mb-3 d-block"></i>
                                                     No work updates yet.
                                                 </div>
-                                            @endforelse
+                                            <?php endif; ?>
                                         </div>
                                         
                                         <!-- Resizable Divider -->
@@ -361,23 +365,25 @@
                                                 <h6 class="text-warning mb-0">
                                                     <i class="fas fa-comment-dots"></i> Request Updates
                                                 </h6>
-                                                @if((auth()->user()->role == 3) || (auth()->user()->role == 1))
+                                                <?php if((auth()->user()->role == 3) || (auth()->user()->role == 1)): ?>
                                                     <button type="button" class="btn btn-secondary btn-sm" onclick="showRequestUpdateModal()">
                                                         <i class="fas fa-plus"></i> Request Updates
                                                     </button>
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
                                             
-                                            @forelse($requestUpdates as $update)
+                                            <?php $__empty_1 = true; $__currentLoopData = $requestUpdates; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $update): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                                 <div class="update-item mb-3 p-3 border rounded bg-light" style="border-left: 4px solid #ffc107;">
                                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                                         <div>
-                                                            <strong>Requested by:</strong> {{ $update->user->name }}
+                                                            <strong>Requested by:</strong> <?php echo e($update->user->name); ?>
+
                                                             <span class="text-muted">(
-                                                                @if(isset($update->user->department) && is_object($update->user->department))
-                                                                    {{ $update->user->department->name ?? 'Customer' }}
-                                                                @elseif(isset($update->user->department) && is_string($update->user->department))
-                                                                    @php
+                                                                <?php if(isset($update->user->department) && is_object($update->user->department)): ?>
+                                                                    <?php echo e($update->user->department->name ?? 'Customer'); ?>
+
+                                                                <?php elseif(isset($update->user->department) && is_string($update->user->department)): ?>
+                                                                    <?php
                                                                         $deptData = json_decode($update->user->department);
                                                                         if ($deptData && isset($deptData->name)) {
                                                                             echo $deptData->name;
@@ -386,29 +392,31 @@
                                                                         } else {
                                                                             echo 'Customer';
                                                                         }
-                                                                    @endphp
-                                                                @else
-                                                                    {{ $update->user->department ?? 'Customer' }}
-                                                                @endif
+                                                                    ?>
+                                                                <?php else: ?>
+                                                                    <?php echo e($update->user->department ?? 'Customer'); ?>
+
+                                                                <?php endif; ?>
                                                             )</span>
                                                         </div>
                                                         <div class="d-flex align-items-center">
                                                             <small class="text-muted me-2">
-                                                                <i class="fas fa-clock"></i> {{ $update->update_date->format('M d, Y H:i') }}
+                                                                <i class="fas fa-clock"></i> <?php echo e($update->update_date->format('M d, Y H:i')); ?>
+
                                                             </small>
-                                                            @if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id))
-                                                                <form action="{{ route('project-updates.destroy', $update->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this request update?');" style="display: inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
+                                                            <?php if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id)): ?>
+                                                                <form action="<?php echo e(route('project-updates.destroy', $update->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this request update?');" style="display: inline;">
+                                                                    <?php echo csrf_field(); ?>
+                                                                    <?php echo method_field('DELETE'); ?>
                                                                     <button type="submit" class="btn btn-sm btn-outline-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                                                                         <i class="fas fa-trash"></i>
                                                                     </button>
                                                                 </form>
-                                                            @endif
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                     <div class="update-points">
-                                                        @php
+                                                        <?php
                                                             // Display request text (stored as full text)
                                                             $requestText = $update->request_text;
                                                             if (!empty($requestText)) {
@@ -420,61 +428,63 @@
                                                                     }
                                                                 }
                                                             }
-                                                        @endphp
+                                                        ?>
                                                     </div>
                                                     
                                                     <!-- Task Due Date and Priority Display -->
-                                                    @if(!empty($update->task_due_date) || !empty($update->task_priority))
+                                                    <?php if(!empty($update->task_due_date) || !empty($update->task_priority)): ?>
                                                         <div class="task-meta mt-3 pt-2 border-top d-flex gap-3">
-                                                            @if(!empty($update->task_due_date))
+                                                            <?php if(!empty($update->task_due_date)): ?>
                                                                 <div class="task-due-date">
                                                                     <small class="text-muted">
                                                                         <i class="fas fa-calendar-alt"></i> 
-                                                                        <strong>Due:</strong> {{ \Carbon\Carbon::parse($update->task_due_date)->format('M d, Y') }}
+                                                                        <strong>Due:</strong> <?php echo e(\Carbon\Carbon::parse($update->task_due_date)->format('M d, Y')); ?>
+
                                                                     </small>
                                                                 </div>
-                                                            @endif
-                                                            @if(!empty($update->task_priority))
+                                                            <?php endif; ?>
+                                                            <?php if(!empty($update->task_priority)): ?>
                                                                 <div class="task-priority">
-                                                                    <small class="badge bg-{{ $update->task_priority == 'urgent' ? 'danger' : ($update->task_priority == 'high' ? 'warning' : ($update->task_priority == 'medium' ? 'info' : 'success')) }}">
-                                                                        {{ strtoupper($update->task_priority) }}
+                                                                    <small class="badge bg-<?php echo e($update->task_priority == 'urgent' ? 'danger' : ($update->task_priority == 'high' ? 'warning' : ($update->task_priority == 'medium' ? 'info' : 'success'))); ?>">
+                                                                        <?php echo e(strtoupper($update->task_priority)); ?>
+
                                                                     </small>
                                                                 </div>
-                                                            @endif
+                                                            <?php endif; ?>
                                                         </div>
-                                                    @endif
+                                                    <?php endif; ?>
                                                     
                                                     <!-- Attachment Display -->
-                                                    @if(!empty($update->attachment))
+                                                    <?php if(!empty($update->attachment)): ?>
                                                         <div class="attachment mt-3 pt-2 border-top">
                                                             <small class="text-muted">
                                                                 <i class="fas fa-paperclip"></i> 
                                                                 <strong>Attachment:</strong>
-                                                                <a href="{{ route('attachments.view', basename($update->attachment)) }}" target="_blank" class="btn btn-sm btn-outline-info ms-2">
+                                                                <a href="<?php echo e(route('attachments.view', basename($update->attachment))); ?>" target="_blank" class="btn btn-sm btn-outline-info ms-2">
                                                                     <i class="fas fa-eye"></i> View
                                                                 </a>
-                                                                <a href="{{ route('attachments.public.download', basename($update->attachment)) }}" class="btn btn-sm btn-outline-primary ms-1">
+                                                                <a href="<?php echo e(route('attachments.public.download', basename($update->attachment))); ?>" class="btn btn-sm btn-outline-primary ms-1">
                                                                     <i class="fas fa-download"></i> Download
                                                                 </a>
                                                             </small>
                                                         </div>
-                                                    @endif
+                                                    <?php endif; ?>
                                                     
                                                     <!-- Done Button for Employee, Manager, Admin -->
-                                                    @if((auth()->user()->role == 2) || (auth()->user()->role == 4) || (auth()->user()->role == 1))
+                                                    <?php if((auth()->user()->role == 2) || (auth()->user()->role == 4) || (auth()->user()->role == 1)): ?>
                                                         <div class="mt-2 text-end">
-                                                            <button type="button" class="btn btn-success btn-sm" onclick="showWorkUpdateModalWithTasks({{ $update->id }})">
+                                                            <button type="button" class="btn btn-success btn-sm" onclick="showWorkUpdateModalWithTasks(<?php echo e($update->id); ?>)">
                                                                 <i class="fas fa-check"></i> Done
                                                             </button>
                                                         </div>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </div>
-                                            @empty
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                                 <div class="text-center text-muted py-4">
                                                     <i class="fas fa-comment-dots fa-3x mb-3 d-block"></i>
                                                     No request updates yet.
                                                 </div>
-                                            @endforelse
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -497,9 +507,9 @@
         
         <!-- Default Work Update Form -->
         <div id="defaultWorkUpdateForm">
-            <form action="{{ route('project-updates.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="product_id" value="{{ $invoice->id }}">
+            <form action="<?php echo e(route('project-updates.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <input type="hidden" name="product_id" value="<?php echo e($invoice->id); ?>">
                 <input type="hidden" name="form_source" value="work">
                 <div class="mb-3">
                     <label for="workUpdateText" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 5px; display: block; font-size: 0.9rem;">Work Updates *</label>
@@ -508,15 +518,6 @@
                               style="border: 1px solid #ced4da; border-radius: 6px; padding: 8px; font-size: 0.9rem; line-height: 1.4; resize: vertical; min-height: 80px;"
                               onfocus="initializeNumbering(this)"
                               onkeydown="handleKeydown(event, this)"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="workAttachment" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 5px; display: block; font-size: 0.9rem;">📎 Attachment (Optional)</label>
-                    <input type="file" class="form-control" id="workAttachment" name="attachment" 
-                           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.zip,.rar"
-                           style="border: 1px solid #ced4da; border-radius: 6px; padding: 8px; font-size: 0.9rem;">
-                    <small style="color: #6c757d; font-size: 0.8rem; margin-top: 3px; display: block;">
-                        Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR (Max: 10MB)
-                    </small>
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 15px;">
                     <button type="button" onclick="hideWorkUpdateModal()" style="padding: 8px 16px; border: 1px solid #6b7280; background: white; color: #6b7280; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s ease;">Cancel</button>
@@ -527,8 +528,8 @@
         
         <!-- Task-based Update Form (hidden by default) -->
         <div id="taskBasedUpdateForm" style="display: none;">
-            <form id="taskStatusForm" action="{{ route('project-updates.update-status') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            <form id="taskStatusForm" action="<?php echo e(route('project-updates.update-status')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
                 <input type="hidden" id="taskUpdateId" name="task_update_id" value="">
                 
                 <div class="mb-3">
@@ -536,16 +537,6 @@
                     <div id="taskListContainer" style="max-height: 40vh; overflow-y: auto;">
                         <!-- Tasks will be dynamically added here -->
                     </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="taskAttachment" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 5px; display: block; font-size: 0.9rem;">📎 Attachment (Optional)</label>
-                    <input type="file" class="form-control" id="taskAttachment" name="attachment" 
-                           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.zip,.rar"
-                           style="border: 1px solid #ced4da; border-radius: 6px; padding: 8px; font-size: 0.9rem;">
-                    <small style="color: #6c757d; font-size: 0.8rem; margin-top: 3px; display: block;">
-                        Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR (Max: 10MB)
-                    </small>
                 </div>
                 
                                 
@@ -565,9 +556,9 @@
             <h5 style="margin: 0; color: #212529; font-size: 1.25rem; font-weight: 600;">Request Update</h5>
             <button type="button" onclick="hideRequestUpdateModal()" style="background: none; border: none; font-size: 1.5rem; color: #6b7280; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
         </div>
-        <form action="{{ route('project-updates.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $invoice->id }}">
+        <form action="<?php echo e(route('project-updates.store')); ?>" method="POST" enctype="multipart/form-data">
+            <?php echo csrf_field(); ?>
+            <input type="hidden" name="product_id" value="<?php echo e($invoice->id); ?>">
             <input type="hidden" name="form_source" value="request">
             <div class="mb-3">
                 <label for="requestUpdateText" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 8px; display: block;">Update Requests *</label>
@@ -828,9 +819,9 @@
             <h5 style="margin: 0; color: #212529; font-size: 1.25rem; font-weight: 600;">Quick Update</h5>
             <button type="button" onclick="hideSimpleModal()" style="background: none; border: none; font-size: 1.5rem; color: #6b7280; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
         </div>
-        <form action="{{ route('project-updates.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="product_id" value="{{ $invoice->id }}">
+        <form action="<?php echo e(route('project-updates.store')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
+            <input type="hidden" name="product_id" value="<?php echo e($invoice->id); ?>">
             <div class="mb-3">
                 <label for="simpleUpdateText" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 8px; display: block;">Update Details *</label>
                 <textarea class="form-control" id="simpleUpdateText" name="update_text" rows="6" required 
@@ -1015,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to load tasks for a specific update
     function loadTasksForUpdate(updateId) {
         // Find the update data from the page
-        var updateData = @json($requestUpdates);
+        var updateData = <?php echo json_encode($requestUpdates, 15, 512) ?>;
         var targetUpdate = updateData.find(function(update) {
             return update.id == updateId;
         });
@@ -1076,17 +1067,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
             modal.style.opacity = '0';
             modal.style.visibility = 'hidden';
-            
-            // Clear attachment fields
-            var workAttachment = document.getElementById('workAttachment');
-            var taskAttachment = document.getElementById('taskAttachment');
-            
-            if (workAttachment) {
-                workAttachment.value = '';
-            }
-            if (taskAttachment) {
-                taskAttachment.value = '';
-            }
         }
     };
     
@@ -1152,57 +1132,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // File validation function
-    function validateAttachment(fileInput) {
-        if (fileInput.files && fileInput.files[0]) {
-            var file = fileInput.files[0];
-            var maxSize = 10 * 1024 * 1024; // 10MB in bytes
-            var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/zip', 'application/x-rar-compressed'];
-            
-            // Check file size
-            if (file.size > maxSize) {
-                alert('File size must be less than 10MB. Current file size: ' + (file.size / 1024 / 1024).toFixed(2) + 'MB');
-                fileInput.value = '';
-                return false;
-            }
-            
-            // Check file type
-            if (!allowedTypes.includes(file.type)) {
-                alert('Invalid file type. Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR');
-                fileInput.value = '';
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    // Add file validation to attachment inputs
-    document.getElementById('workAttachment')?.addEventListener('change', function() {
-        validateAttachment(this);
-    });
-    
-    document.getElementById('taskAttachment')?.addEventListener('change', function() {
-        validateAttachment(this);
-    });
-    
     // Fix form submissions
     document.querySelectorAll('form').forEach(function(form) {
         form.addEventListener('submit', function(e) {
             console.log('Form submitting...');
-            
-            // Validate attachments before submission
-            var workAttachment = document.getElementById('workAttachment');
-            var taskAttachment = document.getElementById('taskAttachment');
-            
-            if (workAttachment && !validateAttachment(workAttachment)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            if (taskAttachment && !validateAttachment(taskAttachment)) {
-                e.preventDefault();
-                return false;
-            }
             
             // Handle task status form with AJAX
             if (form.id === 'taskStatusForm') {
@@ -1448,4 +1381,6 @@ function setCaretPosition(textarea, position) {
     textarea.setSelectionRange(position, position);
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\nircrm\resources\views/project_updates/invoice_update.blade.php ENDPATH**/ ?>

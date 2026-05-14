@@ -118,6 +118,14 @@ Route::get('/public/attachments/{filename}', function($filename) {
     return response()->download($path);
 })->name('attachments.public.download');
 
+    // Project Update Routes
+    Route::get('/project-updates', [ProjectUpdateController::class, 'index'])->name('project-updates.index');
+    Route::get('/project-updates/dashboard', [ProjectUpdateController::class, 'projectDashboard'])->name('project-updates.dashboard');
+    Route::get('/project-updates/{id}', [ProjectUpdateController::class, 'show'])->name('project-updates.show');
+    Route::post('/project-updates', [ProjectUpdateController::class, 'store'])->name('project-updates.store');
+    Route::post('/project-updates/update-status', [ProjectUpdateController::class, 'updateTaskStatus'])->name('project-updates.update-status');
+    Route::delete('/project-updates/{id}', [ProjectUpdateController::class, 'destroy'])->name('project-updates.destroy');
+
 Route::middleware(['auth', 'require.password.change'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -127,13 +135,7 @@ Route::middleware(['auth', 'require.password.change'])->group(function () {
     Route::get('/check-password-change-required', [CustomerPasswordChangeController::class, 'checkPasswordChangeRequired'])->name('password.check.required');
     Route::post('/change-password', [CustomerPasswordChangeController::class, 'changePassword'])->name('password.change');
     
-    // Project Update Routes
-    Route::get('/project-updates', [ProjectUpdateController::class, 'index'])->name('project-updates.index');
-    Route::get('/project-updates/dashboard', [ProjectUpdateController::class, 'projectDashboard'])->name('project-updates.dashboard');
-    Route::get('/project-updates/{id}', [ProjectUpdateController::class, 'show'])->name('project-updates.show');
-    Route::post('/project-updates', [ProjectUpdateController::class, 'store'])->name('project-updates.store');
-    Route::post('/project-updates/update-status', [ProjectUpdateController::class, 'updateTaskStatus'])->name('project-updates.update-status');
-    Route::delete('/project-updates/{id}', [ProjectUpdateController::class, 'destroy'])->name('project-updates.destroy');
+
     
     // Authenticated attachment download route (for portal)
     Route::get('/attachments/{filename}', function($filename) {
