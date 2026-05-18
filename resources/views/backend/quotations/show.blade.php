@@ -1,7 +1,7 @@
 @extends('admin.admin_master')
 
 @section('admin')
-@section('page-title', 'Quotation: {{ $quotation->quotation_number }}')
+@section('page-title', 'Quotation: ' . $quotation->quotation_number)
 
 <div class="container-fluid">
     <div class="row">

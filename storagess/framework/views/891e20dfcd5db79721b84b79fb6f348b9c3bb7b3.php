@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Admin Dashboard - NIRCRM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -2593,18 +2593,20 @@
             <div class="user-info">
                 <div class="user-profile">
                     <div class="user-avatar" role="img" aria-label="User avatar">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        <?php echo e(strtoupper(substr(Auth::user()->name, 0, 1))); ?>
+
                     </div>
                     <div class="user-details">
                         <h1 class="user-name">
-                            {{ Auth::user()->name }}
-                            @if(Auth::user()->role === 1)
+                            <?php echo e(Auth::user()->name); ?>
+
+                            <?php if(Auth::user()->role === 1): ?>
                                 <span class="admin-badge">Admin</span>
-                            @else
+                            <?php else: ?>
                                 <span class="admin-badge" style="background: var(--info-gradient);">Employee</span>
-                            @endif
+                            <?php endif; ?>
                         </h1>
-                        <p class="user-email">{{ Auth::user()->email }}</p>
+                        <p class="user-email"><?php echo e(Auth::user()->email); ?></p>
                     </div>
                 </div>
                 <button type="button" class="logout-btn" onclick="showLogoutAlert()" aria-label="Logout from admin dashboard">
@@ -2626,7 +2628,7 @@
                     <i class="bi bi-list-task"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-value">{{ $totalTasks }}</div>
+                    <div class="stat-value"><?php echo e($totalTasks); ?></div>
                     <div class="stat-label">Total Tasks</div>
                 </div>
             </div>
@@ -2638,7 +2640,7 @@
                     <i class="bi bi-check-circle"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-value">{{ $completedTasks }}</div>
+                    <div class="stat-value"><?php echo e($completedTasks); ?></div>
                     <div class="stat-label">Completed</div>
                 </div>
             </div>
@@ -2650,7 +2652,7 @@
                     <i class="bi bi-clock"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-value">{{ $pendingTasks }}</div>
+                    <div class="stat-value"><?php echo e($pendingTasks); ?></div>
                     <div class="stat-label">Pending</div>
                 </div>
             </div>
@@ -2662,7 +2664,7 @@
                     <i class="bi bi-arrow-repeat"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-value">{{ $inProgressTasks }}</div>
+                    <div class="stat-value"><?php echo e($inProgressTasks); ?></div>
                     <div class="stat-label">In Progress</div>
                 </div>
             </div>
@@ -2683,9 +2685,9 @@
                         </label>
                         <select id="filter_employee" class="form-select" aria-label="Filter by employee">
                             <option value="">All Employees</option>
-                            @foreach($employees as $employee)
-                                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($employee->id); ?>"><?php echo e($employee->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -2734,23 +2736,120 @@
 
         <!-- Tasks Container -->
         <section id="taskContainer" class="tasks-container" aria-label="Task List">
-           
+            <?php
+                // Helper function to get date group label
+                function getDateGroupLabel($taskDate) {
+                    $today = now()->startOfDay();
+                    $task = \Carbon\Carbon::parse($taskDate)->startOfDay();
+                    
+                    $yesterday = $today->copy()->subDay();
+                    $daysDiff = $today->diffInDays($task);
+                    
+                    if ($task->eq($today)) {
+                        return 'Today';
+                    } elseif ($task->eq($yesterday)) {
+                        return 'Yesterday';
+                                        } else {
+                        // Return formatted date for older tasks
+                        return $task->format('d-m-Y');
+                    }
+                }
+                
+                // Group tasks by date
+                $groupedTasks = [];
+                foreach($allTasks as $task) {
+                    $dateLabel = getDateGroupLabel($task->task_date);
+                    if (!isset($groupedTasks[$dateLabel])) {
+                        $groupedTasks[$dateLabel] = [];
+                    }
+                    $groupedTasks[$dateLabel][] = $task;
+                }
+                
+                // Sort groups: Today, Yesterday, then by date (newest first)
+                $priority = ['Today' => 0, 'Yesterday' => 1];
+                uksort($groupedTasks, function($a, $b) use ($priority, $groupedTasks) {
+                    $aPriority = isset($priority[$a]) ? $priority[$a] : 999;
+                    $bPriority = isset($priority[$b]) ? $priority[$b] : 999;
+                    
+                    if ($aPriority !== $bPriority) {
+                        return $aPriority - $bPriority;
+                    }
+                    
+                    // For non-priority groups, sort by actual date
+                    $aDate = $groupedTasks[$a][0]->task_date;
+                    $bDate = $groupedTasks[$b][0]->task_date;
+                    return strtotime($bDate) - strtotime($aDate);
+                });
+            ?>
             
-            @if($allTasks->count() > 0)
-                @php
+            <?php if($allTasks->count() > 0): ?>
+                <?php
                     $delayCounter = 100;
-                @endphp
-              
+                ?>
+                <?php $__currentLoopData = $groupedTasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $groupLabel => $tasksInGroup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
+                        $headerClass = $groupLabel === 'Today' ? 'today' : ($groupLabel === 'Yesterday' ? 'yesterday' : '');
+                    ?>
                     
                     <!-- Date Group Header -->
+                    <div class="date-group-header <?php echo e($headerClass); ?>" data-aos="fade-up" data-aos-delay="<?php echo e($delayCounter); ?>">
+                        <div class="date-group-info">
+                            <h3 class="date-group-title"><?php echo e($groupLabel); ?></h3>
+                            <span class="date-group-count"><?php echo e(count($tasksInGroup)); ?> task<?php echo e(count($tasksInGroup) !== 1 ? 's' : ''); ?></span>
+                        </div>
+                        <div class="date-group-line"></div>
+                    </div>
                     
-                    
-                    @php($delayCounter += 50)@endphp
+                    <?php($delayCounter += 50)?>
                     
                     <!-- Tasks in this group -->
-                  
-            
-            @else
+                    <?php $__currentLoopData = $tasksInGroup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $task): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <article class="task-card" data-task-id="<?php echo e($task->id); ?>" data-aos="fade-up" data-aos-delay="<?php echo e($delayCounter); ?>">
+                            <header class="task-header">
+                                <span class="task-number" role="status" aria-label="Task number">Task <?php echo e($task->task_number); ?></span>
+                                <time class="task-date" datetime="<?php echo e($task->task_date->format('Y-m-d H:i')); ?>" aria-label="Task date">
+                                    <i class="bi bi-calendar" aria-hidden="true"></i>
+                                    <span><?php echo e($task->task_date->format('d-m-Y|h:i A')); ?></span>
+                                </time>
+                            </header>
+                            
+                            <div class="task-employee">
+                                <i class="bi bi-person" aria-hidden="true"></i>
+                                <strong>Employee:</strong>
+                                <span><?php echo e($task->user->name); ?></span>
+                            </div>
+                            
+                            <div class="task-description">
+                                <p><?php echo e($task->task_description); ?></p>
+                            </div>
+                            
+                            <div class="task-client">
+                                <i class="bi bi-briefcase" aria-hidden="true"></i>
+                                <strong>Client/Project:</strong>
+                                <span><?php echo e($task->client_project_name); ?></span>
+                            </div>
+                            
+                            <footer class="task-actions">
+                                <div class="status-badge status-<?php echo e($task->status); ?>" role="status" aria-label="Task status">
+                                    <i class="bi bi-circle-fill" aria-hidden="true"></i>
+                                    <span><?php echo e(str_replace('_', ' ', $task->status)); ?></span>
+                                </div>
+                                <div class="task-buttons">
+                                    <button type="button" class="btn btn-edit" onclick="editTask(<?php echo e($task->id); ?>)" aria-label="Edit task <?php echo e($task->task_number); ?>">
+                                        <i class="bi bi-pencil" aria-hidden="true"></i>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button type="button" class="btn btn-delete" onclick="deleteTask(<?php echo e($task->id); ?>)" aria-label="Delete task <?php echo e($task->task_number); ?>">
+                                        <i class="bi bi-trash" aria-hidden="true"></i>
+                                        <span>Delete</span>
+                                    </button>
+                                </div>
+                            </footer>
+                        </article>
+                        <?php($delayCounter += 50)?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php else: ?>
                 <div class="empty-state" data-aos="fade-up" data-aos-delay="600">
                     <div class="empty-icon">
                         <i class="bi bi-clipboard" aria-hidden="true"></i>
@@ -2758,7 +2857,7 @@
                     <h3>No Tasks Found</h3>
                     <p>No tasks have been created yet.</p>
                 </div>
-            @endif
+            <?php endif; ?>
         </section>
 
         <div class="loading" id="loadingSpinner">
@@ -2781,7 +2880,7 @@
                 </div>
                 <form id="editTaskForm">
                     <div class="modal-body">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <input type="hidden" id="edit_task_id" name="task_id">
                         <div class="mb-3">
                             <label for="edit_task_date" class="form-label">
@@ -2842,8 +2941,8 @@
                 <button type="button" class="btn btn-cancel" onclick="hideLogoutAlert()">
                     Cancel
                 </button>
-                <form action="{{ route('admin.logout') }}" method="POST" style="display: inline;">
-                    @csrf
+                <form action="<?php echo e(route('admin.logout')); ?>" method="POST" style="display: inline;">
+                    <?php echo csrf_field(); ?>
                     <button type="submit" class="btn btn-logout">
                         Logout
                     </button>
@@ -3406,3 +3505,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

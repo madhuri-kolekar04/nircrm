@@ -24,10 +24,8 @@
                     </p>
                 </div>
                 <div class="d-flex gap-2">
-                    @if(Auth::user()->role == 1 || Auth::user()->role == 5)
-                        <button type="button" class="btn btn-primary btn-lg" onclick="showAttendancePopup()">
-                            <i class="fas fa-user-check me-2"></i>Mark Attendance
-                        </button>
+                    @if(Auth::user()->role == 1 || Auth::user()->role == 5 )
+                       
                         <a href="{{ route('shifts.index') }}" class="btn btn-warning btn-lg">
                             <i class="fas fa-cog me-2"></i>Manage Shifts
                         </a>
@@ -35,6 +33,9 @@
                             <i class="fas fa-users-cog me-2"></i>Manage Users
                         </button>
                     @endif
+                     <button type="button" class="btn btn-primary btn-lg" onclick="showAttendancePopup()">
+                            <i class="fas fa-user-check me-2"></i>Mark Attendance
+                        </button>
                     <a href="{{ route('attendance.report') }}" class="btn btn-outline-primary btn-lg">
                         <i class="fas fa-chart-bar me-2"></i>Reports
                     </a>
@@ -322,7 +323,7 @@ function showAttendancePopup() {
     fetch('/attendance/check-status')
         .then(response => response.json())
         .then(data => {
-            if (data.show_attendance && !data.already_checked_in) {
+            if (data.show_attendance ) {
                 // Update modal content
                 document.getElementById('modalShiftName').textContent = data.shift_name || 'Default Shift';
                 document.getElementById('modalShiftTime').textContent = data.shift_time || '11:00 - 18:00';
@@ -337,6 +338,7 @@ function showAttendancePopup() {
                 var modal = new bootstrap.Modal(document.getElementById('attendanceModal'));
                 modal.show();
             }
+
         })
         .catch(error => {
             console.error('Error:', error);

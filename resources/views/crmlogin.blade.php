@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIRCRM - Customer Relationship Management</title>
+    <title>NEDSCRM - Customer Relationship Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="https://niranjanenterprises.com/wp-content/uploads/2024/10/niranjan-enterprises-logo-300x92.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -346,7 +346,7 @@
         <div class="flash-logo">
             <img src="https://niranjanenterprises.com/wp-content/uploads/2024/10/niranjan-enterprises-logo-300x92.webp" alt="Niranjan Enterprises Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
         </div>
-        <h1 class="flash-title">NIRCRM</h1>
+        <h1 class="flash-title">NEDSCRM</h1>
         <p class="flash-subtitle">Customer Relationship Management</p>
         <div class="loading-bar">
             <div class="loading-progress"></div>
@@ -386,7 +386,7 @@
                     <div class="login-logo">
                         <img src="https://niranjanenterprises.com/wp-content/uploads/2024/10/niranjan-enterprises-logo-300x92.webp" alt="NIRCRM Logo" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
-                    <h2 class="login-title">NIRCRM Login</h2>
+                    <h2 class="login-title">NEDSCRM Login</h2>
                     <p class="login-subtitle">Enter your credentials to access the system</p>
                 </div>
                 

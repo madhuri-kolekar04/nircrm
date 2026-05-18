@@ -2736,119 +2736,22 @@
 
         <!-- Tasks Container -->
         <section id="taskContainer" class="tasks-container" aria-label="Task List">
-            <?php
-                // Helper function to get date group label
-                function getDateGroupLabel($taskDate) {
-                    $today = now()->startOfDay();
-                    $task = \Carbon\Carbon::parse($taskDate)->startOfDay();
-                    
-                    $yesterday = $today->copy()->subDay();
-                    $daysDiff = $today->diffInDays($task);
-                    
-                    if ($task->eq($today)) {
-                        return 'Today';
-                    } elseif ($task->eq($yesterday)) {
-                        return 'Yesterday';
-                                        } else {
-                        // Return formatted date for older tasks
-                        return $task->format('d-m-Y');
-                    }
-                }
-                
-                // Group tasks by date
-                $groupedTasks = [];
-                foreach($allTasks as $task) {
-                    $dateLabel = getDateGroupLabel($task->task_date);
-                    if (!isset($groupedTasks[$dateLabel])) {
-                        $groupedTasks[$dateLabel] = [];
-                    }
-                    $groupedTasks[$dateLabel][] = $task;
-                }
-                
-                // Sort groups: Today, Yesterday, then by date (newest first)
-                $priority = ['Today' => 0, 'Yesterday' => 1];
-                uksort($groupedTasks, function($a, $b) use ($priority, $groupedTasks) {
-                    $aPriority = isset($priority[$a]) ? $priority[$a] : 999;
-                    $bPriority = isset($priority[$b]) ? $priority[$b] : 999;
-                    
-                    if ($aPriority !== $bPriority) {
-                        return $aPriority - $bPriority;
-                    }
-                    
-                    // For non-priority groups, sort by actual date
-                    $aDate = $groupedTasks[$a][0]->task_date;
-                    $bDate = $groupedTasks[$b][0]->task_date;
-                    return strtotime($bDate) - strtotime($aDate);
-                });
-            ?>
+           
             
             <?php if($allTasks->count() > 0): ?>
                 <?php
                     $delayCounter = 100;
                 ?>
-                <?php $__currentLoopData = $groupedTasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $groupLabel => $tasksInGroup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php
-                        $headerClass = $groupLabel === 'Today' ? 'today' : ($groupLabel === 'Yesterday' ? 'yesterday' : '');
-                    ?>
+              
                     
                     <!-- Date Group Header -->
-                    <div class="date-group-header <?php echo e($headerClass); ?>" data-aos="fade-up" data-aos-delay="<?php echo e($delayCounter); ?>">
-                        <div class="date-group-info">
-                            <h3 class="date-group-title"><?php echo e($groupLabel); ?></h3>
-                            <span class="date-group-count"><?php echo e(count($tasksInGroup)); ?> task<?php echo e(count($tasksInGroup) !== 1 ? 's' : ''); ?></span>
-                        </div>
-                        <div class="date-group-line"></div>
-                    </div>
+                    
                     
                     <?php($delayCounter += 50)?>
                     
                     <!-- Tasks in this group -->
-                    <?php $__currentLoopData = $tasksInGroup; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $task): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <article class="task-card" data-task-id="<?php echo e($task->id); ?>" data-aos="fade-up" data-aos-delay="<?php echo e($delayCounter); ?>">
-                            <header class="task-header">
-                                <span class="task-number" role="status" aria-label="Task number">Task <?php echo e($task->task_number); ?></span>
-                                <time class="task-date" datetime="<?php echo e($task->task_date->format('Y-m-d H:i')); ?>" aria-label="Task date">
-                                    <i class="bi bi-calendar" aria-hidden="true"></i>
-                                    <span><?php echo e($task->task_date->format('d-m-Y|h:i A')); ?></span>
-                                </time>
-                            </header>
-                            
-                            <div class="task-employee">
-                                <i class="bi bi-person" aria-hidden="true"></i>
-                                <strong>Employee:</strong>
-                                <span><?php echo e($task->user->name); ?></span>
-                            </div>
-                            
-                            <div class="task-description">
-                                <p><?php echo e($task->task_description); ?></p>
-                            </div>
-                            
-                            <div class="task-client">
-                                <i class="bi bi-briefcase" aria-hidden="true"></i>
-                                <strong>Client/Project:</strong>
-                                <span><?php echo e($task->client_project_name); ?></span>
-                            </div>
-                            
-                            <footer class="task-actions">
-                                <div class="status-badge status-<?php echo e($task->status); ?>" role="status" aria-label="Task status">
-                                    <i class="bi bi-circle-fill" aria-hidden="true"></i>
-                                    <span><?php echo e(str_replace('_', ' ', $task->status)); ?></span>
-                                </div>
-                                <div class="task-buttons">
-                                    <button type="button" class="btn btn-edit" onclick="editTask(<?php echo e($task->id); ?>)" aria-label="Edit task <?php echo e($task->task_number); ?>">
-                                        <i class="bi bi-pencil" aria-hidden="true"></i>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button type="button" class="btn btn-delete" onclick="deleteTask(<?php echo e($task->id); ?>)" aria-label="Delete task <?php echo e($task->task_number); ?>">
-                                        <i class="bi bi-trash" aria-hidden="true"></i>
-                                        <span>Delete</span>
-                                    </button>
-                                </div>
-                            </footer>
-                        </article>
-                        <?php($delayCounter += 50)?>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  
+            
             <?php else: ?>
                 <div class="empty-state" data-aos="fade-up" data-aos-delay="600">
                     <div class="empty-icon">

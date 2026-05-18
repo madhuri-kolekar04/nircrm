@@ -11,6 +11,7 @@ use App\Models\ProjectCompletionStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProjectUpdateController extends Controller
 {
@@ -367,7 +368,11 @@ class ProjectUpdateController extends Controller
         // For employees, handle invoice update requests
         if ($user->role == 2) {
             $userDepartment = $user->department;
-            $invoice = Invoice::where('department', $userDepartment)->findOrFail($request->product_id);
+           $invoice = Invoice::find($request->product_id);
+
+            if (!$invoice) {
+              return redirect()->back()->with('error', 'Invoice not found');
+            }
             
             // Create update request for invoice
             $updateData = [
@@ -1387,7 +1392,8 @@ class ProjectUpdateController extends Controller
         }
     }
     
-    public function destroy($id)
+    
+ public function destroy($id)
     {
         $user = Auth::user();
         
