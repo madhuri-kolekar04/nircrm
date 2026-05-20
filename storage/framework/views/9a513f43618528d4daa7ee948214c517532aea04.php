@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('page-title', 'Edit Employee'); ?>
+<?php $__env->startSection('page-title', 'Add Employee'); ?>
 
 <?php $__env->startSection('admin'); ?>
 <div class="container-fluid">
@@ -8,17 +8,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Edit Employee</h5>
+                    <h5 class="card-title mb-0">Add Employee</h5>
                 </div>
                 <div class="card-body">
-                    <?php if(session('success')): ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?php echo e(session('success')); ?>
-
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    <?php endif; ?>
-                    
                     <?php if(session('error')): ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <?php echo e(session('error')); ?>
@@ -27,9 +19,28 @@
                         </div>
                     <?php endif; ?>
                     
-                    <form action="<?php echo e(route('employees.update', $employee)); ?>" method="POST">
+                    <?php if($errors->any()): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Please fix the following errors:</strong>
+                            <ul class="mb-0 mt-2">
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if(session('success')): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <?php echo e(session('success')); ?>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <form action="<?php echo e(route('employees.store')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
-                        <?php echo method_field('PUT'); ?>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -42,7 +53,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="name" name="name" value="<?php echo e(old('name', $employee->name)); ?>" required>
+                                           id="name" name="name" value="<?php echo e(old('name')); ?>" required>
                                     <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -66,7 +77,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="email" name="email" value="<?php echo e(old('email', $employee->email)); ?>" required>
+                                           id="email" name="email" value="<?php echo e(old('email')); ?>" required>
                                     <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -93,7 +104,7 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" 
-                                           id="contact_number" name="contact_number" value="<?php echo e(old('contact_number', $employee->contact_number)); ?>" required>
+                                           id="contact_number" name="contact_number" value="<?php echo e(old('contact_number')); ?>" required>
                                     <?php $__errorArgs = ['contact_number'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -120,8 +131,8 @@ unset($__errorArgs, $__bag); ?>"
                                             id="department" name="department" required>
                                         <option value="">Select Department</option>
                                         <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($department->id); ?>" <?php echo e(old('department', $employee->department_id) == $department->id ? 'selected' : ''); ?>>
-                                                <?php echo e($department->department_name ?? $department->department ?? $department->name); ?>
+                                            <option value="<?php echo e($department->id); ?>" <?php echo e(old('department') == $department->id ? 'selected' : ''); ?>>
+                                                <?php echo e($department->department_name ?? $department->department ?? $department->name ?? 'Department ' . $department->id); ?>
 
                                             </option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -154,9 +165,9 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                                             id="position" name="position" required>
                                         <option value="">Select Position</option>
-                                        <option value="general_manager" <?php echo e(old('position', $employee->position) == 'general_manager' ? 'selected' : ''); ?>>General Manager</option>
-                                        <option value="Manager" <?php echo e(old('position', $employee->position) == 'Manager' ? 'selected' : ''); ?>>Manager</option>
-                                        <option value="Employee" <?php echo e(old('position', $employee->position) == 'Employee' ? 'selected' : ''); ?>>Employee</option>
+                                        <option value="general_manager" <?php echo e(old('position') == 'general_manager' ? 'selected' : ''); ?>>General Manager</option>
+                                        <option value="Manager" <?php echo e(old('position') == 'Manager' ? 'selected' : ''); ?>>Manager</option>
+                                        <option value="Employee" <?php echo e(old('position') == 'Employee' ? 'selected' : ''); ?>>Employee</option>
                                     </select>
                                     <?php $__errorArgs = ['position'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -172,14 +183,26 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Account Status</label>
-                                    <div class="form-control-plaintext">
-                                        <?php if($employee->email_verified_at): ?>
-                                            <span class="badge bg-success">Verified</span>
-                                        <?php else: ?>
-                                            <span class="badge bg-warning">Pending Verification</span>
-                                        <?php endif; ?>
-                                    </div>
+                                    <label for="password" class="form-label">Password *</label>
+                                    <input type="password" class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
+                                           id="password" name="password" required>
+                                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -187,11 +210,26 @@ unset($__errorArgs, $__bag); ?>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Created Date</label>
-                                    <div class="form-control-plaintext">
-                                        <?php echo e($employee->created_at->format('d-m-Y H:i')); ?>
-
-                                    </div>
+                                    <label for="password_confirmation" class="form-label">Confirm Password *</label>
+                                    <input type="password" class="form-control <?php $__errorArgs = ['password_confirmation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
+                                           id="password_confirmation" name="password_confirmation" required>
+                                    <?php $__errorArgs = ['password_confirmation'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +239,7 @@ unset($__errorArgs, $__bag); ?>
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Update Employee
+                                <i class="fas fa-paper-plane"></i> Submit
                             </button>
                         </div>
                     </form>
@@ -212,4 +250,4 @@ unset($__errorArgs, $__bag); ?>
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/u314035009/domains/talktonitesh.com/public_html/nircrm/resources/views/admin/employees/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/admin/employees/create.blade.php ENDPATH**/ ?>

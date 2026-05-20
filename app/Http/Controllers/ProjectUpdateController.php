@@ -1412,16 +1412,28 @@ class ProjectUpdateController extends Controller
             $update = ProjectUpdate::findOrFail($id);
             
             // Check if user has permission to delete this update
-            if ($user->role == 2 && $update->invoice) {
-                $userDepartment = $user->department;
-                $invoiceDepartment = $update->invoice->department;
+            // if ($user->role == 2 && $update->invoice) {
+            //     $userDepartment = $user->department;
+            //     $invoiceDepartment = $update->invoice->department;
                 
-                if (strtolower(trim($userDepartment)) !== strtolower(trim($invoiceDepartment))) {
-                    \Log::warning('Department mismatch for user: ' . $userDepartment . ' vs invoice: ' . $invoiceDepartment);
-                    return redirect()->back()->with('error', 'You can only delete updates from your department');
-                }
-            }
+            //     if (strtolower(trim($userDepartment)) !== strtolower(trim($invoiceDepartment))) {
+            //         \Log::warning('Department mismatch for user: ' . $userDepartment . ' vs invoice: ' . $invoiceDepartment);
+            //         return redirect()->back()->with('error', 'You can only delete updates from your department');
+            //     }
+            // }
             
+
+            if ($user->role == 2) {
+
+                  // Employee can only delete own updates
+                if ($update->user_id != $user->id) {
+
+                 return redirect()->back()->with('error', 'Unauthorized access');
+
+         }
+
+}
+
             \Log::info('Deleting update ID: ' . $id);
             $update->delete();
             

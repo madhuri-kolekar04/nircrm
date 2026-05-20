@@ -225,4 +225,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<?php /**PATH /home/u314035009/domains/talktonitesh.com/public_html/nircrm/resources/views/auth/change-password.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/auth/change-password.blade.php ENDPATH**/ ?>

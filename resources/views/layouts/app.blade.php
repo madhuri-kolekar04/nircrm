@@ -12,11 +12,14 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     
    
     
-    
+    <body class="font-sans antialiased">
     <script>
         // Set the session lifetime in milliseconds (1 minute * 60 seconds * 1000 milliseconds)
         const sessionLifetime = 540 * 60 * 1000;
@@ -53,7 +56,7 @@
         }
     </script>
   
-    <body class="font-sans antialiased">
+    
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -71,5 +74,11 @@
                 @yield('content')
             </main>
         </div>
+
+        // Include the attendance-popup modal
+        @include('partials.attendance-popup')
+
+        <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

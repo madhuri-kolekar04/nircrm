@@ -13,6 +13,8 @@ $userName = auth()->user()->name ?? 'not_logged_in';
             <i class="fas fa-gauge-high"></i>
             <span>Dashboard</span>
         </a>
+
+        
         
         <!-- Leads Generation Menu -->
         <a href="{{ route('leads.index') }}" class="menu-item {{ ($route == 'leads.index' || strpos($route, 'leads.') === 0)? 'active':'' }}">

@@ -1650,8 +1650,27 @@
                     
                     <!-- Attainance Logo -->
                     <div style="margin: 0 10px;">
-                        <a href="{{ route('attendance.dashboard') }}" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
-                            <i class="fas fa-calendar-check" style="font-size: 20px; animation: pulse 2s infinite;"></i>
+
+                    
+                        <!-- <a href="{{ route('attendance.dashboard') }}" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;"> 
+                        <i class="fas fa-calendar-check" style="font-size: 20px; animation: pulse 2s infinite;"></i>
+
+                         </a> -->
+
+                         @if(Auth::user()->role == 1)
+
+                       <a href="{{ route('attendance.dashboard') }}" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
+                        <i class="fas fa-calendar-check"></i></a>
+
+                        @elseif(Auth::user()->role == 2)
+
+                         <a href="#" data-bs-toggle="modal"  data-bs-target="#attendancePopupModal" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
+                             <i class="fas fa-user-check"></i></a>
+
+@endif
+
+
+                          
                             <style>
                                 .attainance-logo:hover {
                                     transform: translateY(-2px) scale(1.05);
@@ -1693,7 +1712,7 @@
                                     100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
                                 }
                             </style>
-                        </a>
+                        
                     </div>
                     
                                         

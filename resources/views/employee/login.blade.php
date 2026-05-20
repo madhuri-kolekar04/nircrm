@@ -668,7 +668,7 @@
 
         <!-- App Footer -->
         <div class="app-footer">
-            <p class="footer-text">&copy; 2024 NIRCRM. All rights reserved.</p>
+            <p class="footer-text">&copy; 2024 NEDSCRM. All rights reserved.</p>
             <p class="footer-version">Version 2.0 | Mobile Optimized</p>
         </div>
     </div>

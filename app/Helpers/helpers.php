@@ -89,6 +89,8 @@ function getVisibleMenusForCurrentUser()
             ['name' => 'Menu Controller', 'url' => 'menu-controller', 'icon' => 'fas fa-cogs'],
             ['name' => 'Activity Logs', 'url' => 'logs', 'icon' => 'fas fa-history'],
             ['name' => 'Okay', 'url' => 'okay', 'icon' => 'fas fa-check'],
+             ['name' => 'Attendance', 'url' => 'attendance/dashboard', 'icon' => 'fas fa-user-check']
+
         ];
         
         // For non-admin roles, hide sensitive menus by default

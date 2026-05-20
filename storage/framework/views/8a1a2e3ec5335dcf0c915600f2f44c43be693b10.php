@@ -163,8 +163,7 @@
                                         <div class="mt-3 pt-3 border-top">
                                             <small class="text-muted">
                                                 Total Completion: <?php echo e($completionStatus->total_percentage); ?>% | 
-                                                Created by: <?php echo e($completionStatus->user->name); ?> on <?php echo e($completionStatus->created_at->format('M d, Y')); ?>
-
+                                             
                                             </small>
                                         </div>
                                     <?php else: ?>
@@ -172,9 +171,11 @@
                                             <div class="text-center py-4">
                                                 <i class="fas fa-chart-pie fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted">No completion status defined yet.</p>
+                                                <?php if(Auth::user()->role !== 3): ?>
                                                 <a href="<?php echo e(route('project-updates.completion-status.create', $invoice->id)); ?>" class="btn btn-primary">
                                                     <i class="fas fa-plus-circle"></i> Create Completion Status
                                                 </a>
+                                                <?php endif; ?>
                                             </div>
                                         <?php else: ?>
                                             <div class="text-center py-4">
@@ -264,7 +265,7 @@
                                                                 <i class="fas fa-clock"></i> <?php echo e($update->update_date->format('M d, Y H:i')); ?>
 
                                                             </small>
-                                                            <?php if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id)): ?>
+                                                            <?php if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id) ): ?>
                                                                 <form action="<?php echo e(route('project-updates.destroy', $update->id)); ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this work update?');" style="display: inline;">
                                                                     <?php echo csrf_field(); ?>
                                                                     <?php echo method_field('DELETE'); ?>
@@ -507,7 +508,7 @@
         
         <!-- Default Work Update Form -->
         <div id="defaultWorkUpdateForm">
-            <form action="<?php echo e(route('project-updates.store')); ?>" method="POST">
+            <form action="<?php echo e(route('project-updates.store')); ?>" method="POST" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
                 <input type="hidden" name="product_id" value="<?php echo e($invoice->id); ?>">
                 <input type="hidden" name="form_source" value="work">
@@ -519,6 +520,15 @@
                               onfocus="initializeNumbering(this)"
                               onkeydown="handleKeydown(event, this)"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="workAttachment" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 5px; display: block; font-size: 0.9rem;">📎 Attachment (Optional)</label>
+                    <input type="file" class="form-control" id="workAttachment" name="attachment" 
+                           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.zip,.rar"
+                           style="border: 1px solid #ced4da; border-radius: 6px; padding: 8px; font-size: 0.9rem;">
+                    <small style="color: #6c757d; font-size: 0.8rem; margin-top: 3px; display: block;">
+                        Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR (Max: 10MB)
+                    </small>
+                </div>
                 <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 15px;">
                     <button type="button" onclick="hideWorkUpdateModal()" style="padding: 8px 16px; border: 1px solid #6b7280; background: white; color: #6b7280; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s ease;">Cancel</button>
                     <button type="submit" style="padding: 8px 16px; border: none; background: #667eea; color: white; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: all 0.2s ease;">Submit Update</button>
@@ -528,7 +538,7 @@
         
         <!-- Task-based Update Form (hidden by default) -->
         <div id="taskBasedUpdateForm" style="display: none;">
-            <form id="taskStatusForm" action="<?php echo e(route('project-updates.update-status')); ?>" method="POST">
+            <form id="taskStatusForm" action="<?php echo e(route('project-updates.update-status')); ?>" method="POST" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
                 <input type="hidden" id="taskUpdateId" name="task_update_id" value="">
                 
@@ -537,6 +547,16 @@
                     <div id="taskListContainer" style="max-height: 40vh; overflow-y: auto;">
                         <!-- Tasks will be dynamically added here -->
                     </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="taskAttachment" class="form-label" style="color: #374151; font-weight: 500; margin-bottom: 5px; display: block; font-size: 0.9rem;">📎 Attachment (Optional)</label>
+                    <input type="file" class="form-control" id="taskAttachment" name="attachment" 
+                           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.zip,.rar"
+                           style="border: 1px solid #ced4da; border-radius: 6px; padding: 8px; font-size: 0.9rem;">
+                    <small style="color: #6c757d; font-size: 0.8rem; margin-top: 3px; display: block;">
+                        Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR (Max: 10MB)
+                    </small>
                 </div>
                 
                                 
@@ -1067,6 +1087,17 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
             modal.style.opacity = '0';
             modal.style.visibility = 'hidden';
+            
+            // Clear attachment fields
+            var workAttachment = document.getElementById('workAttachment');
+            var taskAttachment = document.getElementById('taskAttachment');
+            
+            if (workAttachment) {
+                workAttachment.value = '';
+            }
+            if (taskAttachment) {
+                taskAttachment.value = '';
+            }
         }
     };
     
@@ -1132,10 +1163,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // File validation function
+    function validateAttachment(fileInput) {
+        if (fileInput.files && fileInput.files[0]) {
+            var file = fileInput.files[0];
+            var maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/zip', 'application/x-rar-compressed'];
+            
+            // Check file size
+            if (file.size > maxSize) {
+                alert('File size must be less than 10MB. Current file size: ' + (file.size / 1024 / 1024).toFixed(2) + 'MB');
+                fileInput.value = '';
+                return false;
+            }
+            
+            // Check file type
+            if (!allowedTypes.includes(file.type)) {
+                alert('Invalid file type. Allowed formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, GIF, ZIP, RAR');
+                fileInput.value = '';
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    // Add file validation to attachment inputs
+    document.getElementById('workAttachment')?.addEventListener('change', function() {
+        validateAttachment(this);
+    });
+    
+    document.getElementById('taskAttachment')?.addEventListener('change', function() {
+        validateAttachment(this);
+    });
+    
     // Fix form submissions
     document.querySelectorAll('form').forEach(function(form) {
         form.addEventListener('submit', function(e) {
             console.log('Form submitting...');
+            
+            // Validate attachments before submission
+            var workAttachment = document.getElementById('workAttachment');
+            var taskAttachment = document.getElementById('taskAttachment');
+            
+            if (workAttachment && !validateAttachment(workAttachment)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            if (taskAttachment && !validateAttachment(taskAttachment)) {
+                e.preventDefault();
+                return false;
+            }
             
             // Handle task status form with AJAX
             if (form.id === 'taskStatusForm') {
@@ -1383,4 +1461,4 @@ function setCaretPosition(textarea, position) {
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\nircrm\resources\views/project_updates/invoice_update.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/project_updates/invoice_update.blade.php ENDPATH**/ ?>

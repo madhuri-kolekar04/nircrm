@@ -1,11 +1,12 @@
 <!-- Attendance Popup Modal -->
-<div class="modal fade" id="attendancePopupModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="attendancePopupModal" tabindex="-1" role="dialog" >
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 bg-primary text-white">
                 <h5 class="modal-title fw-bold">
                     <i class="fas fa-clock me-2"></i>Attendance Required
                 </h5>
+                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div id="attendancePopupContent">
@@ -27,8 +28,10 @@
 </div>
 
 <script>
+    
 (function($) {
     'use strict';
+    console.log("Attendance script loaded");
     
     // Check if we should show attendance popup
     <?php if(Auth::check() && Auth::user()->role != 3): ?>
@@ -62,6 +65,7 @@
 
         $.get('/attendance/check-status')
             .done(function(response) {
+                console.log(response);
                 console.log('Attendance status response:', response);
                 
                 if (response.show_attendance && !response.already_checked_in) {
@@ -104,6 +108,8 @@
         
         $('#attendancePopupContent').html(content);
         $('#attendancePopupModal').modal('show');
+
+        
         
         // Auto-hide after 10 seconds if no action
         setTimeout(function() {
@@ -204,13 +210,19 @@
     });
 
     // Prevent modal from closing with escape key or backdrop click
-    $('#attendancePopupModal').on('hide.bs.modal', function(e) {
-        if (!$(e.target).hasClass('btn-close') && !$(e.target).hasClass('btn')) {
-            e.preventDefault();
-            return false;
-        }
-    });
+    // $('#attendancePopupModal').on('hide.bs.modal', function(e) {
+    //     if (!$(e.target).hasClass('btn-close') && !$(e.target).hasClass('btn')) {
+    //         e.preventDefault();
+    //         return false;
+    //     }
+    // });
+
+
+
+    
     
 })(jQuery);
+
+
 </script>
 <?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/partials/attendance-popup.blade.php ENDPATH**/ ?>

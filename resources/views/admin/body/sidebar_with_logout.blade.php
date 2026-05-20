@@ -12,6 +12,7 @@ $route = Route::current()->getName();
             <span>Dashboard</span>
         </a>
         
+        
         <!-- Project Menu Dropdown -->
         <div class="menu-item menu-header" onclick="toggleDropdown('project-dropdown')">
             <i class="fas fa-ticket"></i>

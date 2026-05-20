@@ -260,7 +260,7 @@
                                                             <small class="text-muted me-2">
                                                                 <i class="fas fa-clock"></i> {{ $update->update_date->format('M d, Y H:i') }}
                                                             </small>
-                                                            @if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id))
+                                                            @if((auth()->user()->role == 1) || (auth()->user()->role == 4) || (auth()->user()->id == $update->user_id) )
                                                                 <form action="{{ route('project-updates.destroy', $update->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this work update?');" style="display: inline;">
                                                                     @csrf
                                                                     @method('DELETE')

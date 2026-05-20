@@ -1,3 +1,6 @@
+<?php echo $__env->make('partials.attendance-popup', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
 <?php $__env->startSection('page-title', 'Attendance Dashboard'); ?>
 
 <?php $__env->startSection('admin'); ?>
@@ -21,8 +24,11 @@
                         <?php endif; ?>
                     </p>
                 </div>
-                <div class="d-flex gap-2">
+                 <div class="d-flex gap-2">
                     <?php if(Auth::user()->role == 1 || Auth::user()->role == 5 ): ?>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="showAttendancePopup()">
+                            <i class="fas fa-user-check me-2"></i>Mark Attendance
+                        </button>
                        
                         <a href="<?php echo e(route('shifts.index')); ?>" class="btn btn-warning btn-lg">
                             <i class="fas fa-cog me-2"></i>Manage Shifts
@@ -31,16 +37,43 @@
                             <i class="fas fa-users-cog me-2"></i>Manage Users
                         </button>
                     <?php endif; ?>
-                     <button type="button" class="btn btn-primary btn-lg" onclick="showAttendancePopup()">
-                            <i class="fas fa-user-check me-2"></i>Mark Attendance
-                        </button>
+                    
                     <a href="<?php echo e(route('attendance.report')); ?>" class="btn btn-outline-primary btn-lg">
                         <i class="fas fa-chart-bar me-2"></i>Reports
                     </a>
                     <a href="<?php echo e(route('leave.index')); ?>" class="btn btn-success btn-lg">
                         <i class="fas fa-calendar-alt me-2"></i>Leaves
                     </a>
-                </div>
+                </div> 
+
+
+                <!-- <div class="d-flex gap-2">
+                     <?php if(Auth::user()->role == 1 || Auth::user()->role == 5 ): ?>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="showAttendancePopup()">
+                            <i class="fas fa-user-check me-2"></i>Mark Attendance
+                        </button>
+                       
+                        <a href="<?php echo e(route('shifts.index')); ?>" class="btn btn-warning btn-lg">
+                            <i class="fas fa-cog me-2"></i>Manage Shifts
+                        </a>
+                        <button type="button" class="btn btn-info btn-lg" onclick="showUserManagement()">
+                            <i class="fas fa-users-cog me-2"></i>Manage Users
+                        </button>
+                        
+
+                    <?php elseif(Auth::user()->role == 2): ?>
+                        <button type="button" class="btn btn-primary btn-lg"   data-bs-toggle="modal" data-bs-target="#attendancePopupModal">
+                                <i class="fas fa-user-check me-2"></i>Mark Attendance</button>
+                        
+                    <?php endif; ?>
+
+                         <a href="<?php echo e(route('attendance.report')); ?>" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-chart-bar me-2"></i>Reports
+                       </a>
+                        <a href="<?php echo e(route('leave.index')); ?>" class="btn btn-success btn-lg">
+                        <i class="fas fa-calendar-alt me-2"></i>Leaves
+                        </a>
+                </div> -->
             </div>
         </div>
     </div>
@@ -325,7 +358,7 @@ function showAttendancePopup() {
     fetch('/attendance/check-status')
         .then(response => response.json())
         .then(data => {
-            if (data.show_attendance ) {
+            if (data.show_attendance && !data.already_checked_in) {
                 // Update modal content
                 document.getElementById('modalShiftName').textContent = data.shift_name || 'Default Shift';
                 document.getElementById('modalShiftTime').textContent = data.shift_time || '11:00 - 18:00';
@@ -340,7 +373,7 @@ function showAttendancePopup() {
                 var modal = new bootstrap.Modal(document.getElementById('attendanceModal'));
                 modal.show();
             }
-
+            
         })
         .catch(error => {
             console.error('Error:', error);
@@ -521,11 +554,11 @@ function editAttendance(userId, date) {
 }
 
 // Auto-show popup on page load
-document.addEventListener('DOMContentLoaded', function() {
-    <?php if(Auth::user()->role != 3): ?>
-    setTimeout(showAttendancePopup, 2000);
-    <?php endif; ?>
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     <?php if(Auth::user()->role != 3): ?>
+//     setTimeout(showAttendancePopup, 2000);
+//     <?php endif; ?>
+// });
 </script>
 <?php $__env->stopSection(); ?>
 

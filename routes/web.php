@@ -1030,3 +1030,4 @@ Route::delete('/admin/task/{id}/delete', [AdminController::class, 'deleteTask'])
 Route::middleware(['auth'])->group(function () {
     Route::get('/allrecordingcall', [RecordingController::class, 'allRecordings'])->name('recordings.all');
 });
+
