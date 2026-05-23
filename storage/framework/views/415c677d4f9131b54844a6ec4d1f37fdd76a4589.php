@@ -554,11 +554,11 @@ function editAttendance(userId, date) {
 }
 
 // Auto-show popup on page load
-// document.addEventListener('DOMContentLoaded', function() {
-//     <?php if(Auth::user()->role != 3): ?>
-//     setTimeout(showAttendancePopup, 2000);
-//     <?php endif; ?>
-// });
+document.addEventListener('DOMContentLoaded', function() {
+    <?php if(Auth::user()->role != 3): ?>
+     setTimeout(showAttendancePopup, 2000);
+     <?php endif; ?>
+ });
 </script>
 <?php $__env->stopSection(); ?>
 

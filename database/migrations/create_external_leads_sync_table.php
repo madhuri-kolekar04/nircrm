@@ -53,7 +53,10 @@ return new class extends Migration
             $table->timestamps();
 
             // Indexes for performance
-            $table->index(['external_database_name', 'external_lead_id']);
+           $table->index(
+    ['external_database_name', 'external_lead_id'],
+    'ext_db_lead_idx'
+);
             $table->index('last_synced_at');
             $table->index('created_at');
         });

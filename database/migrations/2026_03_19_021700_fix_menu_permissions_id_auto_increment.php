@@ -11,27 +11,21 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::table('menu_permissions', function (Blueprint $table) {
-            // Drop the existing id column and recreate it as auto-increment primary key
-            $table->dropPrimary(['id']);
-            $table->dropColumn('id');
-            $table->id()->first();
-        });
-    }
+   public function up(): void
+{
+    // already handled in database
+}
+
+
 
     /**
      * Reverse the migrations.
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::table('menu_permissions', function (Blueprint $table) {
-            $table->dropPrimary(['id']);
-            $table->dropColumn('id');
-            $table->bigInteger('id')->unsigned()->first();
-        });
-    }
+    public function down(): void
+{
+    //
+}
+
 };

@@ -9,8 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+   public function up(): void
+{
+    if (!Schema::hasTable('email_tracking')) {
+
         Schema::create('email_tracking', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lead_id')->constrained()->onDelete('cascade');
@@ -27,12 +29,14 @@ return new class extends Migration
             $table->integer('attempts')->default(1);
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-            
+
             $table->index(['lead_id', 'status']);
             $table->index(['approval_token']);
             $table->index(['expires_at']);
         });
+
     }
+}
 
     /**
      * Reverse the migrations.

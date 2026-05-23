@@ -12,12 +12,16 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
+{
+    if (!Schema::hasTable('email_tracking')) {
+
         Schema::create('email_tracking', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
+
     }
+}
 
     /**
      * Reverse the migrations.

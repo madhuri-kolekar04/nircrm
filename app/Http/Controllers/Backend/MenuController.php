@@ -44,6 +44,7 @@ class MenuController extends Controller
             ['name' => 'EmpTasks', 'url' => 'niremptask', 'icon' => 'fas fa-tasks'],
             ['name' => 'Menu Controller', 'url' => 'menu-controller', 'icon' => 'fas fa-cogs'],
             ['name' => 'Employee Menu Controller', 'url' => 'employee-menu-controller', 'icon' => 'fas fa-users-cog'],
+            ['name' => 'Attendance', 'url' => 'admin/attendance', 'icon' => 'fas fa-calendar-check'],
         ];
 
         return view('admin.menu-controller.index', compact('roles', 'allMenus'));

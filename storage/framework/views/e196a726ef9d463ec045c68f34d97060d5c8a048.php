@@ -1,8 +1,6 @@
-@extends('admin.admin_master')
+<?php $__env->startSection('page-title', 'Employee Performance Report'); ?>
 
-@section('page-title', 'Employee Performance Report')
-
-@section('admin')
+<?php $__env->startSection('admin'); ?>
 <div class="container-fluid">
     <!-- Header Section -->
     <div class="row mb-4">
@@ -19,7 +17,7 @@
                             </p>
                         </div>
                         <div class="col-md-4 text-end">
-                            <a href="{{ route('project-updates.index') }}" class="btn btn-light">
+                            <a href="<?php echo e(route('project-updates.index')); ?>" class="btn btn-light">
                                 <i class="fas fa-arrow-left"></i> Back to Project Updates
                             </a>
                         </div>
@@ -39,8 +37,8 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form id="reportFilterForm" method="POST" action="{{ route('employee-report.generate') }}">
-                        @csrf
+                    <form id="reportFilterForm" method="POST" action="<?php echo e(route('employee-report.generate')); ?>">
+                        <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
@@ -61,9 +59,9 @@
                                     <label for="employee_id" class="form-label">Employee</label>
                                     <select class="form-select" id="employee_id" name="employee_id">
                                         <option value="">All Employees</option>
-                                        @foreach($employees ?? [] as $employee)
-                                            <option value="{{ $employee->id }}">{{ $employee->name }} ({{ is_object($employee->department) ? ($employee->department->department ?? $employee->department->name ?? 'N/A') : $employee->department }})</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $employees ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($employee->id); ?>"><?php echo e($employee->name); ?> (<?php echo e(is_object($employee->department) ? ($employee->department->department ?? $employee->department->name ?? 'N/A') : $employee->department); ?>)</option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -72,22 +70,22 @@
                                     <label for="department" class="form-label">Department</label>
                                     <select class="form-select" id="department" name="department">
                                         <option value="">All Departments</option>
-                                        @foreach($departments ?? [] as $department)
-                                            <option value="{{ $department }}">{{ $department }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $departments ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($department); ?>"><?php echo e($department); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="start_date" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate->format('Y-m-d') }}">
+                                    <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo e($startDate->format('Y-m-d')); ?>">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="end_date" class="form-label">End Date</label>
-                                    <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}">
+                                    <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo e($endDate->format('Y-m-d')); ?>">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -117,7 +115,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="card-title">{{ count($employeePerformanceData ?? []) }}</h4>
+                            <h4 class="card-title"><?php echo e(count($employeePerformanceData ?? [])); ?></h4>
                             <p class="card-text">Total Employees</p>
                         </div>
                         <div class="align-self-center">
@@ -132,7 +130,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="card-title">{{ collect($performancePercentages ?? [])->avg('overall_score') ?? 0 }}%</h4>
+                            <h4 class="card-title"><?php echo e(collect($performancePercentages ?? [])->avg('overall_score') ?? 0); ?>%</h4>
                             <p class="card-text">Avg Performance</p>
                         </div>
                         <div class="align-self-center">
@@ -147,7 +145,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="card-title">{{ collect($performancePercentages ?? [])->where('grade', 'A+')->count() }}</h4>
+                            <h4 class="card-title"><?php echo e(collect($performancePercentages ?? [])->where('grade', 'A+')->count()); ?></h4>
                             <p class="card-text">Top Performers</p>
                         </div>
                         <div class="align-self-center">
@@ -162,7 +160,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="card-title">{{ collect($performancePercentages ?? [])->where('overall_score', '<', 50)->count() }}</h4>
+                            <h4 class="card-title"><?php echo e(collect($performancePercentages ?? [])->where('overall_score', '<', 50)->count()); ?></h4>
                             <p class="card-text">Need Improvement</p>
                         </div>
                         <div class="align-self-center">
@@ -202,9 +200,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(isset($employeePerformanceData) && count($employeePerformanceData) > 0)
-                                    @foreach($employeePerformanceData as $employeeId => $data)
-                                        @php
+                                <?php if(isset($employeePerformanceData) && count($employeePerformanceData) > 0): ?>
+                                    <?php $__currentLoopData = $employeePerformanceData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employeeId => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php
                                             $performance = $performancePercentages[$employeeId] ?? [];
                                             $gradeColor = [
                                                 'A+' => 'success',
@@ -214,72 +212,72 @@
                                                 'D' => 'danger',
                                                 'F' => 'danger'
                                             ][$performance['grade'] ?? 'F'] ?? 'secondary';
-                                        @endphp
+                                        ?>
                                         <tr>
                                             <td>
-                                              <strong>{{ $data['employee']->name ?? 'Employee Not Found' }}</strong>
+                                              <strong><?php echo e($data['employee']->name ?? 'Employee Not Found'); ?></strong>
                                             </td>
                                             <td>
-                                                <span class="badge bg-secondary">{{ $data['employee']->department ?? 'Employee Not Found' }}</span>
+                                                <span class="badge bg-secondary"><?php echo e($data['employee']->department ?? 'Employee Not Found'); ?></span>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="progress me-2" style="width: 60px; height: 8px;">
-                                                        <div class="progress-bar bg-info" style="width: {{ $performance['completion_percentage'] ?? 0 }}%"></div>
+                                                        <div class="progress-bar bg-info" style="width: <?php echo e($performance['completion_percentage'] ?? 0); ?>%"></div>
                                                     </div>
-                                                    <small>{{ $performance['completion_percentage'] ?? 0 }}%</small>
+                                                    <small><?php echo e($performance['completion_percentage'] ?? 0); ?>%</small>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="progress me-2" style="width: 60px; height: 8px;">
-                                                        <div class="progress-bar bg-success" style="width: {{ $performance['efficiency_score'] ?? 0 }}%"></div>
+                                                        <div class="progress-bar bg-success" style="width: <?php echo e($performance['efficiency_score'] ?? 0); ?>%"></div>
                                                     </div>
-                                                    <small>{{ $performance['efficiency_score'] ?? 0 }}%</small>
+                                                    <small><?php echo e($performance['efficiency_score'] ?? 0); ?>%</small>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="progress me-2" style="width: 60px; height: 8px;">
-                                                        <div class="progress-bar bg-warning" style="width: {{ $performance['response_score'] ?? 0 }}%"></div>
+                                                        <div class="progress-bar bg-warning" style="width: <?php echo e($performance['response_score'] ?? 0); ?>%"></div>
                                                     </div>
-                                                    <small>{{ $performance['response_score'] ?? 0 }}%</small>
+                                                    <small><?php echo e($performance['response_score'] ?? 0); ?>%</small>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="progress me-2" style="width: 60px; height: 8px;">
-                                                        <div class="progress-bar bg-primary" style="width: {{ $performance['overall_score'] ?? 0 }}%"></div>
+                                                        <div class="progress-bar bg-primary" style="width: <?php echo e($performance['overall_score'] ?? 0); ?>%"></div>
                                                     </div>
-                                                    <small class="fw-bold">{{ $performance['overall_score'] ?? 0 }}%</small>
+                                                    <small class="fw-bold"><?php echo e($performance['overall_score'] ?? 0); ?>%</small>
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="badge bg-{{ $gradeColor }} fs-6">{{ $performance['grade'] ?? 'F' }}</span>
+                                                <span class="badge bg-<?php echo e($gradeColor); ?> fs-6"><?php echo e($performance['grade'] ?? 'F'); ?></span>
                                             </td>
-                                            <td>{{ $data['total_assigned_tasks'] + $data['total_work_updates'] }}</td>
-                                            <td>{{ $data['completed_tasks'] }}</td>
-                                            <td>{{ $data['total_work_updates'] }}</td>
+                                            <td><?php echo e($data['total_assigned_tasks'] + $data['total_work_updates']); ?></td>
+                                            <td><?php echo e($data['completed_tasks']); ?></td>
+                                            <td><?php echo e($data['total_work_updates']); ?></td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
-                                                    <button type="button" class="btn btn-outline-primary" onclick="viewEmployeeDetails({{ $employeeId }})">
+                                                    <button type="button" class="btn btn-outline-primary" onclick="viewEmployeeDetails(<?php echo e($employeeId); ?>)">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-success" onclick="exportEmployeeReport({{ $employeeId }})">
+                                                    <button type="button" class="btn btn-outline-success" onclick="exportEmployeeReport(<?php echo e($employeeId); ?>)">
                                                         <i class="fas fa-download"></i>
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                @else
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
                                     <tr>
                                         <td colspan="11" class="text-center text-muted py-4">
                                             <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
                                             No performance data available for the selected criteria.
                                         </td>
                                     </tr>
-                                @endif
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -297,8 +295,8 @@
                 <h5 class="modal-title">Send Report via Email</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="emailForm" method="POST" action="{{ route('employee-report.email') }}">
-                @csrf
+            <form id="emailForm" method="POST" action="<?php echo e(route('employee-report.email')); ?>">
+                <?php echo csrf_field(); ?>
                 <div class="modal-body">
                     <input type="hidden" id="email_start_date" name="start_date">
                     <input type="hidden" id="email_end_date" name="end_date">
@@ -394,7 +392,7 @@ function viewEmployeeDetails(employeeId) {
     const department = document.getElementById('department').value;
     
     // Build URL with parameters
-    let url = `{{ route('employee-report.generate') }}?start_date=${startDate}&end_date=${endDate}`;
+    let url = `<?php echo e(route('employee-report.generate')); ?>?start_date=${startDate}&end_date=${endDate}`;
     
     // Add employee filter if not already set
     if (employeeIdField) {
@@ -419,7 +417,7 @@ function exportReport() {
     
     // Create export URL
     const params = new URLSearchParams(formData);
-    const exportUrl = `{{ route('employee-report.export') }}?${params.toString()}`;
+    const exportUrl = `<?php echo e(route('employee-report.export')); ?>?${params.toString()}`;
     
     // Download file
     window.open(exportUrl, '_blank');
@@ -429,7 +427,7 @@ function exportEmployeeReport(employeeId) {
     // Export specific employee report
     const startDate = document.getElementById('start_date').value;
     const endDate = document.getElementById('end_date').value;
-    const exportUrl = `{{ route('employee-report.export') }}?employee_id=${employeeId}&start_date=${startDate}&end_date=${endDate}`;
+    const exportUrl = `<?php echo e(route('employee-report.export')); ?>?employee_id=${employeeId}&start_date=${startDate}&end_date=${endDate}`;
     
     window.open(exportUrl, '_blank');
 }
@@ -450,7 +448,7 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
     fetch(this.action, {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>',
             'Accept': 'application/json',
         },
         body: formData
@@ -515,4 +513,6 @@ document.getElementById('emailForm').addEventListener('submit', function(e) {
 }
 </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/project_updates/employee_performance_report.blade.php ENDPATH**/ ?>

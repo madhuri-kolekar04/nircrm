@@ -10,7 +10,9 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+{
+    if (!Schema::hasTable('employee_tasks')) {
+
         Schema::create('employee_tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
@@ -20,10 +22,12 @@ return new class extends Migration
             $table->enum('status', ['pending', 'in_progress', 'completed', 'stopped', 'on_hold'])->default('pending');
             $table->integer('task_number')->default(1);
             $table->timestamps();
-            
+
             $table->index(['user_id', 'task_date']);
         });
+
     }
+}
 
     /**
      * Reverse the migrations.

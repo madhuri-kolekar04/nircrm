@@ -9,9 +9,22 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Invoice Details</h5>
+                   <div class="d-flex justify-content-between align-items-center ">
+                        
+                   
                     <a href="<?php echo e(route('project-updates.index')); ?>" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back to Invoices
                     </a>
+                                      
+                   <?php if(auth()->user()->role != 3): ?>
+                        <a href="<?php echo e(route('monthly-report.details', $invoice->id)); ?>" class="btn btn-primary">
+                         Monthly Reporting</a>
+                   <?php endif; ?>
+                  
+                    </div>
+                    
+
+                    
                 </div>
                 <div class="card-body">
                     <?php if(session('success')): ?>
@@ -237,8 +250,9 @@
                                                 <div class="update-item mb-3 p-3 border rounded bg-light">
                                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                                         <div>
-                                                            <strong>Updated by:</strong> <?php echo e($update->user->name); ?>
+                                                            <strong>Updated by:</strong> <?php echo e($update->user?->name ?? 'Unknown User'); ?>
 
+                                                            
                                                             <span class="text-muted">(
                                                                 <?php if(isset($update->user->department) && is_object($update->user->department)): ?>
                                                                     <?php echo e($update->user->department->name ?? 'Administration'); ?>

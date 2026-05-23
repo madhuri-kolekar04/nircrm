@@ -12,7 +12,8 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
+{
+    if (!Schema::hasTable('sessions')) {
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
-
+}
     /**
      * Reverse the migrations.
      *

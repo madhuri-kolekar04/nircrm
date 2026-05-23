@@ -63,6 +63,8 @@ use App\Http\Controllers\AdminController;
 use  App\Models\Department;
 use  App\Models\User;
 
+use App\Http\Controllers\MonthlyReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -1031,3 +1033,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/allrecordingcall', [RecordingController::class, 'allRecordings'])->name('recordings.all');
 });
 
+
+// monthly report route
+
+
+Route::get('/project-updates/monthly-report/{id}', [MonthlyReportController::class, 'create'])->name('monthly-report.create');
+
+Route::post('/project-updates/monthly-report/store', [MonthlyReportController::class, 'store'])->name('monthly-report.store');
+
+Route::get('/project-updates/monthly-reports_details/{id}', [MonthlyReportController::class, 'details'])->name('monthly-report.details');
+
+Route::put('/project-updates/monthly-reports_details/{id}',[MonthlyReportController::class, 'update'])->name('monthly-report.update');
+
+Route::delete('/project-updates/monthly-reports_details/{id}',[MonthlyReportController::class,'destroy'])->name('monthly-report.destroy');
+
+Route::get('/project-updates/monthly-reports_sendmail/{id}',[MonthlyReportController::class,'sendMail'])->name('monthly-report.sendMail');

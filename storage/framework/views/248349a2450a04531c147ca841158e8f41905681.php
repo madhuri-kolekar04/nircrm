@@ -1662,7 +1662,7 @@
                        <a href="<?php echo e(route('attendance.dashboard')); ?>" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
                         <i class="fas fa-calendar-check"></i></a>
 
-                        <?php elseif(Auth::user()->role == 2): ?>
+                        <?php elseif(Auth::user()->role == 2 || Auth::user()->role == 4 || Auth::user()->role == 5): ?>
 
                          <a href="#" data-bs-toggle="modal"  data-bs-target="#attendancePopupModal" class="attainance-logo" title="Attainance System" style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); position: relative; overflow: hidden;">
                              <i class="fas fa-user-check"></i></a>
