@@ -116,17 +116,26 @@ public function createInvoiceFromLead(Lead $lead)
     $latestQuotation = $lead->latestApprovedQuotation();
     
     // Determine total amount from quotation or lead budget
-    $totalAmount = 0;
+    // Default values
+    $subtotalAmount = 0; // without GST
+    $totalAmount = 0;    // with GST
+     $gstAmount = 0;
     if ($latestQuotation) {
+         $subtotalAmount =  $latestQuotation->total_cost;
         $totalAmount = $latestQuotation->final_amount;
+         $gstAmount =  $latestQuotation->gst_amount;
     } elseif ($lead->budget) {
+        $subtotalAmount = $lead->budget;
         $totalAmount = $lead->budget;
+          $gstAmount = 0;
     } else {
-        // Set a default amount if no quotation or budget exists
+       
         $totalAmount = 0;
     }
+
     
-    return view('backend.department.create-invoice-from-lead', compact('lead', 'invoiceNumber', 'adminData', 'latestQuotation', 'totalAmount'));
+    
+    return view('backend.department.create-invoice-from-lead', compact('lead', 'invoiceNumber', 'adminData', 'latestQuotation', 'totalAmount','subtotalAmount','gstAmount'));
 }
 
 /**

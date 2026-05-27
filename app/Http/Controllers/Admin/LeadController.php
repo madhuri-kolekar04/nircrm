@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Auth;
 
 class LeadController extends Controller
 {
@@ -2331,7 +2332,82 @@ class LeadController extends Controller
         
         return view('admin.leads.duedate', compact('leads'));
     }
-    
+
+
+//main dashboard
+public function dashboardMain()
+{
+    // Leads Table Data
+    $leads = Lead::whereNotNull('due_date')
+                 ->orderBy('due_date', 'asc')
+                 ->paginate(15);
+
+    // Add urgency calculations
+    $leads->getCollection()->transform(function ($lead) {
+
+        $today = now()->startOfDay();
+
+        $dueDate = $lead->due_date->startOfDay();
+
+        $daysUntilDue = $today->diffInDays($dueDate, false);
+
+        $lead->days_until_due = $daysUntilDue;
+
+        $lead->urgency_status = $this->getUrgencyStatus($daysUntilDue);
+
+        return $lead;
+    });
+
+    // Dashboard Statistics
+    $dashboardData = [
+
+        'totalLeads' => Lead::count(),
+
+        'qualifiedLeads' => Lead::where('lead_status', 'qualified')
+                                ->count(),
+
+        'pipelineLeads' => Lead::whereIn('lead_status', [
+                        'cold',
+                        'warm',
+                        'hot'
+                    ])->count(),
+
+        'activeClients' => Lead::whereNotNull('due_date')
+                        ->where('due_date', '>', now()->startOfDay())
+                        ->count(),
+
+        'overdueLeads' => Lead::whereNotNull('due_date')
+                              ->where('due_date', '<', now()->startOfDay())
+                              ->count(),
+
+        'dueTodayLeads' => Lead::whereDate('due_date', today())
+                               ->count(),
+
+        'thisWeekLeads' => Lead::whereBetween(
+                                'due_date',
+                                [
+                                    now()->startOfDay(),
+                                    now()->endOfWeek()
+                                ]
+                            )->count(),
+
+        'thisMonthLeads' => Lead::whereBetween(
+                                'due_date',
+                                [
+                                    now()->startOfDay(),
+                                    now()->endOfMonth()
+                                ]
+                            )->count(),
+
+        'onTrackLeads' => Lead::where('due_date', '>', now()->addDays(7))
+                              ->count(),
+    ];
+
+    return view('admin.leads.dashboard_main', compact(
+        'dashboardData',
+        'leads'
+    ));
+}
     /**
      * Send due date reminder email to a specific lead.
      */

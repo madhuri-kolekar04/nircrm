@@ -185,7 +185,7 @@
                         <div class="text-center mt-4">
                             <h5 class="text-primary">Contact Information</h5>
                             <p>
-                                <strong>Email:</strong> {{ config('app.contact_email', 'udyami.brandwhiz24@gmail.com') }}<br>
+                                <strong>Email:</strong> {{ config('app.contact_email', 'contact@niranjanenterprises.com') }}<br>
                                 <strong>Phone:</strong> {{ config('app.contact_phone', '+91-9220518202') }}
                             </p>
                             <p class="text-muted">
@@ -194,8 +194,8 @@
                             <p class="text-muted">
                                 <strong>Best regards,</strong><br>
                                 {{ Auth::user()->name }}<br>
-                                {{ config('app.contact_phone', '9220518202') }}<br>
-                                {{ config('app.company_name', 'NIRCRM') }}
+                                {{ config('app.contact_phone', '92205 18202') }}<br>
+                                {{ config('app.company_name', 'NEDSCRM') }}
                             </p>
                         </div>
                     </div>

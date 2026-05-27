@@ -220,7 +220,7 @@
                                               <strong>{{ $data['employee']->name ?? 'Employee Not Found' }}</strong>
                                             </td>
                                             <td>
-                                                <span class="badge bg-secondary">{{ $data['employee']->department ?? 'Employee Not Found' }}</span>
+                                                <span class="badge bg-secondary">{{ $data['employee']->department ?? 'N/A' }}</span>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">

@@ -552,6 +552,10 @@ Route::prefix('duedate')->middleware(['auth'])->group(function() {
     Route::post('/send-bulk-reminders', [LeadController::class, 'sendBulkDueDateReminders'])->name('duedate.send.bulk.reminders');
 });
 
+//main dashboard
+
+Route::get('/dashboard-main',[LeadController::class,'dashboardMain'])->name('main-dashboard');
+
 // Google Sheets Integration Routes
 Route::prefix('google-sheets')->middleware(['auth'])->group(function() {
     Route::get('/', [GoogleSheetsController::class, 'index'])->name('google-sheets.index');

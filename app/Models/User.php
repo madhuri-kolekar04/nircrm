@@ -118,15 +118,27 @@ class User extends Authenticatable
     }
 
     // Add accessor to handle department field conflict
-    public function getDepartmentAttribute()
-    {
-        // If department_id is set, return the relationship
-        if ($this->department_id) {
-            return $this->department()->first();
-        }
-        // Otherwise return the original value
-        return $this->attributes['department'] ?? null;
+    // public function getDepartmentAttribute()
+    // {
+
+      
+    //     if ($this->department_id) {
+    //         return $this->department()->first();
+    //     }
+        
+    //     return $this->attributes['department'] ?? null;
+    // }
+
+ 
+
+public function getDepartmentNameAttribute()
+{
+    if ($this->department_id && $this->department) {
+        return $this->department->department;
     }
+
+    return $this->attributes['department'] ?? null;
+}
 
     public function manager(): BelongsTo
     {

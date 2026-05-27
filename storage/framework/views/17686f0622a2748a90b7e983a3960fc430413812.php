@@ -1,4 +1,6 @@
-<?php $__env->startSection('page-title', 'Due Date Management'); ?>
+
+
+<?php $__env->startSection('page-title', 'Dashboard'); ?>
 
 <?php $__env->startPush('styles'); ?>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -274,64 +276,49 @@ $(document).ready(function() {
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('admin'); ?>
-<div class="container-fluid">
-    <!-- Statistics Cards -->
-    <div class="row mb-4">
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-calendar-alt fa-2x text-danger mb-2"></i>
-                    <h5 class="card-title">Overdue</h5>
-                    <h3 class="text-danger"><?php echo e($leads->getCollection()->where('urgency_status.status', 'overdue')->count()); ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
-                    <h5 class="card-title">Due Today</h5>
-                    <h3 class="text-warning"><?php echo e($leads->getCollection()->where('urgency_status.status', 'today')->count()); ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-clock fa-2x text-info mb-2"></i>
-                    <h5 class="card-title">This Week</h5>
-                    <h3 class="text-info"><?php echo e($leads->getCollection()->where('urgency_status.status', 'urgent')->count()); ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-calendar-week fa-2x text-primary mb-2"></i>
-                    <h5 class="card-title">This Month</h5>
-                    <h3 class="text-primary"><?php echo e($leads->getCollection()->where('urgency_status.status', 'soon')->count()); ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
-                    <h5 class="card-title">On Track</h5>
-                    <h3 class="text-success"><?php echo e($leads->getCollection()->where('urgency_status.status', 'normal')->count()); ?></h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card stats-card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-users fa-2x text-secondary mb-2"></i>
-                    <h5 class="card-title">Total</h5>
-                    <h3 class="text-secondary"><?php echo e($leads->total()); ?></h3>
-                </div>
+<div class="row mb-4">
+    
+    <div class="col-md-3">
+        <div class="card stats-card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-calendar-alt fa-2x text-danger mb-2"></i>
+                <h5 class="card-title">Total Leads</h5>
+                <h3 class="text-danger"><?php echo e($dashboardData['totalLeads']); ?></h3>
             </div>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center h-100">
+            <div class="card-body">
+               <i class="fas fa-calendar-week fa-2x text-primary mb-2"></i>
+                <h5 class="card-title">Qualified Leads</h5>
+                <h3 class="text-warning"><?php echo e($dashboardData['qualifiedLeads']); ?></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                <h5 class="card-title">Pipeline Leads</h5>
+                <h3 class="text-info"><?php echo e($dashboardData['pipelineLeads']); ?></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-user-check fa-2x text-success mb-2"></i>
+                <h5 class="card-title">Active Clients</h5>
+                <h3 class="text-success"><?php echo e($dashboardData['activeClients']); ?></h3>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     <!-- Filters -->
     <div class="card mb-4">
@@ -393,7 +380,7 @@ $(document).ready(function() {
                     <i class="fas fa-calendar-alt me-2"></i>Due Date Management
                 </h5>
                 <div class="d-flex align-items-center gap-3">
-                    <span class="badge bg-info"><?php echo e($leads->total()); ?> leads with due dates</span>
+                    <span class="badge bg-info"> <?php echo e($dashboardData['totalLeads']); ?> leads with due dates</span>
                     <a href="<?php echo e(route('leads.index')); ?>" class="btn btn-outline-secondary">
                         <i class="fas fa-arrow-left"></i> Back to Leads
                     </a>
@@ -606,4 +593,4 @@ function clearSelection() {
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/admin/leads/duedate.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Nilesh\Desktop\nircrm 12-5-26\resources\views/admin/leads/dashboard_main.blade.php ENDPATH**/ ?>

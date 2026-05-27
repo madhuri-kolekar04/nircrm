@@ -138,7 +138,7 @@ class AuthenticatedSessionController extends Controller
     {
         // Redirect based on user role
         if ($user->role == 1 || $user->role == 5) {
-            return route('attendance.dashboard');
+            return route('main-dashboard');
         } elseif ($user->role == 4 || $user->position == 'Manager') {
             return route('employees.index');
         } elseif ($user->role == 2) {

@@ -1039,7 +1039,7 @@ class ProjectUpdateController extends Controller
         return $responseCount > 0 ? round($totalResponseTime / $responseCount, 2) : 0;
     }
     
-    private function getEmployeePerformanceData($startDate, $endDate, $employeeId = null, $department = null)
+ private function getEmployeePerformanceData($startDate, $endDate, $employeeId = null, $department = null)
     {
         // Build query for project updates
         $query = ProjectUpdate::with(['user', 'product', 'invoice'])
@@ -1172,6 +1172,9 @@ class ProjectUpdateController extends Controller
         
         return $employeeData;
     }
+
+
+   
     
     public function generateEmployeeReport(Request $request)
     {

@@ -30,7 +30,7 @@ class MenuController extends Controller
 
         // Get all available menus from the system
         $allMenus = [
-            ['name' => 'Dashboard', 'url' => 'admin/dashboard', 'icon' => 'fas fa-gauge-high'],
+            ['name' => 'Dashboard', 'url' => 'dashboard-main', 'icon' => 'fas fa-chart-pie'],
             ['name' => 'Leads Generation', 'url' => 'leadsmanagement', 'icon' => 'fas fa-chart-line'],
             ['name' => 'Categories', 'url' => 'categories', 'icon' => 'fas fa-layer-group'],
             ['name' => 'Employees', 'url' => 'employees', 'icon' => 'fas fa-user-tie'],
@@ -44,7 +44,10 @@ class MenuController extends Controller
             ['name' => 'EmpTasks', 'url' => 'niremptask', 'icon' => 'fas fa-tasks'],
             ['name' => 'Menu Controller', 'url' => 'menu-controller', 'icon' => 'fas fa-cogs'],
             ['name' => 'Employee Menu Controller', 'url' => 'employee-menu-controller', 'icon' => 'fas fa-users-cog'],
-            ['name' => 'Attendance', 'url' => 'admin/attendance', 'icon' => 'fas fa-calendar-check'],
+            ['name' => 'Attendance', 'url' => 'attendance/dashboard', 'icon' => 'fas fa-calendar-check'],
+          
+            ['name' => 'Calling', 'url' => 'callingapp', 'icon' => 'fas fas fa-phone']
+            
         ];
 
         return view('admin.menu-controller.index', compact('roles', 'allMenus'));

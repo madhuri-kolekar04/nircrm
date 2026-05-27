@@ -197,7 +197,7 @@
                                             <div class="col-md-3">
                                                 <label class="form-label fw-bold">Remaining Payment</label>
                                                 <input type="number" class="form-control bg-white" id="remaining_payment" name="remaining_payment" 
-                                                       value="{{ $quotation->final_amount }}">
+                                                       value="{{ $quotation->total_cost }}">
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="form-label fw-bold">GST</label>
@@ -207,7 +207,7 @@
                                             <div class="col-md-3">
                                                 <label class="form-label fw-bold">Total Payment</label>
                                                 <input type="number" class="form-control border-success" id="total_payment" name="total_payment" 
-                                                       value="{{ $quotation->final_amount + $quotation->gst_amount }}" onchange="updatePaymentDetails()">
+                                                       value="{{ $quotation->total_cost + $quotation->gst_amount }}" onchange="updatePaymentDetails()">
                                             </div>
                                         </div>
                                         <div class="row mt-3">

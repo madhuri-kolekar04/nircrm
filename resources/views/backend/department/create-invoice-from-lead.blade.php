@@ -323,7 +323,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php $counter = 1; @endphp
+                                            @php $counter = 1;
+                                             @endphp
                                             @if($latestQuotation && $latestQuotation->services->count() > 0)
                                                 @foreach($latestQuotation->services as $service)
                                                 <tr>
@@ -347,15 +348,15 @@
                                         <tfoot class="table-secondary">
                                             <tr>
                                                 <td colspan="4" class="text-right"><strong>Subtotal:</strong></td>
-                                                <td class="text-right" id="subtotal-amount">${{ number_format($totalAmount, 2) }}</td>
+                                                <td class="text-right" id="subtotal-amount">₹{{ number_format((float)$subtotalAmount, 2) }}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="4" class="text-right"><strong>GST (18%):</strong></td>
-                                                <td class="text-right" id="gst-amount">${{ number_format($totalAmount * 0.18, 2) }}</td>
+                                                <td class="text-right" id="gst-amount"> ₹{{ number_format((float)$gstAmount, 2) }}</td>
                                             </tr>
                                             <tr class="table-dark">
                                                 <td colspan="4" class="text-right"><strong>Total Amount:</strong></td>
-                                                <td class="text-right" id="total-amount-display"><strong>${{ number_format($totalAmount * 1.18, 2) }}</strong></td>
+                                                <td class="text-right" id="total-amount-display"><strong>₹{{ number_format((float)$totalAmount, 2) }}</strong></td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -677,28 +678,40 @@ function updateRemaining() {
 }
 
 // Update GST and remaining when total amount changes
+// function updateGSTAndRemaining() {
+//     const total = parseFloat(document.getElementById('total_amount').value) || 0;
+//     const advance = parseFloat(document.getElementById('advance_payment').value) || 0;
+//     const remaining = Math.max(0, total - advance);
+    
+//     // Update remaining amount
+//     document.getElementById('remaining_amount').value = remaining.toFixed(2);
+    
+//     // Update GST calculations in services table
+//     const gstAmount = total * 0.18;
+//     const totalWithGST = total * 1.18;
+    
+//     // Update services table if elements exist
+//     const subtotalElement = document.getElementById('subtotal-amount');
+//     const gstElement = document.getElementById('gst-amount');
+//     const totalDisplayElement = document.getElementById('total-amount-display');
+    
+//     if (subtotalElement) subtotalElement.textContent = '$' + total.toFixed(2);
+//     if (gstElement) gstElement.textContent = '$' + gstAmount.toFixed(2);
+//     if (totalDisplayElement) totalDisplayElement.innerHTML = '<strong>$' + totalWithGST.toFixed(2) + '</strong>';
+    
+//     // Re-validate installments
+//     validateInstallments();
+// }
+
+
 function updateGSTAndRemaining() {
     const total = parseFloat(document.getElementById('total_amount').value) || 0;
     const advance = parseFloat(document.getElementById('advance_payment').value) || 0;
     const remaining = Math.max(0, total - advance);
-    
-    // Update remaining amount
+
     document.getElementById('remaining_amount').value = remaining.toFixed(2);
-    
-    // Update GST calculations in services table
-    const gstAmount = total * 0.18;
-    const totalWithGST = total * 1.18;
-    
-    // Update services table if elements exist
-    const subtotalElement = document.getElementById('subtotal-amount');
-    const gstElement = document.getElementById('gst-amount');
-    const totalDisplayElement = document.getElementById('total-amount-display');
-    
-    if (subtotalElement) subtotalElement.textContent = '$' + total.toFixed(2);
-    if (gstElement) gstElement.textContent = '$' + gstAmount.toFixed(2);
-    if (totalDisplayElement) totalDisplayElement.innerHTML = '<strong>$' + totalWithGST.toFixed(2) + '</strong>';
-    
-    // Re-validate installments
+
+
     validateInstallments();
 }
 
