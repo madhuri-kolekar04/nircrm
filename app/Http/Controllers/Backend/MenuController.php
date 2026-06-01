@@ -18,74 +18,70 @@ class MenuController extends Controller
     /**
      * Display a listing of the menu permissions.
      */
-    public function index(): View
-    {
-        $roles = [
-            1 => 'Admin',
-            2 => 'Employee', 
-            3 => 'Customer',
-            4 => 'Manager',
-            5 => 'Super Admin'
-        ];
+    
+    
 
-        // Get all available menus from the system
-        $allMenus = [
-            ['name' => 'Dashboard', 'url' => 'dashboard-main', 'icon' => 'fas fa-chart-pie'],
-            ['name' => 'Leads Generation', 'url' => 'leadsmanagement', 'icon' => 'fas fa-chart-line'],
-            ['name' => 'Categories', 'url' => 'categories', 'icon' => 'fas fa-layer-group'],
-            ['name' => 'Employees', 'url' => 'employees', 'icon' => 'fas fa-user-tie'],
-            ['name' => 'Customers', 'url' => 'customers', 'icon' => 'fas fa-users'],
-            ['name' => 'Quotations', 'url' => 'quotations', 'icon' => 'fas fa-file-contract'],
-            ['name' => 'Invoices', 'url' => 'invoices', 'icon' => 'fas fa-file-invoice'],
-            ['name' => 'Account', 'url' => 'accounts', 'icon' => 'fas fa-user-check'],
-            ['name' => 'Project Updates', 'url' => 'project-updates', 'icon' => 'fas fa-project-diagram'],
-            ['name' => 'Approval Status', 'url' => 'approval-status', 'icon' => 'fas fa-check-circle'],
-            ['name' => 'Sales Department', 'url' => 'sales-department', 'icon' => 'fas fa-chart-line'],
-            ['name' => 'EmpTasks', 'url' => 'niremptask', 'icon' => 'fas fa-tasks'],
-            ['name' => 'Menu Controller', 'url' => 'menu-controller', 'icon' => 'fas fa-cogs'],
-            ['name' => 'Employee Menu Controller', 'url' => 'employee-menu-controller', 'icon' => 'fas fa-users-cog'],
-            ['name' => 'Attendance', 'url' => 'attendance/dashboard', 'icon' => 'fas fa-calendar-check'],
-          
-            ['name' => 'Calling', 'url' => 'callingapp', 'icon' => 'fas fas fa-phone']
-            
-        ];
+public function index(): View
+{
+    $roles = [
+        1 => 'Admin',
+        2 => 'Employee',
+        3 => 'Customer',
+        4 => 'Manager',
+        5 => 'Super Admin'
+    ];
 
-        return view('admin.menu-controller.index', compact('roles', 'allMenus'));
-    }
+    $allMenus = MenuPermission::select(
+            'menu_name as name',
+            'menu_url as url',
+            'menu_icon as icon'
+        )
+        ->groupBy(
+            'menu_name',
+            'menu_url',
+            'menu_icon'
+        )
+        ->orderBy('menu_order')
+        ->get()
+        ->toArray();
 
+    return view('admin.menu-controller.index', compact('roles', 'allMenus'));
+}
     /**
      * Display employee-specific menu controller.
      */
-    public function employeeIndex(): View
-    {
-        $roles = [
-            2 => 'Employee', 
-            3 => 'Customer',
-            4 => 'Manager'
-        ];
+   
 
-        // Get all available menus from system (employee view)
-        $allMenus = [
-            ['name' => 'Dashboard', 'url' => 'admin/dashboard', 'icon' => 'fas fa-gauge-high'],
-            ['name' => 'Leads Generation', 'url' => 'leadsmanagement', 'icon' => 'fas fa-chart-line'],
-            ['name' => 'Categories', 'url' => 'categories', 'icon' => 'fas fa-layer-group'],
-            ['name' => 'Employees', 'url' => 'employees', 'icon' => 'fas fa-user-tie'],
-            ['name' => 'Customers', 'url' => 'customers', 'icon' => 'fas fa-users'],
-            ['name' => 'Quotations', 'url' => 'quotations', 'icon' => 'fas fa-file-contract'],
-            ['name' => 'Invoices', 'url' => 'invoices', 'icon' => 'fas fa-file-invoice'],
-            ['name' => 'Account', 'url' => 'accounts', 'icon' => 'fas fa-user-check'],
-            ['name' => 'Project Updates', 'url' => 'project-updates', 'icon' => 'fas fa-project-diagram'],
-            ['name' => 'Approval Status', 'url' => 'approval-status', 'icon' => 'fas fa-check-circle'],
-            ['name' => 'Sales Department', 'url' => 'sales-department', 'icon' => 'fas fa-chart-line'],
-            ['name' => 'EmpTasks', 'url' => 'niremptask', 'icon' => 'fas fa-tasks'],
-        ];
+public function employeeIndex(): View
+{
+    $roles = [
+        2 => 'Employee',
+        3 => 'Customer',
+        4 => 'Manager'
+    ];
 
-        $categories = Category::all();
-        $departments = Department::select('id', 'department')->get();
+    $allMenus = MenuPermission::select(
+            'menu_name as name',
+            'menu_url as url',
+            'menu_icon as icon'
+        )
+        ->groupBy(
+            'menu_name',
+            'menu_url',
+            'menu_icon'
+        )
+        ->orderBy('menu_order')
+        ->get()
+        ->toArray();
 
-        return view('admin.menu-controller.employee-index', compact('roles', 'allMenus', 'categories', 'departments'));
-    }
+    $categories = Category::all();
+    $departments = Department::select('id', 'department')->get();
 
+    return view(
+        'admin.menu-controller.employee-index',
+        compact('roles', 'allMenus', 'categories', 'departments')
+    );
+}
     /**
      * Get employees based on department and role
      */
