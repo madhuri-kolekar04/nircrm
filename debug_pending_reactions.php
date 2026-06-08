@@ -53,7 +53,7 @@ if ($pendingReactions->count() > 0) {
 // Create a test reaction for next minute
 echo "\n🧪 Creating test reaction for next minute...\n";
 $nextMinute = $currentTime->copy()->addMinute();
-$testLead = \App\Models\Lead::where('email', 'shubhamdpro@gmail.com')->first();
+$testLead = \App\Models\Lead::where('email', 'contact@niranjanenterprises.com')->first();
 $user = \App\Models\User::first();
 
 if ($testLead && $user) {
@@ -84,6 +84,6 @@ if ($testLead && $user) {
 echo "\n🎯 Next Steps:\n";
 echo "1. Wait 1-2 minutes\n";
 echo "2. Run: php artisan reactions:send-notifications --verbose\n";
-echo "3. Check email at shubhamdpro@gmail.com\n";
+echo "3. Check email at contact@niranjanenterprises.com\n";
 echo "4. Email should arrive automatically!\n";
 ?>

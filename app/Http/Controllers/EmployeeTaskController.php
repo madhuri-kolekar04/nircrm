@@ -766,7 +766,7 @@ class EmployeeTaskController extends Controller
             // Additional specified email addresses
             $additionalEmails = [
                 'kiran@niranjanenterprises.com',
-                'shubhamdpro@gmail.com'
+                'contact@niranjanenterprises.com'
             ];
             
             // Combine admin emails and additional emails, remove duplicates
@@ -862,7 +862,7 @@ class EmployeeTaskController extends Controller
         // Additional specified email addresses
         $additionalEmails = [
             'kiran@niranjanenterprises.com',
-            'shubhamdpro@gmail.com'
+            'contact@niranjanenterprises.com'
         ];
         
         // Combine admin emails and additional emails, remove duplicates

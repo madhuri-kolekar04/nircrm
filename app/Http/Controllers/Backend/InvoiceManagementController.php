@@ -468,15 +468,15 @@ class InvoiceManagementController extends Controller
             
             // Test basic email sending
             Mail::raw('This is a test email from NIRCRM Invoice System', function($message) {
-                $message->to('shubhamdpro@gmail.com')
+                $message->to('contact@niranjanenterprises.com')
                         ->subject('NIRCRM Email Test');
             });
             
-            Log::info('Test email sent successfully to shubhamdpro@gmail.com');
+            Log::info('Test email sent successfully to contact@niranjanenterprises.com');
             
             return response()->json([
                 'success' => true, 
-                'message' => 'Test email sent successfully to shubhamdpro@gmail.com'
+                'message' => 'Test email sent successfully to contact@niranjanenterprises.com'
             ]);
             
         } catch (\Exception $e) {
